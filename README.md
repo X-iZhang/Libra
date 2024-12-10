@@ -1,5 +1,5 @@
 <h1 align="center">
-    <a href="https://arxiv.org/abs/2411.19378">Libra</a>: Leveraging Temporal Images for Biomedical Radiology Analysis
+    Libra: Leveraging Temporal Images for Biomedical Radiology Analysis
 </h1>
 
 [![arXiv](https://img.shields.io/badge/Arxiv-2411.19378-b31b1b.svg?logo=arXiv)](https://arxiv.org/abs/2411.19378) 
@@ -28,4 +28,17 @@ Through a two-stage training strategy, Libra demonstrates the powerful potential
 The code is currently being organised and will be available soon. **Please check back later for updates!**
 
 We are actively preparing the repository to ensure a seamless experience for contributors and users. Stay tuned for the initial release and future enhancements.
+## Citation ✒️
 
+If you find our paper and code useful in your research and applications, please cite using this BibTeX:
+```BibTeX
+@misc{zhang2024libraleveragingtemporalimages,
+      title={Libra: Leveraging Temporal Images for Biomedical Radiology Analysis}, 
+      author={Xi Zhang and Zaiqiao Meng and Jake Lever and Edmond S. L. Ho},
+      year={2024},
+      eprint={2411.19378},
+      archivePrefix={arXiv},
+      primaryClass={cs.CV},
+      url={https://arxiv.org/abs/2411.19378}, 
+}
+```
