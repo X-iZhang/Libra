@@ -1,8 +1,11 @@
-# Libra: Leveraging Temporal Images for Biomedical Radiology Analysis
+<h1 align="center">
+    <a href="https://arxiv.org/abs/2411.19378">Libra: Leveraging Temporal Images for Biomedical Radiology Analysis</a>
+</h1>
+
 [![arXiv](https://img.shields.io/badge/Arxiv-2411.19378-b31b1b.svg?logo=arXiv)](https://arxiv.org/abs/2411.19378) 
 [![License](https://img.shields.io/badge/License-Apache%202.0-yellow.svg?)](https://github.com/X-iZhang/Libra/blob/main/LICENSE) 
-
 ![architecture](./assets/libra_architecture.png)
+
 ## Overview 🔬
 We propose **Libra** (**L**everaging Temporal **I**mages for **B**iomedical **R**adiology **A**nalysis), a novel framework tailored for radiology report generation (RRG) that incorporates temporal change information to address the challenges of interpreting medical images effectively.
 
