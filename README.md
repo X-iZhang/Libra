@@ -1,5 +1,5 @@
 <h1 align="center">
-    <a href="https://arxiv.org/abs/2411.19378">Libra: Leveraging Temporal Images for Biomedical Radiology Analysis</a>
+    <a href="https://arxiv.org/abs/2411.19378">Libra</a>: Leveraging Temporal Images for Biomedical Radiology Analysis
 </h1>
 
 [![arXiv](https://img.shields.io/badge/Arxiv-2411.19378-b31b1b.svg?logo=arXiv)](https://arxiv.org/abs/2411.19378) 
