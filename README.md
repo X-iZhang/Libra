@@ -30,6 +30,17 @@ Through a two-stage training strategy, Libra demonstrates the powerful potential
 The code is currently being organised and will be available soon. **Please check back later for updates!**
 
 We are actively preparing the repository to ensure a seamless experience for contributors and users. Stay tuned for the initial release and future enhancements.
+
+## Acknowledgements :pray:
+
+We are grateful for the following awesome projects our VTimeLLM arising from:
+
+* [LLaVA](https://github.com/haotian-liu/LLaVA): Large Language and Vision Assistant
+* [FastChat](https://github.com/lm-sys/FastChat): An Open Platform for Training, Serving, and Evaluating Large Language Model based Chatbots
+* [LLaMA](https://github.com/facebookresearch/llama): Open and Efficient Foundation Language Models
+* [RAD-DINO](https://huggingface.co/microsoft/rad-dino): Open and Efficient Biomedical Image Encoder
+
+
 ## Citation ✒️
 
 If you find our paper and code useful in your research and applications, please cite using this BibTeX:
