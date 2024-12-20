@@ -7,7 +7,7 @@
 [![License](https://img.shields.io/badge/License-Apache%202.0-yellow.svg?)](https://github.com/X-iZhang/Libra/blob/main/LICENSE)
 [![Views](https://hits.seeyoufarm.com/api/count/incr/badge.svg?url=https%3A%2F%2Fgithub.com%2FX-iZhang%2FLibra&count_bg=%2300C0FF&title_bg=%23004080&icon=&icon_color=%23FFFFFF&title=Views)](https://hits.seeyoufarm.com)
 
-<details open><summary>📢 More Than Radiology: Features You’ll Love! ⚒️ </summary><p>
+<details open><summary>📢 More Than Radiology: Features You’ll Love! 🎉 </summary><p>
     
 >  * **LLaVA-Type & LLaMA_3 Support**: Deploy and train advanced models effortlessly.
 >  * **Resume Training**: Resume training from checkpoints at any stage, whether for pre-training or fine-tuning.  
