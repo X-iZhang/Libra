@@ -11,7 +11,7 @@
 >  * **LLaVA-Type & LLaMA3 Support**: Deploy and train advanced models effortlessly.
 >  * **Resume Training**: Resume training from checkpoints at any stage, whether for pre-training or fine-tuning.  
 >  * **Validation Dataset**: Track model performance in real-time on validation datasets during training. 
->  * **Custom Metrics**: Go beyond `eval_loss` with metrics like `BLEU`, `ROUGE-L`, or define your own criteria for flexible evaluation.    
+>  * **Custom Metrics**: Go beyond `eval_loss` with metrics like `BLEU`, `ROUGE-L`, `RadGraph-F1` or define your own criteria for flexible evaluation.    
 >  * **Smart Saving**: Automatically save the best model based on validation loss or custom evaluation scores.
 
 </p></details>
