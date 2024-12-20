@@ -6,6 +6,16 @@
 [![License](https://img.shields.io/badge/License-Apache%202.0-yellow.svg?)](https://github.com/X-iZhang/Libra/blob/main/LICENSE)
 [![Views](https://hits.seeyoufarm.com/api/count/incr/badge.svg?url=https%3A%2F%2Fgithub.com%2FX-iZhang%2FLibra&count_bg=%2300C0FF&title_bg=%23004080&icon=&icon_color=%23FFFFFF&title=Views)](https://hits.seeyoufarm.com)
 
+<details open><summary>💡 More Than Radiology: Features You’ll Love! ⚒️ </summary><p>
+    
+>  * **LLaVA-Type & LLaMA3 Support**: Deploy and train advanced models effortlessly.
+>  * **Resume Training**: Resume training from checkpoints at any stage, whether for pre-training or fine-tuning.  
+>  * **Validation Dataset**: Track model performance in real-time on validation datasets during training. 
+>  * **Custom Metrics**: Go beyond `eval_loss` with metrics like `BLEU`, `ROUGE-L`, or define your own criteria for flexible evaluation.    
+>  * **Smart Saving**: Automatically save the best model based on validation loss or custom evaluation scores.
+
+</p></details>
+
 ![architecture](./assets/libra_architecture.png)
 
 ## Overview 🔬
@@ -31,9 +41,9 @@ The code is currently being organised and will be available soon. **Please check
 
 We are actively preparing the repository to ensure a seamless experience for contributors and users. Stay tuned for the initial release and future enhancements.
 
-## Acknowledgements :pray:
+## Acknowledgements 🙏
 
-We are grateful for the following awesome projects our VTimeLLM arising from:
+We extend our heartfelt gratitude to the following outstanding projects that contributed to the development of **Libra**:
 
 * [LLaVA](https://github.com/haotian-liu/LLaVA): Large Language and Vision Assistant
 * [FastChat](https://github.com/lm-sys/FastChat): An Open Platform for Training, Serving, and Evaluating Large Language Model based Chatbots
