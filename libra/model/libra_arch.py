@@ -151,10 +151,10 @@ class LibraMetaForCausalLM(ABC):
             return input_ids, attention_mask, past_key_values, None, labels
         
         if input_ids.size(0) != images.size(0) and input_ids.size(0) != images.size(1):
-            print(
-                "Warning: Dimension mismatch detected. Adjust dimensions for beam-search.\n"
-                "Program continues..."
-            )
+            # print(
+            #     "Warning: Dimension mismatch detected. Adjust dimensions for beam-search.\n"
+            #     "Program continues..."
+            # )
             num_groups = input_ids.size(0)
             images_1 = images[:num_groups]
             images_2 = images[num_groups:]
