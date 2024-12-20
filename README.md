@@ -50,7 +50,6 @@ We sincerely thank the following projects for their contributions to **Libra**:
 * [LLaMA](https://github.com/facebookresearch/llama): Open and efficient foundation language models that inspired our core language processing capabilities.
 * [RAD-DINO](https://huggingface.co/microsoft/rad-dino): An open and efficient biomedical image encoder, enabling robust radiological analysis.
 
-
 ## Citation ✒️
 
 If you find our paper and code useful in your research and applications, please cite using this BibTeX:
