@@ -43,12 +43,12 @@ We are actively preparing the repository to ensure a seamless experience for con
 
 ## Acknowledgements 🙏
 
-We extend our heartfelt gratitude to the following outstanding projects that contributed to the development of **Libra**:
+We sincerely thank the following projects for their contributions to **Libra**:
 
-* [LLaVA](https://github.com/haotian-liu/LLaVA): Large Language and Vision Assistant
-* [FastChat](https://github.com/lm-sys/FastChat): An Open Platform for Training, Serving, and Evaluating Large Language Model based Chatbots
-* [LLaMA](https://github.com/facebookresearch/llama): Open and Efficient Foundation Language Models
-* [RAD-DINO](https://huggingface.co/microsoft/rad-dino): Open and Efficient Biomedical Image Encoder
+* [LLaVA](https://github.com/haotian-liu/LLaVA): A Large Language and Vision Assistant, laying the groundwork for multimodal understanding.
+* [FastChat](https://github.com/lm-sys/FastChat): An Open Platform for Training, Serving, and Evaluating Large Language Model based Chatbots.
+* [LLaMA](https://github.com/facebookresearch/llama): Open and efficient foundation language models that inspired our core language processing capabilities.
+* [RAD-DINO](https://huggingface.co/microsoft/rad-dino): An open and efficient biomedical image encoder, enabling robust radiological analysis.
 
 
 ## Citation ✒️
