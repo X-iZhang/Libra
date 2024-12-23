@@ -3,15 +3,16 @@
 </h1>
 
 [![arXiv](https://img.shields.io/badge/Arxiv-2411.19378-b31b1b.svg?logo=arXiv)](https://arxiv.org/abs/2411.19378) 
+[![hf_space](https://img.shields.io/badge/%F0%9F%A4%97%20Hugging%20Face-Model-blue)](https://huggingface.co/X-iZhang/libra-v1.0-7b)
 [![License](https://img.shields.io/badge/License-Apache%202.0-yellow.svg?)](https://github.com/X-iZhang/Libra/blob/main/LICENSE)
 [![Views](https://hits.seeyoufarm.com/api/count/incr/badge.svg?url=https%3A%2F%2Fgithub.com%2FX-iZhang%2FLibra&count_bg=%2300C0FF&title_bg=%23004080&icon=&icon_color=%23FFFFFF&title=Views)](https://hits.seeyoufarm.com)
 
-<details open><summary>💡 More Than Radiology: Features You’ll Love! ⚒️ </summary><p>
+<details open><summary>📢 More Than Radiology: Features You’ll Love! 🎉 </summary><p>
     
->  * **LLaVA-Type & LLaMA3 Support**: Deploy and train advanced models effortlessly.
+>  * **LLaVA-Type & LLaMA_3 Support**: Deploy and train advanced models effortlessly.
 >  * **Resume Training**: Resume training from checkpoints at any stage, whether for pre-training or fine-tuning.  
 >  * **Validation Dataset**: Track model performance in real-time on validation datasets during training. 
->  * **Custom Metrics**: Go beyond `eval_loss` with metrics like `BLEU`, `ROUGE-L`, or define your own criteria for flexible evaluation.    
+>  * **Custom Metrics**: Go beyond `eval_loss` with metrics like `BLEU`, `ROUGE-L`, `RadGraph-F1` or define your own criteria.    
 >  * **Smart Saving**: Automatically save the best model based on validation loss or custom evaluation scores.
 
 </p></details>
