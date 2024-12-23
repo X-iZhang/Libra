@@ -7,11 +7,11 @@
 [![License](https://img.shields.io/badge/License-Apache%202.0-yellow.svg?)](https://github.com/X-iZhang/Libra/blob/main/LICENSE)
 [![Views](https://hits.seeyoufarm.com/api/count/incr/badge.svg?url=https%3A%2F%2Fgithub.com%2FX-iZhang%2FLibra&count_bg=%2300C0FF&title_bg=%23004080&icon=&icon_color=%23FFFFFF&title=Views)](https://hits.seeyoufarm.com)
 
-<details open><summary>📢 More Than Radiology: Features You’ll Love! 🎉 </summary><p>
+<details open><summary>📢 More Than Radiology: Codespace Features You’ll Love! 🎉 </summary><p>
     
 >  * **LLaVA-Type & LLaMA_3 Support**: Deploy and train advanced models effortlessly.
 >  * **Resume Training**: Resume training from checkpoints at any stage, whether for pre-training or fine-tuning.  
->  * **Validation Dataset**: Track model performance in real-time on validation datasets during training. 
+>  * **Validation Dataset**: Track model performance in real-time on `validation datasets` during training. 
 >  * **Custom Metrics**: Go beyond `eval_loss` with metrics like `BLEU`, `ROUGE-L`, `RadGraph-F1` or define your own criteria.    
 >  * **Smart Saving**: Automatically save the best model based on validation loss or custom evaluation scores.
 
@@ -19,7 +19,67 @@
 
 ![architecture](./assets/libra_architecture.png)
 
-## Overview 🔬
+# Contents
+- [Install](#install)
+- [Libra Weights](#libra-weights)
+- [Quick Start](#quick-start)
+- [Dataset](#dataset)
+- [Train](#train)
+- [Evaluation](#evaluation)
+
+## Install
+We strongly recommend that you create an environment from scratch as follows:
+1. Clone this repository and navigate to Libra folder
+```bash
+git clone https://github.com/X-iZhang/Libra.git
+cd Libra
+```
+
+2. Install Package
+```Shell
+conda create -n libra python=3.10 -y
+conda activate libra
+pip install --upgrade pip  # enable PEP 660 support
+pip install -e .
+```
+
+3. Install additional packages for Training and Evaluation cases
+```Shell
+pip install -e ".[train,eval]"
+pip install flash-attn --no-build-isolation
+```
+
+### Upgrade to latest code base
+
+```Shell
+git pull
+pip install -e .
+```
+
+## Libra Weights
+
+| Version | Base LLM | Vision Encoder| Checkpoint |
+| ----- | ----- | ----- | ----- |
+| Libra v1.0 | Meditron-7B | RAD-DINO | [X-iZhang/libra-v1.0-7b](https://huggingface.co/X-iZhang/libra-v1.0-7b) |
+
+## Quick Start
+
+### CLI Inference
+We support running inference using the CLI. To use our model, run:
+```Shell
+python -m libra.serve.cli \
+    --model-path X-iZhang/libra-v1.0-7b \
+    --image-file "./path/to/current_image.jpg" "./path/to/previous_image.jpg"
+```
+### Script Inference
+
+## Dataset
+
+## Train
+
+## Evaluation
+
+<!-- ## Overview 🔬
 We propose **Libra** (**L**everaging Temporal **I**mages for **B**iomedical **R**adiology **A**nalysis), a novel framework tailored for radiology report generation (RRG) that incorporates temporal change information to address the challenges of interpreting medical images effectively.
 
 Libra leverages RAD-DINO, a pre-trained visual transformer, as its image encoder to generate robust and scalable image features. These features are further refined by a **Temporal Alignment Connector (TAC)**, a key innovation in Libra's architecture. The TAC comprises:
@@ -34,7 +94,7 @@ Through a two-stage training strategy, Libra demonstrates the powerful potential
 
 * **Temporal Awareness**: Libra captures and synthesises temporal changes in medical images, addressing the challenge of handling prior study citations in RRG tasks.
 * **Innovative Architecture**: The Temporal Alignment Connector (TAC) ensures high-granularity feature extraction and temporal integration, significantly enhancing cross-modal reasoning capabilities.
-* **State-of-the-Art Performance**: Libra achieves outstanding results on the MIMIC-CXR dataset, outperforming existing MLLMs in both accuracy and temporal reasoning.
+* **State-of-the-Art Performance**: Libra achieves outstanding results on the MIMIC-CXR dataset, outperforming existing MLLMs in both accuracy and temporal reasoning. -->
  
 ## Project Status 🚀
 
@@ -49,6 +109,7 @@ We sincerely thank the following projects for their contributions to **Libra**:
 * [LLaVA](https://github.com/haotian-liu/LLaVA): A Large Language and Vision Assistant, laying the groundwork for multimodal understanding.
 * [FastChat](https://github.com/lm-sys/FastChat): An Open Platform for Training, Serving, and Evaluating Large Language Model based Chatbots.
 * [LLaMA](https://github.com/facebookresearch/llama): Open and efficient foundation language models that inspired our core language processing capabilities.
+* [MEDITRON](https://github.com/epfLLM/meditron): Open and efficient medical Large language models.
 * [RAD-DINO](https://huggingface.co/microsoft/rad-dino): An open and efficient biomedical image encoder, enabling robust radiological analysis.
 
 ## Citation ✒️
