@@ -104,7 +104,7 @@ class LibraMetaModel:
             def get_w(weights, keyword):
                 return {k.split(keyword + '.')[1]: v for k, v in weights.items() if keyword in k}
 
-            self.mm_projector.load_state_dict(get_w(mm_projector_weights, 'mm_projector')) # 这里我也需要改名字为 mm_connector
+            self.mm_projector.load_state_dict(get_w(mm_projector_weights, 'mm_projector'))
 
 
 class LibraMetaForCausalLM(ABC):
@@ -182,13 +182,13 @@ class LibraMetaForCausalLM(ABC):
                 
             image_token_indices = torch.where(cur_input_ids == IMAGE_TOKEN_INDEX)[0]
             cur_new_input_embeds = []
-
+            
             if labels is not None:
                 cur_labels = labels[batch_idx]
                 cur_new_labels = [] 
 
                 assert cur_labels.shape == cur_input_ids.shape
-                
+            
             while image_token_indices.numel() > 0:
 
                 cur_image_features = image_features[cur_image_idx]
@@ -238,7 +238,7 @@ class LibraMetaForCausalLM(ABC):
             if labels is not None:
                 cur_new_labels = torch.cat(cur_new_labels, dim=0) 
                 new_labels.append(cur_new_labels) 
-
+       
                 
         if any(x.shape != new_input_embeds[0].shape for x in new_input_embeds):
             max_len = max(x.shape[0] for x in new_input_embeds)
@@ -278,7 +278,7 @@ class LibraMetaForCausalLM(ABC):
                 attention_mask = torch.cat((new_attn_mask_pad_left, attention_mask), dim=1)
 
                 assert attention_mask.shape == new_input_embeds.shape[:2]
-   
+        
         return None, attention_mask, past_key_values, new_input_embeds, new_labels 
 
     def initialize_vision_tokenizer(self, model_args, tokenizer):

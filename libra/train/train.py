@@ -37,6 +37,7 @@ from libra.train.libra_trainer import LibraTrainer
 from libra import conversation as conversation_lib
 from libra.model import *
 from libra.mm_utils import tokenizer_image_token
+from libra.eval import temporal_f1_score
 
 from PIL import Image
 import pydicom
@@ -832,8 +833,30 @@ def preprocess(
     return dict(input_ids=input_ids, labels=targets)
 
 
-def create_compute_metrics(tokenizer):
-    def compute_metrics(eval_pred: EvalPrediction):
+def create_compute_metrics(tokenizer, num_patches: int, sep2: str):
+    """
+    Creates a function to compute evaluation metrics (e.g., BLEU, ROUGE-L, Temple-F1) for the model.
+    based on the given tokenizer and 'num_patches' parameter.
+
+    Args:
+        tokenizer: The tokenizer used for encoding/decoding text.
+        num_patches (int): The number of patches to be adjusted in the labels.
+        sep2 (str): A separator token used to identify a special token ID.
+
+    Returns:
+        A callable function 'compute_metrics(eval_pred)' that computes evaluation metrics.
+    """
+    # Pre-fetch special token IDs to avoid repeated calls
+    bos_token_id = tokenizer.convert_tokens_to_ids(sep2)
+    newline_token_id = tokenizer.convert_tokens_to_ids('<0x0A>')
+    # 0 is commonly used as the <pad> token ID
+    special_token_ids = [bos_token_id, newline_token_id, 0]
+
+    # Pre-load evaluation metrics (adjust if needed for your scenario)
+    bleu_metric = evaluate.load("bleu")
+    rouge_metric = evaluate.load("rouge")
+    
+    def compute_metrics(eval_pred: EvalPrediction) -> dict:
         """
         Compute various evaluation metrics including BLEU, ROUGE, F1 for RadGraph and CheXbert, and BERTScore.
 
@@ -845,48 +868,123 @@ def create_compute_metrics(tokenizer):
         """
         logits, labels = eval_pred.predictions, eval_pred.label_ids
         predicted_ids = np.argmax(logits, axis=-1)
-
-        filtered_preds = [[pred for pred in pred_group if pred != IGNORE_INDEX] for pred_group in predicted_ids]
-        decoded_preds = tokenizer.batch_decode(filtered_preds, skip_special_tokens=True)
-
-        filtered_labels = [[label for label in label_group if label != IGNORE_INDEX] for label_group in labels]
-        decoded_labels = tokenizer.batch_decode(filtered_labels, skip_special_tokens=True)
         
-        formatted_references = [[label] for label in decoded_labels]
+        # Store processed predicted token IDs
+        processed_predicted_ids = []
 
-        # Compute BLEU score
-        bleu = evaluate.load("bleu")
-        bleu_score = bleu.compute(predictions=decoded_preds, references=formatted_references, max_order=4)['bleu']
+        for label, predicted in zip(labels, predicted_ids):
+            # (1) Find ignore_count: the position of the first non-IGNORE_INDEX token in the label
+            ignore_count = next(
+                (i for i, token in enumerate(label) if token != IGNORE_INDEX),
+                len(label)  # If all are -100, use the length of the label
+            )
+            
+            # (2) Calculate the truncation start index
+            #     This depends on 'num_patches' and the ignored tokens.
+            start_index = ignore_count + num_patches - 2
 
-        # Compute ROUGE-L score
-        rouge = evaluate.load('rouge')
-        rouge_score = rouge.compute(predictions=decoded_preds, references=formatted_references)['rougeL']
+            # If start_index exceeds the predicted sequence length, append an empty list
+            if start_index >= len(predicted):
+                processed_predicted_ids.append([])
+                continue
+            
+            # (3) Slice the prediction from 'start_index' onwards
+            temp_predicted = predicted[start_index:]
+            
+            # (4) Find the earliest occurrence of any special token to truncate
+            matching_indices = []
+            for token_id in special_token_ids:
+                idx = np.where(temp_predicted == token_id)[0]
+                if idx.size > 0:
+                    matching_indices.append(idx)
+            
+            if matching_indices:
+                # Merge all matching indices and take the smallest
+                all_indices = np.concatenate(matching_indices)
+                first_match_index = np.min(all_indices)
+                # Truncate up to the first special token
+                temp_predicted = temp_predicted[:first_match_index]
 
+            # Append the processed sequence to the results
+            processed_predicted_ids.append(temp_predicted)
+            
+        # Decode the processed prediction IDs
+        decoded_preds = tokenizer.batch_decode(
+            processed_predicted_ids, 
+            skip_special_tokens=True
+        )
+        
+        # Filter labels by removing IGNORE_INDEX tokens
+        filtered_labels = [
+            [token for token in label_group if token != IGNORE_INDEX]
+            for label_group in labels
+        ]
+        
+        decoded_labels = tokenizer.batch_decode(
+            filtered_labels, 
+            skip_special_tokens=True
+        )
+        
+        references = [[lbl] for lbl in decoded_labels]
+
+        # Calculate BLEU score
+        bleu_score = bleu_metric.compute(
+            predictions=decoded_preds,
+            references=references,
+            max_order=4
+        )["bleu"]
+
+        # Calculate ROUGE-L score
+        rouge_score = rouge_metric.compute(
+            predictions=decoded_preds,
+            references=references
+        )["rougeL"]
+        
+        # Calculate Temporal-F1 score
+        tem_f1_score = temporal_f1_score(
+            predictions=decoded_preds,
+            references=references
+        )["f1"]
+        
         # Clean up memory
-        del logits, labels, decoded_preds, decoded_labels, formatted_references
+        del logits, labels, decoded_preds, decoded_labels, references
         torch.cuda.empty_cache()
 
         # Return metrics
         return {
             "BLEU4": bleu_score,
-            "ROUGE-L": rouge_score
+            "ROUGE-L": rouge_score,
+            "TEM-F1": tem_f1_score
         }
     
     return compute_metrics
 
-def check_trainable_parameters(model):
+def check_trainable_parameters(model: torch.nn.Module) -> None:
     """
     Print the names, shapes, and data types of all trainable parameters in the model.
 
     Args:
         model (torch.nn.Module): The model to inspect.
     """
-    print("Overall model structure:\n", model)
+    total_params = sum(
+        p.numel() for p in model.parameters() if p.requires_grad
+    )
+
+    print(f"Total number of trainable parameters: {total_params:,d}\n")
+    
+    # (Optional) Print the model structure for reference
+    print("Overall model structure:")
+    print(model)
+    print("\nTrainable parameters:")
+
+    # Print details of each trainable parameter
     for name, param in model.named_parameters():
         if param.requires_grad:
-            param_info = f"shape: {param.size()}, dtype: {param.dtype}"
-            print(f"{name} is trainable, {param_info}")
-                
+            param_info = (
+                f"Shape: {list(param.shape)}, "
+                f"Dtype: {param.dtype}"
+            )
+            print(f" - {name} -> {param_info}")           
                 
 class LazySupervisedDataset(Dataset):
     """Dataset for supervised fine-tuning."""
@@ -1068,7 +1166,7 @@ def make_supervised_data_module(tokenizer: transformers.PreTrainedTokenizer,
     eval_dataset = LazySupervisedDataset(tokenizer=tokenizer,
                                 data_path=data_args.validation_data_path,
                                 data_args=data_args,
-                                sample_rate=1)
+                                sample_rate=0.4)
     # sample_rate=1
     
     data_collator = DataCollatorForSupervisedDataset(tokenizer=tokenizer)
@@ -1288,14 +1386,16 @@ def train():
                         model.named_parameters()
                     )
                     if args.local_rank in [-1, 0]:
-                        model.save_pretrained(best_model_dir,state_dict=state_dict)
+                        model.save_pretrained(best_model_dir, state_dict=state_dict)
+                    # Save mm_projector state when tuning mm_mlp_adapter
+                    safe_save_model_for_hf_trainer(trainer=trainer, output_dir=best_model_dir)
               
     check_trainable_parameters(model)
 
     compute_metrics_func = None 
-
+    
     if model_args.compute_metrics:
-        compute_metrics_func = create_compute_metrics(tokenizer)
+        compute_metrics_func = create_compute_metrics(tokenizer,vision_tower.num_patches,conversation_lib.default_conversation.sep2)
 
     model.to(training_args.device)
 
