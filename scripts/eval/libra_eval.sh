@@ -1,7 +1,7 @@
 #!/bin/bash
 ###############################################################################
 # Example usage:
-#   bash ./scripts/libra_eval.sh sample 
+#   bash ./scripts/eval/libra_eval.sh sample 
 #
 # Possible modes: 'beam' or 'sample'
 #   1) 'beam'   -> Uses Beam Search
