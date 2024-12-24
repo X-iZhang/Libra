@@ -7,8 +7,8 @@
 [![License](https://img.shields.io/badge/License-Apache%202.0-yellow.svg?)](https://github.com/X-iZhang/Libra/blob/main/LICENSE)
 [![Views](https://hits.seeyoufarm.com/api/count/incr/badge.svg?url=https%3A%2F%2Fgithub.com%2FX-iZhang%2FLibra&count_bg=%2300C0FF&title_bg=%23004080&icon=&icon_color=%23FFFFFF&title=Views)](https://hits.seeyoufarm.com)
 
-<details open><summary>📢 More Than Radiology: Codespace Features You’ll Love! 🎉 </summary><p>
-    
+<details open><summary>📢 More Than Radiology: Codespace Features for MLLMs Workflow You’ll Love! 🎉 </summary><p>
+
 >  * **LLaVA-Type & LLaMA_3 Support**: Deploy and train advanced models effortlessly.
 >  * **Resume Training**: Resume training from checkpoints at any stage, whether for pre-training or fine-tuning.  
 >  * **Validation Dataset**: Track model performance in real-time on `validation datasets` during training. 
@@ -17,9 +17,9 @@
 
 </p></details>
 
-![architecture](./assets/libra_architecture.png)
+<!-- ![architecture](./assets/libra_architecture.png) -->
 
-# Contents
+## Contents
 - [Install](#install)
 - [Libra Weights](#libra-weights)
 - [Quick Start](#quick-start)
@@ -70,8 +70,68 @@ We support running inference using the CLI. To use our model, run:
 python -m libra.serve.cli \
     --model-path X-iZhang/libra-v1.0-7b \
     --image-file "./path/to/current_image.jpg" "./path/to/previous_image.jpg"
+    # If there is no previous image, only one path is needed.
 ```
 ### Script Inference
+Additionally, you can use the `libra_eval` function in `libra/eval/run_libra.py` to easily launch a model trained by yourself or us on local machine or in Google Colab, after installing this repository.
+
+```Python
+from libra.eval import libra_eval
+
+model_path = "X-iZhang/libra-v1.0-7b"  # or your own model
+
+image_files = ["./path/to/current/image.jpg", 
+               "./path/to/previous/image.jpg"]  # If there is no previous image, only one path is needed.
+
+prompt = "Provide a detailed description of the findings in the radiology image."  # you can add additional clinical instructions
+
+conv_mode = "libra_v1"  # same as PROMPT_VERSION in the training stage
+
+libra_eval(
+    model_path=model_path,
+    image_file=image_files,
+    query=prompt,
+    temperature=0.9,
+    top_p=0.8,
+    max_new_tokens=512
+)
+```
+<details>
+<summary>Meanwhile, you can use the beam search method to obtain output.</summary>
+
+```Python
+libra_eval(
+    model_path=model_path,
+    image_file=image_files,
+    query=prompt,
+    num_beams=5, 
+    length_penalty=2,
+    num_return_sequences=2,
+    conv_mode=conv_mode,
+    max_new_tokens=512
+)
+```
+
+</details>
+
+<details>
+<summary>Additionally, you can directly use LoRA weights for inference.</summary>
+
+```Python
+libra_eval(
+    model_path="./path/to/lora_weights",  # path to LoRA weights
+    model_base="./path/to/base_model",  # path to base Libra model
+    image_file=image_files,
+    query=prompt,
+    num_beams=5, 
+    length_penalty=2,
+    num_return_sequences=2,
+    conv_mode=conv_mode,
+    max_new_tokens=512
+)
+```
+
+</details>
 
 ## Dataset
 
