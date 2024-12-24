@@ -114,7 +114,7 @@ def get_image_tensors(image_path, image_processor, model, device='cuda'):
     return batch_images
 
 def libra_eval(
-    model_path="libra",
+    model_path=None,
     model_base=None,
     image_file=None,
     query=None,
@@ -210,7 +210,7 @@ def libra_eval(
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
-    parser.add_argument("--model-path", type=str, default="facebook/opt-350m")
+    parser.add_argument("--model-path", type=str, default="X-iZhang/libra-v1.0-7b")
     parser.add_argument("--model-base", type=str, default=None)
     parser.add_argument("--image-file", type=str, required=True)
     parser.add_argument("--query", type=str, required=True)
