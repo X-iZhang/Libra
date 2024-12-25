@@ -72,6 +72,7 @@ python -m libra.serve.cli \
     --image-file "./path/to/current_image.jpg" "./path/to/previous_image.jpg"
     # If there is no previous image, only one path is needed.
 ```
+
 ### Script Inference
 Additionally, you can use the `libra_eval` function in `libra/eval/run_libra.py` to easily launch a model trained by yourself or us on local machine or in Google Colab, after installing this repository.
 
@@ -93,11 +94,12 @@ libra_eval(
     query=prompt,
     temperature=0.9,
     top_p=0.8,
+    conv_mode=conv_mode,
     max_new_tokens=512
 )
 ```
 <details>
-<summary>Meanwhile, you can use the beam search method to obtain output.</summary>
+<summary>Meanwhile, you can use the Beam Search method to obtain output.</summary>
 
 ```Python
 libra_eval(
