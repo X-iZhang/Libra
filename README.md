@@ -62,7 +62,7 @@ pip install -e .
 ## Libra Weights
 
 | Version | Base LLM | Vision Encoder| Checkpoint |
-| ----- | ----- | ----- | ----- |
+| ------- | ------- | ------- | ------- |
 | Libra v1.0 | Meditron-7B | RAD-DINO | [X-iZhang/libra-v1.0-7b](https://huggingface.co/X-iZhang/libra-v1.0-7b) |
 
 ## Quick Start
@@ -149,6 +149,78 @@ libra_eval(
 </details>
 
 ## Dataset
+
+### Prepare Data
+
+All the data we use comes from [MIMIC-CXR](https://physionet.org/content/mimic-cxr/2.0.0/) and its two variants, and we strictly follow the official split for `train/valid/test` division.
+
+- Image Data
+
+All images used for **Libra** come from the [MIMIC-CXR-JPG](https://physionet.org/content/mimic-cxr-jpg/2.0.0/) dataset in `.jpg` format. `DICOM` format is also supported and can be found in the [MIMIC-CXR](https://physionet.org/content/mimic-cxr/2.0.0/).
+
+After downloading the images, they will be automatically organized into the following structure in `./path/to/playground/data`:
+
+```
+./data/physionet.org/files/mimic-cxr-jpg/2.0.0
+└──files
+    ├── p10
+    │   └── p10000032
+    │       └── s50414267
+    │           ├── image1.jpg
+    │           └── image2.jpg
+    ├── p11
+    ├── p12
+    ├── ...
+    └── p19
+```
+
+- Annotation Data
+
+All annotations used for **Libra** come from the [MIMIC-CXR](https://physionet.org/content/mimic-cxr/2.0.0/) and its two variants. This includes Radiology Reports and other relevant Visual Question Answering. 
+
+Please download the following datasets from the official website: `mimic-cxr-reports.zip` from [MIMIC-CXR](https://physionet.org/content/mimic-cxr/2.0.0/), [MIMIC-Diff-VQA](https://physionet.org/content/medical-diff-vqa/1.0.0/), and [MIMIC-Ext-*MIMIC-CXR-VQA*](https://physionet.org/content/mimic-ext-mimic-cxr-vqa/1.0.0/).
+
+### Preprocess Data
+
+- Radiology Report Sections
+
+For free-text radiology report, we extract the `Findings`, `Impression`, `Indication`, `History`, `Comparison`, and `Technique` sections using the official [mimic-cxr](https://github.com/MIT-LCP/mimic-cxr/tree/master/txt) repository.
+
+- Visual Question Answering for Chest X-ray
+
+In [Medical-Diff-VQA](https://physionet.org/content/medical-diff-vqa/1.0.0/), the main image is used as the current image, and the reference image is used as the prior image. In [MIMIC-Ext-MIMIC-CXR-VQA](https://physionet.org/content/mimic-ext-mimic-cxr-vqa/1.0.0/), all cases use a dummy prior image.
+
+### Data Download
+
+| Alignment data files | Split | Size |
+| ----- | ----- | -----: |
+| [libra_alignment_train.json](https://drive.google.com/file/d/1AIT1b3eRXgJFp3FJmHci3haTunK1NTMA/view?usp=drive_link)| train | 780 MiB |
+| [libra_alignment_valid.json](https://drive.google.com/file/d/1nvbUoDmw7j4HgXwZWiiACIhvZ6BvR2LX/view?usp=sharing)| valid | 79 MiB |
+
+| Fine-Tuning data files | Split | Size |
+| ----- | ----- | ----- |
+| [libra_findings_train.json](https://drive.google.com/file/d/1rJ3G4uiHlzK_P6ZBUbAi-cDaWV-o6fcz/view?usp=sharing)| train | 159 MiB |
+| [libra_findings_valid.json](https://drive.google.com/file/d/1IYwQS23veOU5SXWGYiTyq9VHUwkVESfD/view?usp=sharing)| valid | 79 MiB |
+
+| Evaluation data files | Split | Size |
+| --- | --- | ---: |
+| [libra_findings_eval.jsonl](https://drive.google.com/file/d/1fy_WX616L8SgyAonadJ2fUIEaX0yrGrQ/view?usp=sharing)| eval | 2 MiB |
+
+
+<details>
+<summary>Meanwhile, here are some bonus evaluation data files.</summary>
+
+| Evaluation data files | Split | Size |
+| --- | --- | ---: |
+| [libra_impressions_eval.jsonl](https://drive.google.com/file/d/16msRfk7XxCmq7ZPG82lKvsnnjqsRPv__/view?usp=sharing)| eval | 1 MiB |
+| [libra_MIMIC-Ext-MIMIC-CXR-VQA_eval.jsonl](https://drive.google.com/file/d/1krPMwGGY6HP4sonNKlnkhLOoZrdjfVMW/view?usp=sharing)| eval | 4 MiB |
+| [libra_MIMIC-Diff-VQA _eval.jsonl](https://drive.google.com/file/d/1tP_CxPMM9PiKTq1mLYRHICcyJ36Q13mC/view?usp=sharing)| eval | 20 MiB |
+
+</details>
+
+If you are interested in training Libra to your own task/datasets, please refer to 
+[`Finetune_Custom_Data.md`].
+
 
 ## Train
 
