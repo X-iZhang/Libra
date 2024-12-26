@@ -49,12 +49,15 @@ pip install -e ".[train,eval]"
 pip install flash-attn --no-build-isolation
 ```
 
-### Upgrade to latest code base
+<details>
+<summary> Upgrade to latest code base </summary>
 
 ```Shell
 git pull
 pip install -e .
 ```
+
+</details>
 
 ## Libra Weights
 
@@ -80,12 +83,12 @@ You can use the `libra_eval` function in `libra/eval/run_libra.py` to easily lau
 from libra.eval import libra_eval
 
 # Define the model path, which can be a pre-trained model or your own fine-tuned model.
-model_path = "X-iZhang/libra-v1.0-7b"  # Or your own model.
+model_path = "X-iZhang/libra-v1.0-7b"  # Or your own model
 
 # Define the paths to the images. The second image is optional for temporal comparisons.
 image_files = [
     "./path/to/current/image.jpg", 
-    "./path/to/previous/image.jpg"  # Optional: Only include if a reference image is available.
+    "./path/to/previous/image.jpg"  # Optional: Only include if a reference image is available
 ]
 
 # Define the prompt to guide the model's response. Add clinical instructions if needed.
