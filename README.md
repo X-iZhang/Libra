@@ -74,20 +74,30 @@ python -m libra.serve.cli \
 ```
 
 ### Script Inference
-Additionally, you can use the `libra_eval` function in `libra/eval/run_libra.py` to easily launch a model trained by yourself or us on local machine or in Google Colab, after installing this repository.
+You can use the `libra_eval` function in `libra/eval/run_libra.py` to easily launch a model trained by yourself or us on local machine or in Google Colab, after installing this repository.
 
 ```Python
 from libra.eval import libra_eval
 
-model_path = "X-iZhang/libra-v1.0-7b"  # or your own model
+# Define the model path, which can be a pre-trained model or your own fine-tuned model.
+model_path = "X-iZhang/libra-v1.0-7b"  # Or your own model.
 
-image_files = ["./path/to/current/image.jpg", 
-               "./path/to/previous/image.jpg"]  # If there is no previous image, only one path is needed.
+# Define the paths to the images. The second image is optional for temporal comparisons.
+image_files = [
+    "./path/to/current/image.jpg", 
+    "./path/to/previous/image.jpg"  # Optional: Only include if a reference image is available.
+]
 
-prompt = "Provide a detailed description of the findings in the radiology image."  # you can add additional clinical instructions
+# Define the prompt to guide the model's response. Add clinical instructions if needed.
+prompt = (
+    "Provide a detailed description of the findings in the radiology image. "
+    "Following clinical instructions: ..."
+)
 
-conv_mode = "libra_v1"  # same as PROMPT_VERSION in the training stage
+# Specify the conversational mode, matching the PROMPT_VERSION used during training.
+conv_mode = "libra_v1"
 
+# Call the libra_eval function.
 libra_eval(
     model_path=model_path,
     image_file=image_files,
@@ -163,6 +173,9 @@ Through a two-stage training strategy, Libra demonstrates the powerful potential
 The code is currently being organised and will be available soon. **Please check back later for updates!**
 
 We are actively preparing the repository to ensure a seamless experience for contributors and users. Stay tuned for the initial release and future enhancements.
+
+
+![architecture](./assets/libra_architecture.png)
 
 ## Acknowledgements 🙏
 
