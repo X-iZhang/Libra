@@ -91,7 +91,7 @@ image_files = [
 # Define the prompt to guide the model's response. Add clinical instructions if needed.
 prompt = (
     "Provide a detailed description of the findings in the radiology image. "
-    "Following clinical instructions: ..."
+    "Following clinical context: ..."
 )
 
 # Specify the conversational mode, matching the PROMPT_VERSION used during training.
