@@ -191,7 +191,7 @@ For free-text radiology report, we extract the `Findings`, `Impression`, `Indica
 In [Medical-Diff-VQA](https://physionet.org/content/medical-diff-vqa/1.0.0/), the main image is used as the current image, and the reference image is used as the prior image. In [MIMIC-Ext-MIMIC-CXR-VQA](https://physionet.org/content/mimic-ext-mimic-cxr-vqa/1.0.0/), all cases use a dummy prior image.
 
 ### Data Download
-
+---
 | Alignment data files | Split | Size |
 | ----- | ----- | -----: |
 | [libra_alignment_train.json](https://drive.google.com/file/d/1AIT1b3eRXgJFp3FJmHci3haTunK1NTMA/view?usp=drive_link)| train | 780 MiB |
@@ -208,6 +208,7 @@ In [Medical-Diff-VQA](https://physionet.org/content/medical-diff-vqa/1.0.0/), th
 
 
 <details>
+
 <summary>Meanwhile, here are some bonus evaluation data files.</summary>
 
 | Evaluation data files | Split | Size |
@@ -218,8 +219,9 @@ In [Medical-Diff-VQA](https://physionet.org/content/medical-diff-vqa/1.0.0/), th
 
 </details>
 
-If you are interested in training Libra to your own task/datasets, please refer to 
-[`Finetune_Custom_Data.md`].
+---
+
+If you want to train or evaluate your own tasks or datasets, please refer to [`Custom_Data.md`](https://github.com/X-iZhang/Libra/CUSTOM_DATA.md).
 
 
 ## Train

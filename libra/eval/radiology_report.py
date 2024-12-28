@@ -52,7 +52,10 @@ def extract_sections(data: list) -> list:
     """
     sections_list = []
     for item in data:
-        if 'findings' in item:
+        if 'reference' in item:
+            cleaned_text = clean_text(item['reference'].lower())
+            sections_list.append(cleaned_text)
+        elif 'findings' in item:
             cleaned_text = clean_text(item['findings'].lower())
             sections_list.append(cleaned_text)
         elif 'impression' in item:
