@@ -221,7 +221,7 @@ In [Medical-Diff-VQA](https://physionet.org/content/medical-diff-vqa/1.0.0/), th
 
 ---
 
-If you want to train or evaluate your own tasks or datasets, please refer to [`Custom_Data.md`](https://github.com/X-iZhang/Libra/CUSTOM_DATA.md).
+If you want to train or evaluate your own tasks or datasets, please refer to [`Custom_Data.md`](https://github.com/X-iZhang/Libra/blob/main/CUSTOM_DATA.md).
 
 
 ## Train
