@@ -225,8 +225,64 @@ If you want to train or evaluate your own tasks or datasets, please refer to [`C
 
 
 ## Train
+Libra adopt a two-stage training strategy: (1) visual feature alignment: the visual encoder and LLM weights are frozen, and the Temporal Alignment Connector is trained; (2) RRG downstream task fine-tuning: apply LoRA to fine-tune the pre-trained LLM on the Findings section generation task.
+
+Libra is trained on 1 A6000 GPU with 48GB memory. To train on multiple GPUs, you can set the `per_device_train_batch_size` and the `gradient_accumulation_steps` accordingly. Always keep the global batch size the same: `per_device_train_batch_size` x `gradient_accumulation_steps` x `num_gpus`.
+
+### Hyperparameters
+We set reasonable hyperparameters based on our device. The hyperparameters used in both pretraining and LoRA finetuning are provided below.
+
+1. Pretraining
+
+| Hyperparameter | Global Batch Size | Learning rate | Epochs | Max length | Weight decay |
+| --- | :---: | :---: | :---: | :---: | :---: |
+| Libra-v1.0-7b | 16 | 2e-5 | 1 | 2048 | 0 |
+
+2. LoRA finetuning
+
+| Hyperparameter | Global Batch Size | Learning rate | Epochs | Max length | Weight decay | LoRA rank | LoRA alpha |
+| --- | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
+| Libra-v1.0-7b | 16 | 2e-5 | 1 | 2048 | 0 | 128 | 256 |
+
+### Download Meditron checkpoints (automatically)
+
+Our base LLM model, [Meditron-7B](https://huggingface.co/epfl-llm/meditron-7b), adapted to the medical domain from the Llama-2-7B model, will be downloaded automatically when you run our provided training scripts. No action is needed on your part.
+
+### Stage 1: visual feature alignment
+
+Pretraining takes approximately 385 hours for Libra-v1.0-7b-pretrain on a single A6000 GPU (48GB) due to device limitations.
+
+For detailed training scripts and guidelines, please refer to the following: [`pretrain.sh`](https://github.com/X-iZhang/Libra/blob/main/scripts/pretrain.sh) and [`pretrain_xformers.sh`](https://github.com/X-iZhang/Libra/blob/main/scripts/pretrain_xformers.sh) for [memory-efficient attention](https://arxiv.org/abs/2112.05682) implemented in [xFormers](https://github.com/facebookresearch/xformers).
+
+- `--mm_projector_type TAC`: the Temporal Alignment Connector.
+- `--vision_tower microsoft/rad-dino`: RAD-DINO is a vision transformer for encoding chest X-rays using DINOv2.
+- `--mm_vision_select_layer all`: Use all image features from the encoder for the Layerwise Feature Extractor.
+- `--tune_mm_mlp_adapter True`
+- `--freeze_mm_mlp_adapter False` 
+
+### Stage 2: RRG downstream task fine-tuning
+You may download our pretrained projectors from the [`mm_tac_projector.bin`](https://huggingface.co/X-iZhang/libra-v1.0-7b) file. It takes around 213 hours for Libra-v1.0-7b on a single A6000 GPU (48GB) due to device limitations.
+
+For detailed training scripts and guidelines, please refer to: [`finetune_lora.sh`](https://github.com/X-iZhang/Libra/blob/main/scripts/finetune_lora.sh).
+
+- `--tune_mm_mlp_adapter False`
+- `--freeze_mm_mlp_adapter True` 
+
+If you have enough GPU memory: Use [`finetune.sh`](https://github.com/X-iZhang/Libra/blob/main/scripts/finetune.sh) to fine-tune the entire model. Alternatively, you can replace `zero3.json` with `zero3_offload.json` to offload some parameters to CPU RAM, though this will slow down the training speed.
+
+If you are interested in continue finetuning Libra model to your own task/data, please check out [`Custom_Data.md`](https://github.com/X-iZhang/Libra/blob/main/CUSTOM_DATA.md).
+
+### New Options to Note
+
+- `--mm_projector_type TAC`: Specifies the Temporal Alignment Connector for Libra.
+- `--vision_tower microsoft/rad-dino`: Uses RAD-DINO as the chest X-rays encoder.
+- `--mm_vision_select_layer all`: Selects specific vision layers (e.g., -1, -2) or 'all' for all layers.
+- `--validation_data_path ./path/`: Path to the validation data.
+- `--compute_metrics True`: Optionally computes metrics during validation. Note that this can consume significant memory. If GPU memory is insufficient, it is recommended to either disable this option or use a smaller validation dataset.
+
 
 ## Evaluation
+In Libra-v1.0, we evaluate models on the MIMIC-CXR test split for the findings section generation task. You can download the evaluation data [here](https://drive.google.com/file/d/1fy_WX616L8SgyAonadJ2fUIEaX0yrGrQ/view?usp=sharing). To ensure reproducibility and output quality, we evaluate our model using the beam search strategy.
 
 <!-- ## Overview 🔬
 We propose **Libra** (**L**everaging Temporal **I**mages for **B**iomedical **R**adiology **A**nalysis), a novel framework tailored for radiology report generation (RRG) that incorporates temporal change information to address the challenges of interpreting medical images effectively.
