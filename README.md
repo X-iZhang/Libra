@@ -4,6 +4,7 @@
 
 [![arXiv](https://img.shields.io/badge/Arxiv-2411.19378-b31b1b.svg?logo=arXiv)](https://arxiv.org/abs/2411.19378) 
 [![hf_space](https://img.shields.io/badge/%F0%9F%A4%97%20Hugging%20Face-Model-blue)](https://huggingface.co/X-iZhang/libra-v1.0-7b)
+[![Project Page](https://img.shields.io/badge/Project-Page-Green?logo=webauthn)](https://x-izhang.github.io/Libra_v1.0/)
 [![License](https://img.shields.io/badge/License-Apache%202.0-yellow.svg?)](https://github.com/X-iZhang/Libra/blob/main/LICENSE)
 [![Views](https://hits.seeyoufarm.com/api/count/incr/badge.svg?url=https%3A%2F%2Fgithub.com%2FX-iZhang%2FLibra&count_bg=%2300C0FF&title_bg=%23004080&icon=&icon_color=%23FFFFFF&title=Views)](https://hits.seeyoufarm.com)
 
@@ -367,31 +368,6 @@ tem_f1_score
 - Radiology-specific Metrics
 
 Some specific metrics may require configurations that could conflict with Libra. It is recommended to follow the official guidelines and use separate environments for evaluation: [`RG_ER`](https://pypi.org/project/radgraph/0.1.13/), [`CheXpert-F1`](https://pypi.org/project/f1chexbert/), [`RadGraph-F1, RadCliQ, CheXbert vector`](https://github.com/rajpurkarlab/CXR-Report-Metric).
-
-
-<!-- ## Overview 🔬
-We propose **Libra** (**L**everaging Temporal **I**mages for **B**iomedical **R**adiology **A**nalysis), a novel framework tailored for radiology report generation (RRG) that incorporates temporal change information to address the challenges of interpreting medical images effectively.
-
-Libra leverages RAD-DINO, a pre-trained visual transformer, as its image encoder to generate robust and scalable image features. These features are further refined by a **Temporal Alignment Connector (TAC)**, a key innovation in Libra's architecture. The TAC comprises:
-* **Layerwise Feature Extractor (LFE)**: Captures high-granularity image feature embeddings from the encoder.
-* **Temporal Fusion Module (TFM)**: Integrates temporal references from prior studies to enhance temporal awareness and reasoning.
-
-These refined features are fed into Meditron, a specialised medical large language model (LLM), to generate comprehensive, temporally-aware radiology reports. Libra’s modular design seamlessly integrates state-of-the-art open-source pre-trained models for both image and text, aligning them through a temporal-aware adapter to ensure robust cross-modal reasoning and understanding.
-
-Through a two-stage training strategy, Libra demonstrates the powerful potential of multimodal large language models (MLLMs) in specialised radiology applications. Extensive experiments on the **MIMIC-CXR dataset** highlight Libra's performance, setting a new state-of-the-art benchmark among models of the same parameter scale.
-
-## Contributions 🛠
-
-* **Temporal Awareness**: Libra captures and synthesises temporal changes in medical images, addressing the challenge of handling prior study citations in RRG tasks.
-* **Innovative Architecture**: The Temporal Alignment Connector (TAC) ensures high-granularity feature extraction and temporal integration, significantly enhancing cross-modal reasoning capabilities.
-* **State-of-the-Art Performance**: Libra achieves outstanding results on the MIMIC-CXR dataset, outperforming existing MLLMs in both accuracy and temporal reasoning. -->
- 
-<!-- ## Project Status 🚀
-
-The code is currently being organised and will be available soon. **Please check back later for updates!**
-
-We are actively preparing the repository to ensure a seamless experience for contributors and users. Stay tuned for the initial release and future enhancements. -->
-
 
 <!-- ![architecture](./assets/libra_architecture.png) -->
 
