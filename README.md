@@ -330,7 +330,7 @@ resul
  'Bert_score': 62.50,
  'Temporal_entity_score': 35.34}
 ```
-or use the command line to evaluate multiple references and store the results in a `.csv` file. For detailed instructions, see [`get_eval_scores.sh`](https://github.com/X-iZhang/Libra/blob/main/scripts/eval/get_eval_scores.sh).
+Or use the command line to evaluate multiple references and store the results in a `.csv` file. For detailed instructions, see [`get_eval_scores.sh`](https://github.com/X-iZhang/Libra/blob/main/scripts/eval/get_eval_scores.sh).
 
 ```bash
 bash ./scripts/eval/get_eval_scores.sh
@@ -366,7 +366,7 @@ tem_f1_score
 
 - Radiology-specific Metrics
 
-Some specific metrics may require configurations that could conflict with Libra. It is recommended to follow the official guidelines and use separate environments for evaluation: [RG_ER](https://pypi.org/project/radgraph/0.1.13/), [CheXpert-F1](https://pypi.org/project/f1chexbert/), [RadGraph-F1, RadCliQ, CheXbert vector](https://github.com/rajpurkarlab/CXR-Report-Metric).
+Some specific metrics may require configurations that could conflict with Libra. It is recommended to follow the official guidelines and use separate environments for evaluation: [$RG_{ER}$](https://pypi.org/project/radgraph/0.1.13/), [$CheXpert-F1$](https://pypi.org/project/f1chexbert/), [$RadGraph-F1$, $RadCliQ_{0}$, $CheXbert-vector$](https://github.com/rajpurkarlab/CXR-Report-Metric).
 
 
 <!-- ## Overview 🔬
