@@ -276,13 +276,98 @@ If you are interested in continue finetuning Libra model to your own task/data, 
 
 - `--mm_projector_type TAC`: Specifies the Temporal Alignment Connector for Libra.
 - `--vision_tower microsoft/rad-dino`: Uses RAD-DINO as the chest X-rays encoder.
-- `--mm_vision_select_layer all`: Selects specific vision layers (e.g., -1, -2) or 'all' for all layers.
+- `--mm_vision_select_layer all`: Selects specific vision layers (e.g., -1, -2) or "all" for all layers.
 - `--validation_data_path ./path/`: Path to the validation data.
 - `--compute_metrics True`: Optionally computes metrics during validation. Note that this can consume significant memory. If GPU memory is insufficient, it is recommended to either disable this option or use a smaller validation dataset.
 
 
 ## Evaluation
 In Libra-v1.0, we evaluate models on the MIMIC-CXR test split for the findings section generation task. You can download the evaluation data [here](https://drive.google.com/file/d/1fy_WX616L8SgyAonadJ2fUIEaX0yrGrQ/view?usp=sharing). To ensure reproducibility and output quality, we evaluate our model using the beam search strategy.
+
+### 1. Generate Libra responses.
+
+```Shell
+python -m libra.eval.eval_vqa_libra \
+    --model-path X-iZhang/libra-v1.0-7b \
+    --question-file libra_findings_section_eval.jsonl \
+    --image-folder ./physionet.org/files/mimic-cxr-jpg/2.0.0 \
+    --answers-file /path/to/answer-file.jsonl \
+    --num_beams 10 \
+    --length_penalty 2 \
+    --num_return_sequences 3 \
+    --max_new_tokens 1024 \
+    --conv-mode libra_v1
+```
+
+You can evaluate Libra on your custom datasets by converting your dataset to the [JSONL format](https://github.com/X-iZhang/Libra/blob/main/CUSTOM_DATA.md#evaluation-dataset-format) and evaluating using [`eval_vqa_libra.py`](https://github.com/X-iZhang/Libra/blob/main/libra/eval/eval_vqa_libra.py).
+
+Additionally, you can execute the evaluation using the command line. For detailed instructions, see [`libra_eval.sh`](https://github.com/X-iZhang/Libra/blob/main/scripts/eval/libra_eval.sh).
+
+```bash
+bash ./scripts/eval/libra_eval.sh beam
+```
+
+### 2. Evaluate the generated report.
+
+In our case, you can directly use `libra_findings_section_eval.jsonl` and `answer-file.jsonl` for basic evaluation, using [`radiology_report.py`](https://github.com/X-iZhang/Libra/blob/main/libra/eval/radiology_report.py).
+
+```Python
+from libra.eval import evaluate_report
+
+references = "libra_findings_section_eval.jsonl"
+predictions = "answer-file.jsonl"
+
+resul = evaluate_report(references=references, predictions=predictions)
+
+# Evaluation scores
+resul
+{'BLEU1': 51.25,
+ 'BLEU2': 37.48,
+ 'BLEU3': 29.56,
+ 'BLEU4': 24.54,
+ 'METEOR': 48.90,
+ 'ROUGE-L': 36.66,
+ 'Bert_score': 62.50,
+ 'Temporal_entity_score': 35.34}
+```
+or use the command line to evaluate multiple references and store the results in a `.csv` file. For detailed instructions, see [`get_eval_scores.sh`](https://github.com/X-iZhang/Libra/blob/main/scripts/eval/get_eval_scores.sh).
+
+```bash
+bash ./scripts/eval/get_eval_scores.sh
+```
+### Metrics
+- Temporal Entity F1
+
+The $F1_{temp}$ score includes common radiology-related keywords associated with temporal changes. You can use [`temporal_f1.py`](https://github.com/X-iZhang/Libra/blob/main/libra/eval/temporal_f1.py) as follows:
+
+```Python
+from libra.eval import temporal_f1_score
+
+predictions = [
+    "The pleural effusion has progressively worsened since previous scan.",
+    "The pleural effusion is noted again on the current scan."
+]
+references = [
+    "Compare with prior scan, pleural effusion has worsened.",
+    "Pleural effusion has worsened."
+]
+
+tem_f1_score = temporal_f1_score(
+    predictions=predictions,
+    references=references
+)
+
+# Temporal Entity F1 score
+tem_f1_score
+{'f1': 0.500000000075,
+ 'prediction_entities': [{'worsened'}, set()],
+ 'reference_entities': [{'worsened'}, {'worsened'}]}
+```
+
+- Radiology-specific Metrics
+
+Some specific metrics may require configurations that could conflict with Libra. It is recommended to follow the official guidelines and use separate environments for evaluation: [RG_ER](https://pypi.org/project/radgraph/0.1.13/), [CheXpert-F1](https://pypi.org/project/f1chexbert/), [RadGraph-F1, RadCliQ, CheXbert vector](https://github.com/rajpurkarlab/CXR-Report-Metric).
+
 
 <!-- ## Overview 🔬
 We propose **Libra** (**L**everaging Temporal **I**mages for **B**iomedical **R**adiology **A**nalysis), a novel framework tailored for radiology report generation (RRG) that incorporates temporal change information to address the challenges of interpreting medical images effectively.
@@ -301,14 +386,14 @@ Through a two-stage training strategy, Libra demonstrates the powerful potential
 * **Innovative Architecture**: The Temporal Alignment Connector (TAC) ensures high-granularity feature extraction and temporal integration, significantly enhancing cross-modal reasoning capabilities.
 * **State-of-the-Art Performance**: Libra achieves outstanding results on the MIMIC-CXR dataset, outperforming existing MLLMs in both accuracy and temporal reasoning. -->
  
-## Project Status 🚀
+<!-- ## Project Status 🚀
 
 The code is currently being organised and will be available soon. **Please check back later for updates!**
 
-We are actively preparing the repository to ensure a seamless experience for contributors and users. Stay tuned for the initial release and future enhancements.
+We are actively preparing the repository to ensure a seamless experience for contributors and users. Stay tuned for the initial release and future enhancements. -->
 
 
-![architecture](./assets/libra_architecture.png)
+<!-- ![architecture](./assets/libra_architecture.png) -->
 
 ## Acknowledgements 🙏
 
