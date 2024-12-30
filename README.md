@@ -8,6 +8,8 @@
 [![License](https://img.shields.io/badge/License-Apache%202.0-yellow.svg?)](https://github.com/X-iZhang/Libra/blob/main/LICENSE)
 [![Views](https://hits.seeyoufarm.com/api/count/incr/badge.svg?url=https%3A%2F%2Fgithub.com%2FX-iZhang%2FLibra&count_bg=%2300C0FF&title_bg=%23004080&icon=&icon_color=%23FFFFFF&title=Views)](https://hits.seeyoufarm.com)
 
+This repository hosts **Libra**, a tool designed to generate radiology reports by leveraging temporal information from chest X-rays taken at different time points.
+
 <details open><summary>📢 More Than Radiology: Codespace Features for MLLMs Workflow You’ll Love! 🎉 </summary><p>
 
 >  * **LLaVA-Type & LLaMA_3 Support**: Deploy and train advanced models effortlessly.
@@ -18,7 +20,12 @@
 
 </p></details>
 
-<!-- ![architecture](./assets/libra_architecture.png) -->
+## 🔥 News
+- **[20 Dec 2024]** Libra-v1.0-7b is released!
+
+## Overview
+Radiology report generation (RRG) requires integrating temporal medical images and creating accurate reports. Traditional methods often overlook crucial temporal information. We introduce Libra, a temporal-aware multimodal large language model (MLLM) for chest X-ray (CXR) report generation. Libra combines a radiology-specific image encoder with an MLLM and uses a Temporal Alignment Connector to capture and synthesize temporal information. Experiments show that Libra sets new performance benchmarks on the MIMIC-CXR dataset for the RRG task.
+![architecture](./assets/libra_architecture.png)
 
 ## Contents
 - [Install](#install)
