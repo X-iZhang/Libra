@@ -15,8 +15,8 @@
 import torch
 import torch.nn as nn
 
-from transformers import AutoImageProcessor, AutoModel, AutoConfig
-        
+from transformers import CLIPImageProcessor, CLIPVisionModel, CLIPVisionConfig
+
 class CLIPVisionTower(nn.Module):
     def __init__(self, vision_tower, args, delay_load=False):
         super().__init__()
@@ -32,15 +32,15 @@ class CLIPVisionTower(nn.Module):
         elif getattr(args, 'unfreeze_mm_vision_tower', False):
             self.load_model()
         else:
-            self.cfg_only = AutoConfig.from_pretrained(self.vision_tower_name)
+            self.cfg_only = CLIPVisionConfig.from_pretrained(self.vision_tower_name)
 
     def load_model(self):
         if self.is_loaded:
             print('{} is already loaded, `load_model` called again, skipping.'.format(self.vision_tower_name))
             return
         
-        self.image_processor = AutoImageProcessor.from_pretrained(self.vision_tower_name)
-        self.vision_tower = AutoModel.from_pretrained(self.vision_tower_name)
+        self.image_processor = CLIPImageProcessor.from_pretrained(self.vision_tower_name)
+        self.vision_tower = CLIPVisionModel.from_pretrained(self.vision_tower_name)
         self.vision_tower.requires_grad_(False)
 
         self.is_loaded = True
@@ -68,7 +68,7 @@ class CLIPVisionTower(nn.Module):
             else:
                 raise ValueError(f"Unexpected select feature: {self.select_feature}")
 
-            return selected_layer_features
+            return torch.stack([selected_layer_features])
     
     @torch.no_grad()
     def forward(self, images):
@@ -84,7 +84,7 @@ class CLIPVisionTower(nn.Module):
 
         cur_features = self.get_features(cur_images)  
         prev_features = self.get_features(prev_images)  
-
+        
         cur_features = cur_features.permute(1, 0, 2, 3) 
         prev_features = prev_features.permute(1, 0, 2, 3) 
 

@@ -179,14 +179,14 @@ def eval_model(args):
         conv.append_message(conv.roles[0], qs)
         conv.append_message(conv.roles[1], None)
         prompt = conv.get_prompt()
-
+        
         input_ids = tokenizer_image_token(prompt, tokenizer, IMAGE_TOKEN_INDEX, return_tensors='pt').unsqueeze(0).cuda()
         
         attention_mask = torch.ones(input_ids.shape, dtype=torch.long)
         pad_token_id = tokenizer.pad_token_id
         
         image_tensors = get_image_tensors(image_file, args.image_folder, image_processor, model)
-
+        
         stop_str = conv.sep if conv.sep_style != SeparatorStyle.TWO else conv.sep2
         keywords = [stop_str]
         stopping_criteria = KeywordsStoppingCriteria(keywords, tokenizer, input_ids)
