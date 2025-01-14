@@ -14,6 +14,21 @@ from io import BytesIO
 from pydicom.pixel_data_handlers.util import apply_voi_lut
 import datetime
 
+def load_model(model_path, model_base=None):
+    """
+    Load the model and return its components.
+
+    Args:
+        model_path (str): Path to the model.
+        model_base (str): Base model, if any.
+
+    Returns:
+        tuple: (tokenizer, model, image_processor, context_len)
+    """
+    disable_torch_init()
+    model_name = get_model_name_from_path(model_path)
+    tokenizer, model, image_processor, context_len = load_pretrained_model(model_path, model_base, model_name)
+    return tokenizer, model, image_processor, context_len
 
 def load_images(image_file):
     """
@@ -124,13 +139,18 @@ def libra_eval(
     num_beams=1,
     num_return_sequences=None,
     length_penalty=1.0,
-    max_new_tokens=128
+    max_new_tokens=128,
+    libra_model=None
 ):
     # Model
     disable_torch_init()
 
-    model_name = get_model_name_from_path(model_path)
-    tokenizer, model, image_processor, context_len = load_pretrained_model(model_path, model_base, model_name)
+    if libra_model is not None:
+        tokenizer, model, image_processor, context_len = libra_model
+        model_name = model.config._name_or_path
+    else:
+        tokenizer, model, image_processor, context_len = load_model(model_path, model_base)
+        model_name = get_model_name_from_path(model_path)
 
     qs = query
     if model.config.mm_use_im_start_end:
@@ -192,7 +212,7 @@ def libra_eval(
                 pad_token_id=pad_token_id,
                 stopping_criteria=[stopping_criteria],
                 use_cache=True)
-
+    
     input_token_len = input_ids.shape[1]
     n_diff_input_output = (input_ids != output_ids[:, :input_token_len]).sum().item()
 
