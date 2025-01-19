@@ -402,3 +402,28 @@ If you find our paper and code useful in your research and applications, please 
       url={https://arxiv.org/abs/2411.19378}, 
 }
 ```
+## Intended Use
+
+Libra is primarily designed to **assist** clinical practitioners, researchers, and medical students in generating chest X-ray reports. Key applications include:
+
+- **Clinical Decision Support**: Providing draft findings that can be refined by a radiologist.  
+- **Educational Tool**: Demonstrating example interpretations and temporal changes for training radiology residents.  
+- **Research**: Facilitating studies on automated report generation and temporal feature learning in medical imaging.
+
+> **Important**: Outputs should be reviewed by qualified radiologists or medical professionals before final clinical decisions are made.
+
+## Limitations and Recommendations
+
+1. **Data Bias**: The model’s performance may be less reliable for underrepresented demographics or rare pathologies.  
+2. **Clinical Oversight**: Always involve a medical professional to verify the results—Libra is not a substitute for professional judgment.  
+3. **Temporal Inaccuracies**: Despite TAC’s focus on temporal alignment, subtle or uncommon changes may go unrecognized.  
+4. **Generalization**: Libra’s performance on chest X-ray types or conditions not seen during training may be limited.
+
+## Ethical Considerations
+
+- **Patient Privacy**: Ensure the data is fully de-identified and compliant with HIPAA/GDPR (or relevant privacy regulations).  
+- **Responsible Use**: Deploy Libra’s outputs carefully; they are not guaranteed to be error-free.  
+- **Accountability**: Users and organizations must assume responsibility for verifying clinical accuracy and safety.
+
+## Disclaimer
+This tool is for research and educational purposes only. It is not FDA-approved or CE-marked for clinical use. Users should consult qualified healthcare professionals for any clinical decisions.
