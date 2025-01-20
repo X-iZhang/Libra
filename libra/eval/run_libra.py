@@ -133,7 +133,7 @@ def libra_eval(
     model_base=None,
     image_file=None,
     query=None,
-    conv_mode="libra_v1",
+    conv_mode=None,
     temperature=0.2,
     top_p=None,
     num_beams=1,
