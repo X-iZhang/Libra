@@ -78,6 +78,25 @@ pip install -e .
 
 ## Quick Start
 
+### Gradio Web UI
+
+Launch a local or online web demo by running:
+
+```bash
+python -m libra.serve.app
+```
+
+<details>
+<summary>Specify your model:</summary>
+
+```bash
+python -m libra.serve.app --model-path /path/to/your/model
+```
+</details>
+
+You just launched the Gradio web interface. Now, you can open the web interface with the URL printed on the screen. You will notice that both the default `libra` model and `your model` are available in the model list, and you can choose to switch between them.
+
+
 ### CLI Inference
 We support running inference using the CLI. To use our model, run:
 ```Shell
