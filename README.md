@@ -102,7 +102,7 @@ python -m libra.serve.app --model-path /path/to/your/model
 
 You just launched the Gradio web interface. Now, you can open the web interface with the URL printed on the screen. You will notice that both the default `libra-v1.0` model and `your model` are available in the model list, and you can choose to switch between them.
 
-<img src="assets/demo.gif" width="70%">
+![demo](./assets/demo.gif)
 
 ### CLI Inference
 We support running inference using the CLI. To use our model, run:
