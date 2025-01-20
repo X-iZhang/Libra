@@ -2,9 +2,10 @@
     Libra: Leveraging Temporal Images for Biomedical Radiology Analysis
 </h1>
 
-[![arXiv](https://img.shields.io/badge/Arxiv-2411.19378-b31b1b.svg?logo=arXiv)](https://arxiv.org/abs/2411.19378) 
-[![hf_space](https://img.shields.io/badge/%F0%9F%A4%97%20Hugging%20Face-Model-blue)](https://huggingface.co/X-iZhang/libra-v1.0-7b)
+[![Demo](https://img.shields.io/badge/⚡-Hugging%20Face%20Demo-yellow.svg)](https://huggingface.co/spaces/X-iZhang/Libra)
+[![hf_space](https://img.shields.io/badge/%F0%9F%A4%97%20-Hugging%20Face-blue)](https://huggingface.co/X-iZhang/libra-v1.0-7b)
 [![Project Page](https://img.shields.io/badge/Project-Page-Green?logo=webauthn)](https://x-izhang.github.io/Libra_v1.0/)
+[![arXiv](https://img.shields.io/badge/Arxiv-2411.19378-b31b1b.svg?logo=arXiv)](https://arxiv.org/abs/2411.19378) 
 [![License](https://img.shields.io/badge/License-Apache%202.0-yellow.svg?)](https://github.com/X-iZhang/Libra/blob/main/LICENSE)
 [![Views](https://hits.seeyoufarm.com/api/count/incr/badge.svg?url=https%3A%2F%2Fgithub.com%2FX-iZhang%2FLibra&count_bg=%2300C0FF&title_bg=%23004080&icon=&icon_color=%23FFFFFF&title=Views)](https://hits.seeyoufarm.com)
 
@@ -21,7 +22,9 @@ This repository hosts **Libra**, a tool designed to generate radiology reports b
 </p></details>
 
 ## 🔥 News
-- **[20 Dec 2024]** Libra-v1.0-7b is released!
+- **[19 Jan 2025]** ⚡ The **online demo** is available at [Hugging Face Demo](https://huggingface.co/spaces/X-iZhang/Libra). Welcome to try it out!
+- **[07 Jan 2025]** The processed data is available at [Data Download](https://github.com/X-iZhang/Libra#data-download).
+- **[20 Dec 2024]** 🚨 [**Libra-v1.0-7b**](https://huggingface.co/X-iZhang/libra-v1.0-7b) has been released!
 
 ## Overview
 Radiology report generation (RRG) requires integrating temporal medical images and creating accurate reports. Traditional methods often overlook crucial temporal information. We introduce Libra, a temporal-aware multimodal large language model (MLLM) for chest X-ray (CXR) report generation. Libra combines a radiology-specific image encoder with an MLLM and uses a Temporal Alignment Connector to capture and synthesize temporal information. Experiments show that Libra sets new performance benchmarks on the MIMIC-CXR dataset for the RRG task.
@@ -402,7 +405,7 @@ If you find our paper and code useful in your research and applications, please 
       url={https://arxiv.org/abs/2411.19378}, 
 }
 ```
-## Intended Use
+## Intended Use 🧰
 
 Libra is primarily designed to **assist** clinical practitioners, researchers, and medical students in generating chest X-ray reports. Key applications include:
 
@@ -412,18 +415,25 @@ Libra is primarily designed to **assist** clinical practitioners, researchers, a
 
 > **Important**: Outputs should be reviewed by qualified radiologists or medical professionals before final clinical decisions are made.
 
-## Limitations and Recommendations
+<details>
+<summary>Limitations and Recommendations</summary>
 
 1. **Data Bias**: The model’s performance may be less reliable for underrepresented demographics or rare pathologies.  
 2. **Clinical Oversight**: Always involve a medical professional to verify the results—Libra is not a substitute for professional judgment.  
 3. **Temporal Inaccuracies**: Despite TAC’s focus on temporal alignment, subtle or uncommon changes may go unrecognized.  
 4. **Generalization**: Libra’s performance on chest X-ray types or conditions not seen during training may be limited.
+</details>
 
-## Ethical Considerations
+<details>
+<summary>Ethical Considerations</summary>
 
 - **Patient Privacy**: Ensure the data is fully de-identified and compliant with HIPAA/GDPR (or relevant privacy regulations).  
 - **Responsible Use**: Deploy Libra’s outputs carefully; they are not guaranteed to be error-free.  
 - **Accountability**: Users and organizations must assume responsibility for verifying clinical accuracy and safety.
+</details>
 
-## Disclaimer
+<details>
+<summary>Disclaimer</summary>
+
 This tool is for research and educational purposes only. It is not FDA-approved or CE-marked for clinical use. Users should consult qualified healthcare professionals for any clinical decisions.
+</details>
