@@ -28,7 +28,13 @@ This repository hosts **Libra**, a tool designed to generate radiology reports b
 
 ## Overview
 Radiology report generation (RRG) requires integrating temporal medical images and creating accurate reports. Traditional methods often overlook crucial temporal information. We introduce Libra, a temporal-aware multimodal large language model (MLLM) for chest X-ray (CXR) report generation. Libra combines a radiology-specific image encoder with an MLLM and uses a Temporal Alignment Connector to capture and synthesize temporal information. Experiments show that Libra sets new performance benchmarks on the MIMIC-CXR dataset for the RRG task.
+
+<details>
+<summary>Libra’s Architecture</summary>
+
 ![architecture](./assets/libra_architecture.png)
+
+</details>
 
 ## Contents
 - [Install](#install)
@@ -94,8 +100,9 @@ python -m libra.serve.app --model-path /path/to/your/model
 ```
 </details>
 
-You just launched the Gradio web interface. Now, you can open the web interface with the URL printed on the screen. You will notice that both the default `libra` model and `your model` are available in the model list, and you can choose to switch between them.
+You just launched the Gradio web interface. Now, you can open the web interface with the URL printed on the screen. You will notice that both the default `libra-v1.0` model and `your model` are available in the model list, and you can choose to switch between them.
 
+<img src="assets/demo.gif" width="70%">
 
 ### CLI Inference
 We support running inference using the CLI. To use our model, run:
