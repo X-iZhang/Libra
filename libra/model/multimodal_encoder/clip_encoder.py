@@ -34,7 +34,7 @@ class CLIPVisionTower(nn.Module):
         else:
             self.cfg_only = CLIPVisionConfig.from_pretrained(self.vision_tower_name)
 
-    def load_model(self):
+    def load_model(self, device_map=None):
         if self.is_loaded:
             print('{} is already loaded, `load_model` called again, skipping.'.format(self.vision_tower_name))
             return
@@ -99,7 +99,6 @@ class CLIPVisionTower(nn.Module):
 
     @property
     def dtype(self):
-        
         return self.vision_tower.dtype 
 
     @property

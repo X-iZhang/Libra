@@ -47,3 +47,6 @@ dist/
 
 # Ignore wanb directory
 wandb/
+
+# Ignore agent directory
+agent/
