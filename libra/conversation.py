@@ -11,6 +11,7 @@ class SeparatorStyle(Enum):
     PLAIN = auto()
     LLAMA_2 = auto()
     LLAMA_3 = auto()
+    MISTRAL = auto()
 
 
 @dataclasses.dataclass
@@ -71,7 +72,7 @@ class Conversation:
                 else:
                     ret += role
                     
-        elif self.sep_style == SeparatorStyle.LLAMA_2:
+        elif self.sep_style == SeparatorStyle.LLAMA_2 or self.sep_style == SeparatorStyle.MISTRAL:
             wrap_sys = lambda msg: f"<<SYS>>\n{msg}\n<</SYS>>\n\n" if len(msg) > 0 else msg
             wrap_inst = lambda msg: f"[INST] {msg} [/INST]"
             ret = ""
@@ -225,6 +226,28 @@ class Conversation:
 conv_mpt = Conversation(
     system="""<|im_start|>system
 A conversation between a user and an LLM-based AI assistant. The assistant gives helpful and honest answers.""",
+    roles=("<|im_start|>user\n", "<|im_start|>assistant\n"),
+    version="mpt",
+    messages=(),
+    offset=0,
+    sep_style=SeparatorStyle.MPT,
+    sep="<|im_end|>",
+)
+
+conv_mistral_instruct = Conversation(
+    system="",
+    roles=("USER", "ASSISTANT"),
+    version="llama_v2",
+    messages=(),
+    offset=0,
+    sep_style=SeparatorStyle.MISTRAL,
+    sep="",
+    sep2="</s>",
+)
+
+conv_mistral_direct = Conversation(
+    system="""<|im_start|>system
+Answer the questions.""",
     roles=("<|im_start|>user\n", "<|im_start|>assistant\n"),
     version="mpt",
     messages=(),
@@ -409,6 +432,9 @@ conv_templates = {
     "libra_llama_3": conv_libra_llama_3,
     
     "mpt": conv_mpt,
+
+    "mistral_instruct": conv_mistral_instruct,
+    "mistral_direct": conv_mistral_direct,
     
 }
 

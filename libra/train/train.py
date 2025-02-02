@@ -1202,13 +1202,29 @@ def train():
         ))
 
     if model_args.vision_tower is not None:
-        model = LibraLlamaForCausalLM.from_pretrained(
-            model_args.model_name_or_path,
-            cache_dir=training_args.cache_dir,
-            torch_dtype=(torch.bfloat16 if training_args.bf16 else None),
-            **bnb_model_from_pretrained_args
-        )
+        if "mistral" in model_args.model_name_or_path:
+            if (
+                hasattr(training_args, 'fsdp_config') and
+                'transformer_layer_cls_to_wrap' in training_args.fsdp_config.keys()
+            ):
+                training_args.fsdp_config["transformer_layer_cls_to_wrap"] = ["MistralDecoderLayer"]
+
+            model = LibraMistralForCausalLM.from_pretrained(
+                model_args.model_name_or_path,
+                cache_dir=training_args.cache_dir,
+                torch_dtype=(torch.bfloat16 if training_args.bf16 else None),
+                **bnb_model_from_pretrained_args
+            )
+        else:
+            model = LibraLlamaForCausalLM.from_pretrained(
+                model_args.model_name_or_path,
+                cache_dir=training_args.cache_dir,
+                torch_dtype=(torch.bfloat16 if training_args.bf16 else None),
+                **bnb_model_from_pretrained_args
+            )
     else:
+        warning_message = "Vision tower is not provided. Loading pure language model: {}".format(model_args.model_name_or_path)
+        raise ValueError(warning_message)
         model = transformers.LlamaForCausalLM.from_pretrained(
             model_args.model_name_or_path,
             cache_dir=training_args.cache_dir,

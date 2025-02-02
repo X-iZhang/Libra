@@ -158,7 +158,11 @@ def libra_eval(
     else:
         qs = DEFAULT_IMAGE_TOKEN + '\n' + qs
 
-    if 'libra' in model_name.lower():
+    if 'llama-3' in model_name.lower():
+        conv_mode = "libra_llama_3"
+    if 'mistral' in model_name.lower():
+        mode_conv = "mistral_instruct"
+    else:
         mode_conv = "libra_v1"
 
     if conv_mode is not None and mode_conv != conv_mode:

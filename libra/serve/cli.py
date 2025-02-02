@@ -115,8 +115,12 @@ def main(args):
     model_name = get_model_name_from_path(args.model_path)
     tokenizer, model, image_processor, context_len = load_pretrained_model(args.model_path, args.model_base, model_name, args.load_8bit, args.load_4bit, device=args.device)
 
-    if 'libra' in model_name.lower():
-        conv_mode = "libra_v1"
+    if 'llama-3' in model_name.lower():
+        conv_mode = "libra_llama_3"
+    if 'mistral' in model_name.lower():
+        mode_conv = "mistral_instruct"
+    else:
+        mode_conv = "libra_v1"
 
     if args.conv_mode is not None and conv_mode != args.conv_mode:
         print('[WARNING] the auto inferred conversation mode is {}, while `--conv-mode` is {}, using {}'.format(conv_mode, args.conv_mode, args.conv_mode))
