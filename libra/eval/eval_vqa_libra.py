@@ -187,10 +187,10 @@ def eval_model(args):
         
         image_tensors = get_image_tensors(image_file, args.image_folder, image_processor, model)
         
-        stop_str = conv.sep if conv.sep_style != SeparatorStyle.TWO else conv.sep2
+        stop_str = conv.sep if conv.sep_style not in {SeparatorStyle.TWO, SeparatorStyle.LLAMA_3} else conv.sep2
         keywords = [stop_str]
         stopping_criteria = KeywordsStoppingCriteria(keywords, tokenizer, input_ids)
-
+        
         with torch.inference_mode():
             torch.cuda.empty_cache() 
             if args.num_beams > 1:
