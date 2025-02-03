@@ -13,7 +13,7 @@ This repository hosts **Libra**, a tool designed to generate radiology reports b
 
 <details open><summary>📢 More Than Radiology: Codespace Features for MLLMs Workflow You’ll Love! 🎉 </summary><p>
 
->  * **LLaVA-Type & LLaMA_3 Support**: Deploy and train advanced models effortlessly.
+>  * **LLaVA-Type & LLaMA_3 & Mistral Support**: Deploy and train advanced models effortlessly.
 >  * **Resume Training**: Resume training from checkpoints at any stage, whether for pre-training or fine-tuning.  
 >  * **Validation Dataset**: Track model performance in real-time on `validation datasets` during training. 
 >  * **Custom Metrics**: Go beyond `eval_loss` with metrics like `BLEU`, `ROUGE-L`, `RadGraph-F1` or define your own criteria on valid dataset.   
