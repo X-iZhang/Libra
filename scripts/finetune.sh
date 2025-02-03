@@ -73,7 +73,7 @@ deepspeed libra/train/train_mem.py \
     --deepspeed ${DEEPSPEED_CONFIG} \
     --model_name_or_path ${MODEL_VERSION} \
     --version ${PROMPT_VERSION} \
-    --freeze_backbone True \
+    --freeze_backbone False \
     --data_path ${TRAIN_DATA} \
     --validation_data_path ${VAL_DATA} \
     --image_folder ${IMG_FOLDER} \
