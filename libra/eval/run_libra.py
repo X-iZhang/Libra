@@ -1,6 +1,5 @@
 import argparse
 import torch
-
 from libra.constants import IMAGE_TOKEN_INDEX, DEFAULT_IMAGE_TOKEN, DEFAULT_IM_START_TOKEN, DEFAULT_IM_END_TOKEN
 from libra.conversation import conv_templates, SeparatorStyle
 from libra.model.builder import load_pretrained_model
@@ -159,7 +158,7 @@ def libra_eval(
         qs = DEFAULT_IMAGE_TOKEN + '\n' + qs
 
     if 'llama-3' in model_name.lower():
-        conv_mode = "libra_llama_3"
+        mode_conv = "libra_llama_3"
     if 'mistral' in model_name.lower():
         mode_conv = "mistral_instruct"
     else:
@@ -180,8 +179,8 @@ def libra_eval(
     pad_token_id = tokenizer.pad_token_id
 
     image_tensor = get_image_tensors(image_file, image_processor, model)
-    
-    stop_str = conv.sep if conv.sep_style != SeparatorStyle.TWO else conv.sep2
+
+    stop_str = conv.sep if conv.sep_style not in {SeparatorStyle.TWO, SeparatorStyle.LLAMA_3, SeparatorStyle.MISTRAL} else conv.sep2
     keywords = [stop_str]
     stopping_criteria = KeywordsStoppingCriteria(keywords, tokenizer, input_ids)
 

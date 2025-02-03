@@ -116,16 +116,16 @@ def main(args):
     tokenizer, model, image_processor, context_len = load_pretrained_model(args.model_path, args.model_base, model_name, args.load_8bit, args.load_4bit, device=args.device)
 
     if 'llama-3' in model_name.lower():
-        conv_mode = "libra_llama_3"
+        mode_conv = "libra_llama_3"
     if 'mistral' in model_name.lower():
         mode_conv = "mistral_instruct"
     else:
         mode_conv = "libra_v1"
 
-    if args.conv_mode is not None and conv_mode != args.conv_mode:
-        print('[WARNING] the auto inferred conversation mode is {}, while `--conv-mode` is {}, using {}'.format(conv_mode, args.conv_mode, args.conv_mode))
+    if args.conv_mode is not None and mode_conv != args.conv_mode:
+        print('[WARNING] the auto inferred conversation mode is {}, while `--conv-mode` is {}, using {}'.format(mode_conv, args.conv_mode, args.conv_mode))
     else:
-        args.conv_mode = conv_mode
+        args.conv_mode = mode_conv
 
     conv = conv_templates[args.conv_mode].copy()
     roles = conv.roles
@@ -175,8 +175,9 @@ def main(args):
         prompt = conv.get_prompt()
 
         input_ids = tokenizer_image_token(prompt, tokenizer, IMAGE_TOKEN_INDEX, return_tensors='pt').unsqueeze(0).to(model.device)
-        stop_str = conv.sep if conv.sep_style not in {SeparatorStyle.TWO, SeparatorStyle.LLAMA_3} else conv.sep2
+        stop_str = conv.sep if conv.sep_style not in {SeparatorStyle.TWO, SeparatorStyle.LLAMA_3,SeparatorStyle.MISTRAL} else conv.sep2
         keywords = [stop_str]
+
         stopping_criteria = KeywordsStoppingCriteria(keywords, tokenizer, input_ids)
         streamer = TextStreamer(tokenizer, skip_prompt=True, skip_special_tokens=True)
         
