@@ -1,4 +1,4 @@
-#    Copyright 2024 Xi Zhang
+#    Copyright 2025 Xi Zhang
 #
 #    Licensed under the Apache License, Version 2.0 (the "License");
 #    you may not use this file except in compliance with the License.
@@ -15,6 +15,7 @@
 import os
 from .clip_encoder import CLIPVisionTower
 from .dino_encoder import DINOVisionTower
+from .siglip_encoder import SigLIPVisionTower
 
 def build_vision_tower(vision_tower_cfg, **kwargs):
 
@@ -26,12 +27,14 @@ def build_vision_tower(vision_tower_cfg, **kwargs):
     is_absolute_path_exists = os.path.exists(vision_tower)
 
     if is_absolute_path_exists or vision_tower.startswith("openai") or \
-       vision_tower.startswith("facebook") or vision_tower.startswith("microsoft"):
+       vision_tower.startswith("facebook") or vision_tower.startswith("microsoft") or vision_tower.startswith("google"):
         
         if "clip" in vision_tower.lower():
             return CLIPVisionTower(vision_tower, args=vision_tower_cfg, **kwargs)
         elif "dino" in vision_tower.lower():
             return DINOVisionTower(vision_tower, args=vision_tower_cfg, **kwargs)
+        elif "siglip" in vision_tower.lower():
+            return SigLIPVisionTower(vision_tower, args=vision_tower_cfg, **kwargs)
         else:
             raise ValueError(f'Unknown vision model type in vision_tower: {vision_tower}')
     

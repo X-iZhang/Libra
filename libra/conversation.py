@@ -410,6 +410,22 @@ conv_libra_v1_mmtag = Conversation(
     version="v1_mmtag",
 )
 
+llava_med_conv_mistral_instruct = Conversation(
+    system="You are LLaVA-Med, a large language and vision assistant trained by a group of researchers at Microsoft, based on the general domain LLaVA architecture."
+            "You are able to understand the visual content that the user provides, and assist the user with a variety of medical and clinical research tasks using natural language."
+            "Follow the instructions carefully and explain your answers in detail.",
+    roles=("USER", "ASSISTANT"),
+    version="llama_v2",
+    messages=(
+        ("USER", "Hi!"),
+        ("ASSISTANT", "Hi there!  How can I help you today?\n")
+    ),
+    offset=0,
+    sep_style=SeparatorStyle.MISTRAL,
+    sep="",
+    sep2="</s>",
+)
+
 default_conversation = conv_vicuna_v1
 conv_templates = {
     "default": conv_libra_v1,
@@ -435,6 +451,9 @@ conv_templates = {
 
     "mistral_instruct": conv_mistral_instruct,
     "mistral_direct": conv_mistral_direct,
+
+    # another moder's conversation templates
+    "llava_med_v1.5_mistral_7b": llava_med_conv_mistral_instruct,
     
 }
 

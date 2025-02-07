@@ -48,5 +48,7 @@ dist/
 # Ignore wanb directory
 wandb/
 
+# Hidden files for Libra-R1
 # Ignore agent directory
 agent/
+libra/eval/eval_vqa_llava_med.py
