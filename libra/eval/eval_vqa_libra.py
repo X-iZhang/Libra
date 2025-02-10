@@ -179,9 +179,9 @@ def eval_model(args):
         conv.append_message(conv.roles[0], qs)
         conv.append_message(conv.roles[1], None)
         prompt = conv.get_prompt()
-        
+
         input_ids = tokenizer_image_token(prompt, tokenizer, IMAGE_TOKEN_INDEX, return_tensors='pt').unsqueeze(0).cuda()
-        
+
         attention_mask = torch.ones(input_ids.shape, dtype=torch.long)
         pad_token_id = tokenizer.pad_token_id
         
@@ -190,7 +190,7 @@ def eval_model(args):
         stop_str = conv.sep if conv.sep_style not in {SeparatorStyle.TWO, SeparatorStyle.LLAMA_3, SeparatorStyle.MISTRAL} else conv.sep2
         keywords = [stop_str]
         stopping_criteria = KeywordsStoppingCriteria(keywords, tokenizer, input_ids)
-        
+
         with torch.inference_mode():
             torch.cuda.empty_cache() 
             if args.num_beams > 1:
@@ -232,7 +232,7 @@ def eval_model(args):
             
         outputs = tokenizer.batch_decode(output_ids[:, input_token_len:], skip_special_tokens=True)[0]
         outputs = outputs.strip()
-        
+
         ans_id = shortuuid.uuid()
         ans_file.write(json.dumps({"question_id": idx,
                                    "prompt": cur_prompt,

@@ -92,6 +92,12 @@ def load_pretrained_model(model_path, model_base, model_name, load_8bit=False, l
             if 'mistral' in model_name.lower():
                 tokenizer = AutoTokenizer.from_pretrained(model_path)
                 model = LibraMistralForCausalLM.from_pretrained(model_path, low_cpu_mem_usage=True, **kwargs)
+            elif 'phi' in model_name.lower():
+                tokenizer = AutoTokenizer.from_pretrained(model_path)
+                model = LibraPhi3ForCausalLM.from_pretrained(model_path, low_cpu_mem_usage=True, **kwargs)
+            elif 'gemma' in model_name.lower():
+                tokenizer = AutoTokenizer.from_pretrained(model_path)
+                model = LibraGemmaForCausalLM.from_pretrained(model_path, low_cpu_mem_usage=True, **kwargs)
             else:
                 tokenizer = AutoTokenizer.from_pretrained(model_path, use_fast=False)
                 model = LibraLlamaForCausalLM.from_pretrained(model_path, low_cpu_mem_usage=True, **kwargs)

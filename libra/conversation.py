@@ -12,6 +12,8 @@ class SeparatorStyle(Enum):
     LLAMA_2 = auto()
     LLAMA_3 = auto()
     MISTRAL = auto()
+    GEMMA = auto()
+    PHI3 = auto()
 
 
 @dataclasses.dataclass
@@ -133,6 +135,27 @@ class Conversation:
                     ret += message + seps[i % 2]
                 else:
                     ret += ""
+                    
+        elif self.sep_style == SeparatorStyle.GEMMA:
+            ret = self.system + self.sep
+            for role, message in messages:
+                if message:
+                    if type(message) is tuple:
+                        message, _, _ = message
+                    ret += role + message + self.sep
+                else:
+                    ret += role
+                    
+        elif self.sep_style == SeparatorStyle.PHI3:
+            ret = self.system + self.sep
+            for i, (role, message) in enumerate(messages):
+                if message:
+                    if type(message) is tuple:
+                        message, _, _ = message
+                    ret += self.roles[i % 2] + message + self.sep
+                else:
+                    ret += self.roles[i % 2]
+                    
         else:
             raise ValueError(f"Invalid style: {self.sep_style}")
 
@@ -222,7 +245,6 @@ class Conversation:
             "sep2": self.sep2,
         }
 
-    
 conv_mpt = Conversation(
     system="""<|im_start|>system
 A conversation between a user and an LLM-based AI assistant. The assistant gives helpful and honest answers.""",
@@ -232,6 +254,26 @@ A conversation between a user and an LLM-based AI assistant. The assistant gives
     offset=0,
     sep_style=SeparatorStyle.MPT,
     sep="<|im_end|>",
+)
+
+conv_gemma = Conversation(
+    system="""""",
+    roles=("<start_of_turn>user\n", "<start_of_turn>model\n"),
+    version="gemma",
+    messages=(),
+    offset=0,
+    sep_style=SeparatorStyle.GEMMA,
+    sep="<end_of_turn>\n",
+)
+
+conv_phi3 = Conversation(
+    system="""<|system|>\nYou are a helpful AI assistant.""",
+    roles=("\n<|user|>\n", "\n<|assistant|>\n"),
+    version="phi3",
+    messages=(),
+    offset=0,
+    sep_style=SeparatorStyle.PHI3,
+    sep="<|end|>",
 )
 
 conv_mistral_instruct = Conversation(
@@ -321,7 +363,7 @@ If a question does not make any sense, or is not factually coherent, explain why
     messages=(),
     offset=0,
     sep_style=SeparatorStyle.LLAMA_3,
-    sep=" ",
+    sep="<|begin_of_text|>",
     sep2="<|eot_id|>",
 )
 
@@ -341,7 +383,8 @@ conv_libra_llama_2 = Conversation(
 conv_libra_llama_3 = Conversation(
     system="You are a helpful language and vision assistant. "
            "You are able to understand the visual content that the user provides, "
-           "and assist the user with a variety of tasks using natural language.",
+           "and assist the user with a variety of tasks using natural language."
+           "The assistant specialized in comparing Chest X-ray images, identifying differences, and noting temporal changes.",
     roles=("USER", "ASSISTANT"),
     version="llama_v3",
     messages=(),
@@ -448,6 +491,8 @@ conv_templates = {
     "libra_llama_3": conv_libra_llama_3,
     
     "mpt": conv_mpt,
+    "conv_gemma": conv_gemma,
+    "conv_phi3": conv_phi3,
 
     "mistral_instruct": conv_mistral_instruct,
     "mistral_direct": conv_mistral_direct,
