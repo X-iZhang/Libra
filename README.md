@@ -22,6 +22,7 @@ This repository hosts **Libra**, a tool designed to generate radiology reports b
 </p></details>
 
 ## 🔥 News
+- **[11 Feb 2025]** 🚨 [**libra-Llama-3.2-3B-Instruct**](https://huggingface.co/X-iZhang/libra-Llama-3.2-3B-Instruct) has been released! A small MLLM 👏.
 - **[19 Jan 2025]** ⚡ The **online demo** is available at [Hugging Face Demo](https://huggingface.co/spaces/X-iZhang/Libra). Welcome to try it out!
 - **[07 Jan 2025]** The processed data is available at [Data Download](https://github.com/X-iZhang/Libra#data-download).
 - **[20 Dec 2024]** 🚨 [**Libra-v1.0-7b**](https://huggingface.co/X-iZhang/libra-v1.0-7b) has been released!
@@ -81,6 +82,7 @@ pip install -e .
 | Version | Base LLM | Vision Encoder| Checkpoint |
 | ------- | ------- | ------- | ------- |
 | Libra v1.0 | Meditron-7B | RAD-DINO | [X-iZhang/libra-v1.0-7b](https://huggingface.co/X-iZhang/libra-v1.0-7b) |
+| Libra v1.0 | Llama-3.2-3B-Instruct | RAD-DINO | [X-iZhang/libra-Llama-3.2-3B-Instruct](https://huggingface.co/X-iZhang/libra-Llama-3.2-3B-Instruct) |
 
 ## Quick Start
 
