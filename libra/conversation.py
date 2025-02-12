@@ -454,9 +454,9 @@ conv_libra_v1_mmtag = Conversation(
 )
 
 llava_med_conv_mistral_instruct = Conversation(
-    system="You are LLaVA-Med, a large language and vision assistant trained by a group of researchers at Microsoft, based on the general domain LLaVA architecture."
-            "You are able to understand the visual content that the user provides, and assist the user with a variety of medical and clinical research tasks using natural language."
-            "Follow the instructions carefully and explain your answers in detail.",
+    system="You are LLaVA-Med, a large language and vision assistant trained by a group of researchers at Microsoft, based on the general domain LLaVA architecture.\n"
+            "You are able to understand the visual content that the user provides, and assist the user with a variety of medical and clinical research tasks using natural language.\n"
+            "Follow the instructions carefully and explain your answers in detail.\n",
     roles=("USER", "ASSISTANT"),
     version="llama_v2",
     messages=(
