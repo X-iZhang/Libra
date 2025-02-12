@@ -22,9 +22,11 @@ This repository hosts **Libra**, a tool designed to generate radiology reports b
 </p></details>
 
 ## 🔥 News
+
 - **[11 Feb 2025]** 🚨 [**libra-Llama-3.2-3B-Instruct**](https://huggingface.co/X-iZhang/libra-Llama-3.2-3B-Instruct) has been released! A small MLLM 👏.
+- **[10 Feb 2025]** 🔥 The [**Libra**](https://github.com/X-iZhang/Libra) repo now supports [Mistral](https://huggingface.co/mistralai), [Phi-3](https://huggingface.co/collections/microsoft/phi-3-6626e15e9585a200d2d761e3), and [Gemma](https://huggingface.co/collections/google/gemma-2-release-667d6600fd5220e7b967f315) as LLMs, along with [SigLip](https://huggingface.co/collections/google/siglip-659d5e62f0ae1a57ae0e83ba) as the encoder! 🚀
 - **[19 Jan 2025]** ⚡ The **online demo** is available at [Hugging Face Demo](https://huggingface.co/spaces/X-iZhang/Libra). Welcome to try it out!
-- **[07 Jan 2025]** The processed data is available at [Data Download](https://github.com/X-iZhang/Libra#data-download).
+- **[07 Jan 2025]** 🗂️ The processed data is available at [Data Download](https://github.com/X-iZhang/Libra#data-download).
 - **[20 Dec 2024]** 🚨 [**Libra-v1.0-7b**](https://huggingface.co/X-iZhang/libra-v1.0-7b) has been released!
 
 ## Overview
