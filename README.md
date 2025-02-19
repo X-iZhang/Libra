@@ -86,6 +86,11 @@ pip install -e .
 | Libra v1.0 | Meditron-7B | RAD-DINO | [X-iZhang/libra-v1.0-7b](https://huggingface.co/X-iZhang/libra-v1.0-7b) |
 | Libra v1.0 | Llama-3.2-3B-Instruct | RAD-DINO | [X-iZhang/libra-Llama-3.2-3B-Instruct](https://huggingface.co/X-iZhang/libra-Llama-3.2-3B-Instruct) |
 
+<p align="center">
+  <img src="./assets/result_chart.png" width="400px"> <br>
+  Libra-v1.0-7b achieves SoTA performance.
+</p>
+
 ## Quick Start
 
 ### Gradio Web UI
@@ -283,7 +288,7 @@ We set reasonable hyperparameters based on our device. The hyperparameters used 
 
 | Hyperparameter | Global Batch Size | Learning rate | Epochs | Max length | Weight decay | LoRA rank | LoRA alpha |
 | --- | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
-| Libra-v1.0-7b | 16 | 2e-5 | 1 | 2048 | 0 | 128 | 256 |
+| Libra-v1.0-7b | 16 | 2e-5 | 3 | 2048 | 0 | 128 | 256 |
 
 ### Download Meditron checkpoints (automatically)
 
