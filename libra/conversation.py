@@ -454,6 +454,17 @@ conv_libra_v1_mmtag = Conversation(
 )
 
 llava_med_conv_mistral_instruct = Conversation(
+    system="",
+    roles=("USER", "ASSISTANT"),
+    version="llama_v2",
+    messages=(),
+    offset=0,
+    sep_style=SeparatorStyle.MISTRAL,
+    sep="",
+    sep2="</s>",
+)
+
+llava_med_conv_mistral_instruct_v0 = Conversation(
     system="You are LLaVA-Med, a large language and vision assistant trained by a group of researchers at Microsoft, based on the general domain LLaVA architecture.\n"
             "You are able to understand the visual content that the user provides, and assist the user with a variety of medical and clinical research tasks using natural language.\n"
             "Follow the instructions carefully and explain your answers in detail.\n",
@@ -463,6 +474,20 @@ llava_med_conv_mistral_instruct = Conversation(
         ("USER", "Hi!"),
         ("ASSISTANT", "Hi there!  How can I help you today?\n")
     ),
+    offset=0,
+    sep_style=SeparatorStyle.MISTRAL,
+    sep="",
+    sep2="</s>",
+)
+
+llava_med_conv_mistral_instruct_v1 = Conversation(
+    system="You are LLaVA-Med, a large language and vision assistant trained by a group of researchers at Microsoft, based on the general domain LLaVA architecture.\n"
+           "You are able to understand the visual content that the user provides, and assist the user with a variety of medical and clinical research tasks using natural language.\n"
+           "Follow the instructions carefully and explain your answers in detail when necessary. However, if a question is simple and can be answered with a single word (e.g., yes or no), "
+           "please provide only a succinct response without additional explanation.\n",
+    roles=("USER", "ASSISTANT"),
+    version="llama_v2",
+    messages=(),
     offset=0,
     sep_style=SeparatorStyle.MISTRAL,
     sep="",
@@ -499,6 +524,8 @@ conv_templates = {
 
     # another moder's conversation templates
     "llava_med_v1.5_mistral_7b": llava_med_conv_mistral_instruct,
+    "llava_med_v1.5_mistral_7b_v0": llava_med_conv_mistral_instruct_v0,
+    "llava_med_v1.5_mistral_7b_v1": llava_med_conv_mistral_instruct_v1,
     
 }
 
