@@ -193,7 +193,7 @@ def eval_model(args):
 
         with torch.inference_mode():
             torch.cuda.empty_cache() 
-            if args.num_beams > 1:
+            if args.num_beams >= 1:
                 output_ids = model.generate(
                     input_ids=input_ids,
                     images=image_tensors,
@@ -256,7 +256,7 @@ if __name__ == "__main__":
     parser.add_argument("--temperature", type=float, default=0.2)
     parser.add_argument("--top_p", type=float, default=None)
     parser.add_argument("--num_beams", type=int, default=1)
-    parser.add_argument("--num_return_sequences", type=int, default=None)
+    parser.add_argument("--num_return_sequences", type=int, default=1)
     parser.add_argument("--length_penalty", type=float, default=1.0)
     parser.add_argument("--max_new_tokens", type=int, default=128)
     args = parser.parse_args()
