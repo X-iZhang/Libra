@@ -32,10 +32,11 @@ def process_images(images, image_processor, model_cfg):
             raise ValueError("Input images list is empty.")
 
         if image_aspect_ratio == 'pad':
+            background_color = tuple(int(x * 255) for x in image_processor.image_mean)
             for image in images:
                 if not isinstance(image, Image.Image):
                     raise TypeError("All input images must be of type PIL.Image.")
-                image = expand2square(image, (0, 0, 0))
+                image = expand2square(image, background_color)
                 image = image_processor.preprocess(image, return_tensors='pt')['pixel_values'][0]
                 new_images.append(image)
         else:

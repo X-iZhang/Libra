@@ -193,12 +193,14 @@ def eval_model(args):
 
         with torch.inference_mode():
             torch.cuda.empty_cache() 
-            if args.num_beams >= 1:
+            if args.num_beams > 1:
                 output_ids = model.generate(
                     input_ids=input_ids,
                     images=image_tensors,
                     do_sample=False,
                     num_beams=args.num_beams,
+                    temperature=args.temperature,
+                    top_p=args.top_p,
                     no_repeat_ngram_size=3,
                     max_new_tokens=args.max_new_tokens,
                     stopping_criteria=[stopping_criteria],
@@ -215,7 +217,6 @@ def eval_model(args):
                     do_sample= True,
                     temperature=args.temperature,
                     top_p=args.top_p,
-                    num_beams=args.num_beams,
                     no_repeat_ngram_size=3,
                     max_new_tokens=args.max_new_tokens,
                     stopping_criteria=[stopping_criteria],
