@@ -53,7 +53,7 @@ def process_images(images, image_processor, model_cfg):
 
 def tokenizer_image_token(prompt, tokenizer, image_token_index=IMAGE_TOKEN_INDEX, return_tensors=None):
     prompt_chunks = [tokenizer(chunk).input_ids for chunk in prompt.split('<image>')]
-    #  使用分词器将输入文本prompt按<image>标记分割，然后对每个分割后的文本块进行分词处理，获取对应的输入ID列表。
+    # Use the tokenizer to split the input text prompt by the <image> token, then tokenize each chunk to get the corresponding input ID list.
     def insert_separator(X, sep):
         return [ele for sublist in zip(X, [sep]*len(X)) for ele in sublist][:-1]
 
