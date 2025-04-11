@@ -23,7 +23,7 @@
 
 ## 🔥 News
 - **[24 Mar 2025]** 🏆 **Libra** was invited to the [**ReXrank**](https://rexrank.ai/) Challenge — a leading leaderboard for Chest X-ray Report Generation.
-- **[10 Mar 2025]**  ✅ The architecture of [LLaVA-Med v1.5](https://huggingface.co/microsoft/llava-med-v1.5-mistral-7b) is now supported by this repo. Compatible weights are provided for direct use here, with 'unfreeze_mm_vision_tower: true' set to ensure the adapted vision encoder is used.
+- **[10 Mar 2025]**  ✅ The architecture of [LLaVA-Med v1.5](https://huggingface.co/microsoft/llava-med-v1.5-mistral-7b) is now supported by this repo. [**Compatible weights**](https://github.com/X-iZhang/Libra?tab=readme-ov-file#libra-v05) are provided, with 'unfreeze_mm_vision_tower: true' set to ensure the *adapted* vision encoder is used.
 - **[11 Feb 2025]** 🚨 [**Libra-Llama-3.2-3B-Instruct**](https://huggingface.co/X-iZhang/libra-Llama-3.2-3B-Instruct) has been released! A **Small Language Model for Radiology Report Generation**,  following the same training strategy as **Libra**.
 - **[10 Feb 2025]** 🚀 The [**Libra**](https://github.com/X-iZhang/Libra) repo now supports [Mistral](https://huggingface.co/mistralai), [Phi-3](https://huggingface.co/collections/microsoft/phi-3-6626e15e9585a200d2d761e3), and [Gemma](https://huggingface.co/collections/google/gemma-2-release-667d6600fd5220e7b967f315) as LLMs, along with [SigLip](https://huggingface.co/collections/google/siglip-659d5e62f0ae1a57ae0e83ba) as the encoder!
 - **[19 Jan 2025]** ⚡ The **online demo** is available at [Hugging Face Demo](https://huggingface.co/spaces/X-iZhang/Libra). Welcome to try it out!
