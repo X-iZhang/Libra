@@ -9,7 +9,7 @@
 [![License](https://img.shields.io/badge/License-Apache%202.0-yellow.svg?)](https://github.com/X-iZhang/Libra/blob/main/LICENSE)
 <!--[![Views](https://hits.seeyoufarm.com/api/count/incr/badge.svg?url=https%3A%2F%2Fgithub.com%2FX-iZhang%2FLibra&count_bg=%2300C0FF&title_bg=%23004080&icon=&icon_color=%23FFFFFF&title=Views)](https://hits.seeyoufarm.com)-->
 
-This repository hosts **Libra**, a tool designed to generate radiology reports by leveraging temporal information from chest X-rays taken at different time points.
+*This repository hosts **Libra**, a tool designed to generate radiology reports by leveraging temporal information from chest X-rays taken at different time points.*
 
 <details open><summary>📢 More Than Radiology: Codespace Features for MLLMs Workflow You’ll Love! 🎉 </summary><p>
 
@@ -23,14 +23,15 @@ This repository hosts **Libra**, a tool designed to generate radiology reports b
 
 ## 🔥 News
 - **[24 Mar 2025]** 🏆 **Libra** was invited to the [**ReXrank**](https://rexrank.ai/) Challenge — a leading leaderboard for Chest X-ray Report Generation.
-- **[11 Feb 2025]** 🚨 [**libra-Llama-3.2-3B-Instruct**](https://huggingface.co/X-iZhang/libra-Llama-3.2-3B-Instruct) has been released! A small MLLM 👏.
-- **[10 Feb 2025]** 🔥 The [**Libra**](https://github.com/X-iZhang/Libra) repo now supports [Mistral](https://huggingface.co/mistralai), [Phi-3](https://huggingface.co/collections/microsoft/phi-3-6626e15e9585a200d2d761e3), and [Gemma](https://huggingface.co/collections/google/gemma-2-release-667d6600fd5220e7b967f315) as LLMs, along with [SigLip](https://huggingface.co/collections/google/siglip-659d5e62f0ae1a57ae0e83ba) as the encoder! 🚀
+- **[10 Mar 2025]**  ✅ The architecture of [LLaVA-Med v1.5](https://huggingface.co/microsoft/llava-med-v1.5-mistral-7b) is now supported by this repo. Compatible weights are provided for direct use here, with 'unfreeze_mm_vision_tower: true' set to ensure the adapted vision encoder is used.
+- **[11 Feb 2025]** 🚨 [**Libra-Llama-3.2-3B-Instruct**](https://huggingface.co/X-iZhang/libra-Llama-3.2-3B-Instruct) has been released! A **Small Language Model for Radiology Report Generation**,  following the same training strategy as **Libra**.
+- **[10 Feb 2025]** 🚀 The [**Libra**](https://github.com/X-iZhang/Libra) repo now supports [Mistral](https://huggingface.co/mistralai), [Phi-3](https://huggingface.co/collections/microsoft/phi-3-6626e15e9585a200d2d761e3), and [Gemma](https://huggingface.co/collections/google/gemma-2-release-667d6600fd5220e7b967f315) as LLMs, along with [SigLip](https://huggingface.co/collections/google/siglip-659d5e62f0ae1a57ae0e83ba) as the encoder!
 - **[19 Jan 2025]** ⚡ The **online demo** is available at [Hugging Face Demo](https://huggingface.co/spaces/X-iZhang/Libra). Welcome to try it out!
 - **[07 Jan 2025]** 🗂️ The processed data is available at [Data Download](https://github.com/X-iZhang/Libra#data-download).
 - **[20 Dec 2024]** 🚨 [**Libra-v1.0-7b**](https://huggingface.co/X-iZhang/libra-v1.0-7b) has been released!
 
 ## Overview
-Radiology report generation (RRG) requires integrating temporal medical images and creating accurate reports. Traditional methods often overlook crucial temporal information. We introduce Libra, a temporal-aware multimodal large language model (MLLM) for chest X-ray (CXR) report generation. Libra combines a radiology-specific image encoder with an MLLM and uses a Temporal Alignment Connector to capture and synthesize temporal information. Experiments show that Libra sets new performance benchmarks on the MIMIC-CXR dataset for the RRG task.
+Radiology report generation requires integrating temporal medical images and creating accurate reports. Traditional methods often overlook crucial temporal information. We introduce **Libra**, a temporal-aware MLLM for chest X-ray report generation. Libra combines a radiology-specific image encoder with a novel **`Temporal Alignment Connector (TAC)`**, designed to accurately capture and integrate temporal differences between paired current and prior images. Experiments show that Libra sets new performance benchmarks on the MIMIC-CXR dataset for the RRG task.
 
 <details>
 <summary>Libra’s Architecture</summary>
@@ -41,7 +42,7 @@ Radiology report generation (RRG) requires integrating temporal medical images a
 
 ## Contents
 - [Install](#install)
-- [Libra Weights](#libra-weights)
+- [Model Weights](#model-weights)
 - [Quick Start](#quick-start)
 - [Dataset](#dataset)
 - [Train](#train)
@@ -79,17 +80,48 @@ pip install -e .
 
 </details>
 
-## Libra Weights
-
-| Version | Base LLM | Vision Encoder| Checkpoint |
-| ------- | ------- | ------- | ------- |
-| Libra v1.0 | Meditron-7B | RAD-DINO | [X-iZhang/libra-v1.0-7b](https://huggingface.co/X-iZhang/libra-v1.0-7b) |
-| Libra v1.0 | Llama-3.2-3B-Instruct | RAD-DINO | [X-iZhang/libra-Llama-3.2-3B-Instruct](https://huggingface.co/X-iZhang/libra-Llama-3.2-3B-Instruct) |
+## Model Weights
 
 <p align="center">
-  <img src="./assets/result_chart.png" width="400px"> <br>
-  Libra-v1.0-7b achieves SoTA performance.
+  <img src="./assets/result_chart.png" width="350px"> <br>
+  Libra-v1.0 achieves SoTA performance.
 </p>
+
+### Libra-v1.0
+| Version | Size | Projector | Base LLM | Vision Encoder| Checkpoint |
+| ----------- | ----------- | ----------- | ----------- | ----------- | ----------- |
+| Libra-1.0 | 7B | TAC | Meditron-7B | RAD-DINO | [libra-v1.0-7b](https://huggingface.co/X-iZhang/libra-v1.0-7b) |
+| Libra-1.0 | 3B | TAC | Llama-3.2-3B-Instruct| RAD-DINO | [libra-Llama-3.2-3B-Instruct](https://huggingface.co/X-iZhang/libra-Llama-3.2-3B-Instruct) |
+
+### Libra-v0.5
+
+| Version | Size | Projector | Base LLM | Vision Encoder| Checkpoint |
+| ----------- | ----------- | ----------- | ----------- | ----------- | ----------- |
+| Libra-0.5 | 7B | MLP-2x | Vicuna-7B | CLIP-L-336px | [libra-v0.5-findings](https://huggingface.co/X-iZhang/libra-v0.5-findings) |
+| Libra-0.5 | 7B | MLP-2x | Vicuna-7B | CLIP-L-336px | [libra-v0.5-impressions](https://huggingface.co/X-iZhang/libra-v0.5-impressions) |
+| Llava-med | 7B | MLP-2x | Mistral-7B-Instruct-v0.2 | CLIP-L-336px (adapted) | [llava-med-v1.5](https://huggingface.co/X-iZhang/libra-llava-med-v1.5-mistral-7b) |
+
+*Note: These two models are fine-tuned for `Findings` and `Impression` section generation. More details: [Gla-AI4BioMed at RRG24](https://github.com/X-iZhang/RRG-BioNLP-ACL2024)*
+
+### Projector weights
+
+These projector weights were pre-trained for visual instruction tuning on chest X-ray to text generation tasks. They can be directly used to initialise your model for multimodal fine-tuning in similar clinical domains.
+
+⚠️ Important Note: For compatibility, please ensure that the *base LLM*, *conv_mode*, and *vision encoder* exactly match those used in our projector pretraining setup. Please also ensure the following settings are correctly configured during instruction tuning:
+
+```Shell
+--mm_projector_type TAC \
+--mm_vision_select_layer all \
+--mm_vision_select_feature patch \
+--mm_use_im_start_end False \
+--mm_use_im_patch_token False \
+```
+
+| Base LLM | conv_mode | Vision Encoder | Projector | Pretrain Data | Download |
+| ----------- | ----------- | ----------- | ----------- | ----------- | ----------- |
+| Meditron-7B | libra_v1 | RAD-DINO | TAC | RRG & VQA | [projector](https://huggingface.co/X-iZhang/libra-v1.0-7b/resolve/main/mm_tac_projector.bin?download=true) |
+| Llama-3.2-3B-Instruct | libra_llama_3 | RAD-DINO | TAC | RRG & VQA | [projector](https://huggingface.co/X-iZhang/libra-Llama-3.2-3B-Instruct/resolve/main/mm_tac_projector.bin?download=true) |
+
 
 ## Quick Start
 
@@ -430,10 +462,10 @@ We sincerely thank the following projects for their contributions to **Libra**:
 
 If you find our paper and code useful in your research and applications, please cite using this BibTeX:
 ```BibTeX
-@misc{zhang2024libraleveragingtemporalimages,
+@misc{zhang2025libraleveragingtemporalimages,
       title={Libra: Leveraging Temporal Images for Biomedical Radiology Analysis}, 
       author={Xi Zhang and Zaiqiao Meng and Jake Lever and Edmond S. L. Ho},
-      year={2024},
+      year={2025},
       eprint={2411.19378},
       archivePrefix={arXiv},
       primaryClass={cs.CV},
