@@ -24,7 +24,7 @@
 ## 🔥 News
 - **[24 Mar 2025]** 🏆 **Libra** was invited to the [**ReXrank**](https://rexrank.ai/) Challenge — a leading leaderboard for Chest X-ray Report Generation.
 - **[10 Mar 2025]**  ✅ The architecture of [LLaVA-Med v1.5](https://huggingface.co/microsoft/llava-med-v1.5-mistral-7b) is now supported by this repo. [**Compatible weights**](https://github.com/X-iZhang/Libra?tab=readme-ov-file#libra-v05) are provided, with 'unfreeze_mm_vision_tower: true' set to ensure the *adapted* vision encoder is used.
-- **[11 Feb 2025]** 🚨 [**Libra-Llama-3.2-3B-Instruct**](https://huggingface.co/X-iZhang/libra-Llama-3.2-3B-Instruct) has been released! A **Small Language Model for Radiology Report Generation**,  following the same training strategy as **Libra**.
+- **[11 Feb 2025]** 🚨 [**Libra-v1.0-3b**](https://huggingface.co/X-iZhang/libra-Llama-3.2-3B-Instruct) has been released! A **Small Language Model for Radiology Report Generation**,  following the same training strategy as **Libra**.
 - **[10 Feb 2025]** 🚀 The [**Libra**](https://github.com/X-iZhang/Libra) repo now supports [Mistral](https://huggingface.co/mistralai), [Phi-3](https://huggingface.co/collections/microsoft/phi-3-6626e15e9585a200d2d761e3), and [Gemma](https://huggingface.co/collections/google/gemma-2-release-667d6600fd5220e7b967f315) as LLMs, along with [SigLip](https://huggingface.co/collections/google/siglip-659d5e62f0ae1a57ae0e83ba) as the encoder!
 - **[19 Jan 2025]** ⚡ The **online demo** is available at [Hugging Face Demo](https://huggingface.co/spaces/X-iZhang/Libra). Welcome to try it out!
 - **[07 Jan 2025]** 🗂️ The processed data is available at [Data Download](https://github.com/X-iZhang/Libra#data-download).
@@ -91,7 +91,7 @@ pip install -e .
 | Version | Size | Projector | Base LLM | Vision Encoder| Checkpoint |
 | ----------- | ----------- | ----------- | ----------- | ----------- | ----------- |
 | Libra-1.0 | 7B | TAC | Meditron-7B | RAD-DINO | [libra-v1.0-7b](https://huggingface.co/X-iZhang/libra-v1.0-7b) |
-| Libra-1.0 | 3B | TAC | Llama-3.2-3B-Instruct| RAD-DINO | [libra-Llama-3.2-3B-Instruct](https://huggingface.co/X-iZhang/libra-Llama-3.2-3B-Instruct) |
+| Libra-1.0 | 3B | TAC | Llama-3.2-3B-Instruct| RAD-DINO | [libra-v1.0-3b](https://huggingface.co/X-iZhang/libra-Llama-3.2-3B-Instruct) |
 
 ### Libra-v0.5
 
@@ -107,11 +107,11 @@ pip install -e .
 
 These projector weights were pre-trained for visual instruction tuning on chest X-ray to text generation tasks. They can be directly used to initialise your model for multimodal fine-tuning in similar clinical domains.
 
-⚠️ Important Note: For compatibility, please ensure that the *base LLM*, *conv_mode*, and *vision encoder* exactly match those used in our projector pretraining setup. Please also ensure the following settings are correctly configured during instruction tuning:
+⚠️ Important Note: For compatibility, please ensure that the *projector type*, *base LLM*, *conv_mode*, and *vision encoder* exactly match those used in our projector pretraining setup. Please also ensure the following settings are correctly configured during instruction tuning:
 
 ```Shell
---mm_projector_type TAC \
---mm_vision_select_layer all \
+--mm_projector_type TAC \ # or mlp2x_gelu
+--mm_vision_select_layer all \ # or -2
 --mm_vision_select_feature patch \
 --mm_use_im_start_end False \
 --mm_use_im_patch_token False \
@@ -119,9 +119,11 @@ These projector weights were pre-trained for visual instruction tuning on chest 
 
 | Base LLM | conv_mode | Vision Encoder | Projector | Pretrain Data | Download |
 | ----------- | ----------- | ----------- | ----------- | ----------- | ----------- |
-| Meditron-7B | libra_v1 | RAD-DINO | TAC | RRG & VQA | [projector](https://huggingface.co/X-iZhang/libra-v1.0-7b/resolve/main/mm_tac_projector.bin?download=true) |
-| Llama-3.2-3B-Instruct | libra_llama_3 | RAD-DINO | TAC | RRG & VQA | [projector](https://huggingface.co/X-iZhang/libra-Llama-3.2-3B-Instruct/resolve/main/mm_tac_projector.bin?download=true) |
-
+| Meditron-7B | libra_v1 | RAD-DINO | TAC | [RRG & VQA](https://physionet.org/content/mimic-cxr) | [projector](https://huggingface.co/X-iZhang/libra-v1.0-7b/resolve/main/mm_tac_projector.bin?download=true) |
+| Llama-3.2-3B-Instruct | libra_llama_3 | RAD-DINO | TAC | [RRG & VQA](https://physionet.org/content/mimic-cxr) | [projector](https://huggingface.co/X-iZhang/libra-Llama-3.2-3B-Instruct/resolve/main/mm_tac_projector.bin?download=true) |
+| Vicuna-7B| libra_v0 | CLIP-L-336px| MLP-2x | [Findings section](https://huggingface.co/datasets/StanfordAIMI/rrg24-shared-task-bionlp) | [projector](https://huggingface.co/X-iZhang/libra-v0.5-findings/resolve/main/mm_mlp2x_projector_findings.bin?download=true) |
+| Vicuna-7B | libra_v0 | CLIP-L-336px | MLP-2x | [Impression section](https://huggingface.co/datasets/StanfordAIMI/rrg24-shared-task-bionlp) | [projector](https://huggingface.co/X-iZhang/libra-v0.5-impressions/resolve/main/mm_mlp2x_projector_impressions.bin?download=true) |
+| Mistral-7B-Instruct-v0.2| llava_med_v1.5_mistral_7b | CLIP-L-336px | MLP-2x | [LLaVA-Med Dataset](https://github.com/microsoft/LLaVA-Med?tab=readme-ov-file#llava-med-dataset) | [projector](https://huggingface.co/X-iZhang/libra-llava-med-v1.5-mistral-7b/resolve/main/mm_mlp2x_projector_llavamed.bin?download=true) |
 
 ## Quick Start
 
