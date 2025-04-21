@@ -98,8 +98,8 @@ pip install -e .
 
 | Version | Size | Projector | Base LLM | Vision Encoder| Checkpoint |
 | ----------- | ----------- | ----------- | ----------- | ----------- | ----------- |
-| Libra-0.5 | 7B | MLP-2x | Vicuna-7B | CLIP-L-336px | [libra-v0.5-findings](https://huggingface.co/X-iZhang/libra-v0.5-findings) |
-| Libra-0.5 | 7B | MLP-2x | Vicuna-7B | CLIP-L-336px | [libra-v0.5-impressions](https://huggingface.co/X-iZhang/libra-v0.5-impressions) |
+| Libra-0.5 | 7B | MLP-2x | Vicuna-7B | CLIP-L-336px | [Med-CXRGen-F](https://huggingface.co/X-iZhang/libra-v0.5-findings) |
+| Libra-0.5 | 7B | MLP-2x | Vicuna-7B | CLIP-L-336px | [Med-CXRGen-I](https://huggingface.co/X-iZhang/libra-v0.5-impressions) |
 | Llava-med | 7B | MLP-2x | Mistral-7B-Instruct-v0.2 | CLIP-L-336px (adapted) | [llava-med-v1.5](https://huggingface.co/X-iZhang/libra-llava-med-v1.5-mistral-7b) |
 
 *Note: These two models are fine-tuned for `Findings` and `Impression` section generation. More details: [Gla-AI4BioMed at RRG24](https://github.com/X-iZhang/RRG-BioNLP-ACL2024)*
