@@ -59,7 +59,7 @@ Radiology report generation requires integrating temporal medical images and cre
     - [Hyperparameters](#hyperparameters)
     - [Stage 1: visual feature alignment](#stage-1-visual-feature-alignment)
     - [Stage 2: RRG downstream task fine-tuning](#stage-2-rrg-downstream-task-fine-tuning)
-    - [New Options to Note](#new-options-to-note)
+    - [✨New Options to Note](#new-options-to-note)
 - [Evaluation](#evaluation)
     - [Generate model responses](#1-generate-libra-responses)
     - [Evaluate the generated report](#2-evaluate-the-generated-report)
