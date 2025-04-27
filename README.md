@@ -44,10 +44,26 @@ Radiology report generation requires integrating temporal medical images and cre
 ## Contents
 - [Install](#install)
 - [Model Weights](#model-weights)
+    - [Libra-v1.0](#libra-v10)
+    - [Libra-v0.5](#libra-v05)
+    - [Projector weights](#projector-weights)
 - [Quick Start](#quick-start)
+    - [Gradio Web UI](#gradio-web-ui)
+    - [CLI Inference](#cli-inference)
+    - [Script Inference](#script-inference)
 - [Dataset](#dataset)
+    - [Prepare Data](#prepare-data)
+    - [Preprocess Data](#preprocess-data)
+    - [Data Download](#data-download)
 - [Train](#train)
+    - [Hyperparameters](#hyperparameters)
+    - [Stage 1: visual feature alignment](#stage-1-visual-feature-alignment)
+    - [Stage 2: RRG downstream task fine-tuning](#stage-2-rrg-downstream-task-fine-tuning)
+    - [New Options to Note](#new-options-to-note)
 - [Evaluation](#evaluation)
+    - [Generate model responses](#1-generate-libra-responses)
+    - [Evaluate the generated report](#2-evaluate-the-generated-report)
+    - [Metrics](#metrics)
 
 ## Install
 We strongly recommend that you create an environment from scratch as follows:
