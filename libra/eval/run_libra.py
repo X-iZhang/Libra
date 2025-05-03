@@ -157,9 +157,11 @@ def libra_eval(
     else:
         qs = DEFAULT_IMAGE_TOKEN + '\n' + qs
 
-    if 'llama-3' in model_name.lower():
+    if 'libra-v1.0-3b' in model_name.lower():
         mode_conv = "libra_llama_3"
-    if 'mistral' in model_name.lower():
+    elif 'cxrgen' in model_name.lower():
+        mode_conv = "libra_v0"
+    elif 'mistral' in model_name.lower():
         mode_conv = "mistral_instruct"
     else:
         mode_conv = "libra_v1"

@@ -214,13 +214,16 @@ def eval_model(args):
                 output_ids = model.generate(
                     input_ids,
                     images=image_tensors,
-                    do_sample= True,
+                    do_sample=True if args.temperature > 0 else False,
                     temperature=args.temperature,
                     top_p=args.top_p,
                     no_repeat_ngram_size=3,
                     max_new_tokens=args.max_new_tokens,
                     stopping_criteria=[stopping_criteria],
                     use_cache=True,
+                    length_penalty=args.length_penalty,
+                    output_scores=True, 
+                    num_return_sequences = args.num_return_sequences,
                     attention_mask=attention_mask, 
                     pad_token_id=pad_token_id)
             
