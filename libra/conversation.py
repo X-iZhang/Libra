@@ -407,12 +407,13 @@ conv_libra_plain = Conversation(
 conv_libra_v0 = Conversation(
     system="A chat between a curious human and an artificial intelligence assistant. "
            "The assistant gives helpful, detailed, and polite answers to the human's questions.",
-    roles=("Human", "Assistant"),
-    messages=(
-    ),
+    roles=("USER", "ASSISTANT"),
+    version="v1",
+    messages=(),
     offset=0,
-    sep_style=SeparatorStyle.SINGLE,
-    sep="###",
+    sep_style=SeparatorStyle.TWO,
+    sep=" ",
+    sep2="</s>",
 )
 
 conv_libra_v0_mmtag = Conversation(
