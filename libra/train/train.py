@@ -390,7 +390,8 @@ def preprocess_llama_2(
 
     targets = input_ids.clone()
 
-    assert conv.sep_style == conversation_lib.SeparatorStyle.LLAMA_2
+    assert conv.sep_style in (conversation_lib.SeparatorStyle.LLAMA_2, 
+                              conversation_lib.SeparatorStyle.MISTRAL) 
 
     # Mask targets
     sep = "[/INST] "
@@ -1355,7 +1356,7 @@ def make_supervised_data_module(tokenizer: transformers.PreTrainedTokenizer,
                 eval_dataset=eval_dataset,
                 data_collator=data_collator)
 
-def train():
+def train(attn_implementation=None):
     global local_rank
 
     parser = transformers.HfArgumentParser(
@@ -1407,6 +1408,7 @@ def train():
             model = LibraPhi3ForCausalLM.from_pretrained(
                 model_args.model_name_or_path,
                 cache_dir=training_args.cache_dir,
+                attn_implementation=attn_implementation,
                 torch_dtype=(torch.bfloat16 if training_args.bf16 else None),
                 **bnb_model_from_pretrained_args
             )
@@ -1436,6 +1438,7 @@ def train():
         model = transformers.LlamaForCausalLM.from_pretrained(
             model_args.model_name_or_path,
             cache_dir=training_args.cache_dir,
+            attn_implementation=attn_implementation,
             torch_dtype=(torch.bfloat16 if training_args.bf16 else None),
             **bnb_model_from_pretrained_args
         )
