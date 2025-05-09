@@ -451,6 +451,20 @@ conv_libra_v1_5_pretrain = Conversation(
     sep2="</s>",
 )
 
+conv_libra_v1_5_phi4_pretrain = Conversation(
+    system="<|system|>\nChest X-ray interpretation task. "
+           "The input consists of a current chest radiograph, optionally paired with a prior image or clinically similar reference. "
+           "The model should identify radiologically significant abnormalities, detect and describe temporal changes or differences, and answer clinically relevant visual questions. " 
+           "Depending on the task, the output may be a structured Findings or Impression section focusing on critical observations, or a concise answer to a specific query. "
+           "All outputs must follow radiological reporting standards and employ professional clinical terminology.",
+    roles=("\n<|user|>\n", "\n<|assistant|>\n"),
+    version="phi3",
+    messages=(),
+    offset=0,
+    sep_style=SeparatorStyle.PHI3,
+    sep="<|end|>",
+)
+
 conv_libra_v1_5_finetune = Conversation(
     system="Generate the 'Findings' section of a radiology report for a chest X-ray examination. "
            "Describe all clinically significant normal and abnormal findings using concise, structured, and professional medical language. "
@@ -463,6 +477,19 @@ conv_libra_v1_5_finetune = Conversation(
     sep_style=SeparatorStyle.TWO,
     sep=" ",
     sep2="</s>",
+)
+
+conv_libra_v1_5_phi4_finetune = Conversation(
+    system="<|system|>\nGenerate the 'Findings' section of a radiology report for a chest X-ray examination. "
+           "Describe all clinically significant normal and abnormal findings using concise, structured, and professional medical language. "
+           "If a prior image is available, incorporate relevant temporal comparisons, noting any improvements, worsening, or stability. "
+           "Avoid referencing prior studies unless they are explicitly provided or clinically necessary to explain the current condition.",
+    roles=("\n<|user|>\n", "\n<|assistant|>\n"),
+    version="phi3",
+    messages=(),
+    offset=0,
+    sep_style=SeparatorStyle.PHI3,
+    sep="<|end|>",
 )
 
 conv_libra_v1_mmtag = Conversation(
@@ -534,6 +561,8 @@ conv_templates = {
     # Next generation models libra-v1.5
     "libra_v1.5_pretrain": conv_libra_v1_5_pretrain,
     "libra_v1.5_finetune": conv_libra_v1_5_finetune,
+    "libra_v1.5_phi4_pretrain": conv_libra_v1_5_phi4_pretrain,
+    "libra_v1.5_phi4_finetune": conv_libra_v1_5_phi4_finetune,
 
     "libra_v0_mmtag": conv_libra_v0_mmtag,
     "libra_v1_mmtag": conv_libra_v1_mmtag,
