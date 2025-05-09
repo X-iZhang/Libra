@@ -342,9 +342,7 @@ conv_vicuna_v1 = Conversation(
 )
 
 conv_llama_2 = Conversation(
-    system="""You are a helpful, respectful and honest assistant. Always answer as helpfully as possible, while being safe.  Your answers should not include any harmful, unethical, racist, sexist, toxic, dangerous, or illegal content. Please ensure that your responses are socially unbiased and positive in nature.
-
-If a question does not make any sense, or is not factually coherent, explain why instead of answering something not correct. If you don't know the answer to a question, please don't share false information.""",
+    system="""You are a helpful, respectful and honest assistant. Always answer as helpfully as possible, while being safe.  Your answers should not include any harmful, unethical, racist, sexist, toxic, dangerous, or illegal content. Please ensure that your responses are socially unbiased and positive in nature. If a question does not make any sense, or is not factually coherent, explain why instead of answering something not correct. If you don't know the answer to a question, please don't share false information.""",
     roles=("USER", "ASSISTANT"),
     version="llama_v2",
     messages=(),
@@ -355,9 +353,7 @@ If a question does not make any sense, or is not factually coherent, explain why
 )
 
 conv_llama_3 = Conversation(
-    system="""You are a helpful, respectful and honest assistant. Always answer as helpfully as possible, while being safe.  Your answers should not include any harmful, unethical, racist, sexist, toxic, dangerous, or illegal content. Please ensure that your responses are socially unbiased and positive in nature.
-
-If a question does not make any sense, or is not factually coherent, explain why instead of answering something not correct. If you don't know the answer to a question, please don't share false information.""",
+    system="""You are a helpful, respectful and honest assistant. Always answer as helpfully as possible, while being safe.  Your answers should not include any harmful, unethical, racist, sexist, toxic, dangerous, or illegal content. Please ensure that your responses are socially unbiased and positive in nature. If a question does not make any sense, or is not factually coherent, explain why instead of answering something not correct. If you don't know the answer to a question, please don't share false information.""",
     roles=("USER", "ASSISTANT"),
     version="llama_v3",
     messages=(),
@@ -440,6 +436,34 @@ conv_libra_v1 = Conversation(
     sep2="</s>",
 )
 
+conv_libra_v1_5_pretrain = Conversation(
+    system="Chest X-ray interpretation task. "
+           "The input consists of a current chest radiograph, optionally paired with a prior image or clinically similar reference. "
+           "The model should identify radiologically significant abnormalities, detect and describe temporal changes or differences, and answer clinically relevant visual questions. " 
+           "Depending on the task, the output may be a structured Findings or Impression section focusing on critical observations, or a concise answer to a specific query. "
+           "All outputs must follow radiological reporting standards and employ professional clinical terminology.",
+    roles=("USER", "ASSISTANT"),
+    version="v1",
+    messages=(),
+    offset=0,
+    sep_style=SeparatorStyle.TWO,
+    sep=" ",
+    sep2="</s>",
+)
+
+conv_libra_v1_5_finetune = Conversation(
+    system="Generate the 'Findings' section of a radiology report for a chest X-ray examination. "
+           "Describe all clinically significant normal and abnormal findings using concise, structured, and professional medical language. "
+           "If a prior image is available, incorporate relevant temporal comparisons, noting any improvements, worsening, or stability. "
+           "Avoid referencing prior studies unless they are explicitly provided or clinically necessary to explain the current condition.",
+    roles=("USER", "ASSISTANT"),
+    version="v1",
+    messages=(),
+    offset=0,
+    sep_style=SeparatorStyle.TWO,
+    sep=" ",
+    sep2="</s>",
+)
 
 conv_libra_v1_mmtag = Conversation(
     system="A chat between a curious user and an artificial intelligence assistant. "
@@ -506,7 +530,11 @@ conv_templates = {
     "plain": conv_libra_plain,
     "libra_v0": conv_libra_v0,
     "libra_v1": conv_libra_v1,
-    
+
+    # Next generation models libra-v1.5
+    "libra_v1.5_pretrain": conv_libra_v1_5_pretrain,
+    "libra_v1.5_finetune": conv_libra_v1_5_finetune,
+
     "libra_v0_mmtag": conv_libra_v0_mmtag,
     "libra_v1_mmtag": conv_libra_v1_mmtag,
     
@@ -523,7 +551,7 @@ conv_templates = {
     "mistral_instruct": conv_mistral_instruct,
     "mistral_direct": conv_mistral_direct,
 
-    # another moder's conversation templates
+    # another moder's conversation (llava-med)
     "llava_med_v1.5_mistral_7b": llava_med_conv_mistral_instruct,
     "llava_med_v1.5_mistral_7b_v0": llava_med_conv_mistral_instruct_v0,
     "llava_med_v1.5_mistral_7b_v1": llava_med_conv_mistral_instruct_v1,

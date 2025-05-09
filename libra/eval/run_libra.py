@@ -207,7 +207,7 @@ def libra_eval(
             output_ids = model.generate(
                 input_ids,
                 images=image_tensor,
-                do_sample= True,
+                do_sample=True if args.temperature > 0 else False,
                 temperature=temperature,
                 top_p=top_p,
                 num_beams=num_beams,
