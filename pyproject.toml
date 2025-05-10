@@ -40,7 +40,7 @@ dependencies = [
 ]
 
 [project.optional-dependencies]
-train = ["deepspeed==0.9.5", "ninja", "wandb", "xformers==0.0.27.post2"]
+train = ["deepspeed==0.16.7", "ninja", "wandb", "xformers==0.0.27.post2"]
 eval = ["evaluate", "rouge_score", "absl-py", "nltk", "bert_score"]
 
 [project.urls]

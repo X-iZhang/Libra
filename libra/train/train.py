@@ -182,6 +182,32 @@ def get_non_vision_tower_state_maybe_zero_3(named_params):
 
     return to_return
 
+def get_non_vision_tower_state_maybe_zero_3_from_model(model):
+    """
+    Retrieves the state dictionary of a model, excluding parameters related to the vision tower.
+    Supports integration with DeepSpeed ZeRO-3 for efficient parameter consolidation.
+
+    Args:
+        model (torch.nn.Module): The model from which to extract the state dictionary. 
+            If the model is wrapped with DeepSpeed and uses ZeRO-3, the method will 
+            utilize the `_zero3_consolidated_16bit_state_dict` interface to consolidate 
+            parameters in 16-bit precision.
+
+    Returns:
+        dict: A dictionary containing the model's parameters, excluding those related 
+        to the vision tower. All parameters are moved to the CPU for storage.
+    """
+    if hasattr(model, "module") and hasattr(model.module, "_zero3_consolidated_16bit_state_dict"):
+        full_state_dict = model.module._zero3_consolidated_16bit_state_dict()
+    else:
+        full_state_dict = model.state_dict()
+    # Exclude parameters related to the vision tower
+    to_return = {
+        k: v.cpu() for k, v in full_state_dict.items()
+        if "vision_tower" not in k
+    }
+    return to_return
+
 
 def get_mm_adapter_state_maybe_zero_3(named_params, keys_to_match):
     to_return = {k: t for k, t in named_params if any(key_match in k for key_match in keys_to_match)}
@@ -1349,7 +1375,7 @@ def make_supervised_data_module(tokenizer: transformers.PreTrainedTokenizer,
     eval_dataset = LazySupervisedDataset(tokenizer=tokenizer,
                                 data_path=data_args.validation_data_path,
                                 data_args=data_args,
-                                sample_rate=1.0)
+                                sample_rate=0.001)
     
     data_collator = DataCollatorForSupervisedDataset(tokenizer=tokenizer)
     return dict(train_dataset=train_dataset,
@@ -1608,9 +1634,8 @@ def train(attn_implementation=None):
                         torch.save(non_lora_state_dict, os.path.join(best_model_dir, 'non_lora_trainables.bin'))
                 else:
                     # Save full model state when not using LoRA
-                    state_dict = get_non_vision_tower_state_maybe_zero_3(
-                        model.named_parameters()
-                    )
+                    state_dict = get_non_vision_tower_state_maybe_zero_3_from_model(model)
+                    
                     if args.local_rank in [-1, 0]:
                         model.save_pretrained(best_model_dir, state_dict=state_dict)
                     # Save mm_projector state when tuning mm_mlp_adapter
