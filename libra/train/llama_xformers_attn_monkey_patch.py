@@ -28,6 +28,8 @@ def xformers_forward(
     past_key_value: Optional[Tuple[torch.Tensor]] = None,
     output_attentions: bool = False,
     use_cache: bool = False,
+    cache_position: Optional[torch.Tensor] = None,
+    position_embeddings: Optional[torch.Tensor] = None, # for llama2
 ) -> Tuple[torch.Tensor, Optional[torch.Tensor], Optional[Tuple[torch.Tensor]]]:
     # pylint: disable=duplicate-code
     bsz, q_len, _ = hidden_states.size()
