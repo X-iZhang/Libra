@@ -247,9 +247,9 @@ class LibraTrainer(Trainer):
                 self.model.config.save_pretrained(output_dir)
                 torch.save(weight_to_save, os.path.join(output_dir, f'mm_projector.bin'))
                 
-            super(LibraTrainer, self)._save_checkpoint(model, trial, metrics)
+            super(LibraTrainer, self)._save_checkpoint(model, trial)
         else:
-            super(LibraTrainer, self)._save_checkpoint(model, trial, metrics)
+            super(LibraTrainer, self)._save_checkpoint(model, trial)
 
     def _save(self, output_dir: Optional[str] = None, state_dict=None):
         if getattr(self.args, 'tune_mm_mlp_adapter', False):

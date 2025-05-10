@@ -1633,8 +1633,10 @@ def train(attn_implementation=None):
                     **data_module)
     
     if list(pathlib.Path(training_args.output_dir).glob("checkpoint-*")):
+        print(f"🔄 Found checkpoint in {training_args.output_dir}, resuming training...")
         trainer.train(resume_from_checkpoint=True)
     else:
+        print("🆕 No checkpoint found, starting training from scratch.")
         trainer.train()
         
     trainer.save_state()

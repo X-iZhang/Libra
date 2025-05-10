@@ -100,7 +100,7 @@ deepspeed libra/train/train_mem.py \
     --gradient_accumulation_steps ${GRAD_ACC_STEPS} \
     --do_eval True \
     --compute_metrics True \
-    --evaluation_strategy "steps" \
+    --eval_strategy "steps" \
     --eval_steps 0.01 \
     --save_strategy "steps" \
     --save_steps 2000 \

@@ -10,8 +10,15 @@
 # from libra.train.llama2_flash_attn_monkey_patch import (
 #     replace_llama_attn_with_flash_attn,
 # )
-
 # replace_llama_attn_with_flash_attn()
+
+import torch
+
+original_load = torch.load
+def patched_load(*args, **kwargs):
+    kwargs["weights_only"] = False
+    return original_load(*args, **kwargs)
+torch.load = patched_load
 
 from libra.train.train import train
 
