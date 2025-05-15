@@ -23,7 +23,7 @@
 </p></details>
 
 ## 🔥 News
-- **[15 May 2025]** 🥳 Our paper [***“Libra: Leveraging Temporal Images for Biomedical Radiology Analysis”***](https://arxiv.org/pdf/2411.19378v2) has been accepted to [ACL 2025](https://2025.aclweb.org/)!
+- **[15 May 2025]** 🥳 [***The paper***](https://arxiv.org/pdf/2411.19378v2) has been accepted to [**ACL 2025**](https://2025.aclweb.org/)!
 - **[09 May 2025]** ✨ Now with full support for the [Phi-4](https://huggingface.co/collections/microsoft/phi-4-677e9380e514feb5577a40e4) family — compact language and reasoning models from Microsoft.
 - **[24 Mar 2025]** 🏆 **Libra** was invited to the [**ReXrank**](https://rexrank.ai/) Challenge — a leading leaderboard for Chest X-ray Report Generation.
 - **[10 Mar 2025]**  ✅ The architecture of [LLaVA-Med v1.5](https://huggingface.co/microsoft/llava-med-v1.5-mistral-7b) is now supported by this repo. [**Compatible weights**](https://github.com/X-iZhang/Libra?tab=readme-ov-file#libra-v05) are provided, with 'unfreeze_mm_vision_tower: true' set to ensure the *adapted* vision encoder is used.
