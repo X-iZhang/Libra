@@ -25,7 +25,7 @@ def load_pretrained_model(model_path, model_base, model_name, load_8bit=False, l
                          device_map="auto", device="cuda", use_flash_attn=False, **kwargs):
     kwargs = {"device_map": device_map, **kwargs}                     
 
-    if device != "cuda":
+    if not device.startswith("cuda"):
         kwargs['device_map'] = {"": device}
         
     if load_8bit:

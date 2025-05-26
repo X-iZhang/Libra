@@ -1375,7 +1375,7 @@ def make_supervised_data_module(tokenizer: transformers.PreTrainedTokenizer,
     eval_dataset = LazySupervisedDataset(tokenizer=tokenizer,
                                 data_path=data_args.validation_data_path,
                                 data_args=data_args,
-                                sample_rate=0.001)
+                                sample_rate=0.01)
     
     data_collator = DataCollatorForSupervisedDataset(tokenizer=tokenizer)
     return dict(train_dataset=train_dataset,
