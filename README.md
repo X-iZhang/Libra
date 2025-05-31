@@ -120,6 +120,17 @@ pip install -e .
 | Libra-1.0 | 7B | TAC | Meditron-7B | RAD-DINO | [libra-v1.0-7b](https://huggingface.co/X-iZhang/libra-v1.0-7b) |
 | Libra-1.0 | 3B | TAC | Llama-3.2-3B-Instruct| RAD-DINO | [libra-v1.0-3b](https://huggingface.co/X-iZhang/libra-v1.0-3b) |
 
+
+<details>
+<summary> Performance on MIMIC-CXR (Findings section) </summary>
+
+| Model | BLEU1 | BLEU4 | METEOR | ROUGE-L | RaTEScore | RG_ER |
+|----------|----------|-----------|-----------|---|---|---|
+| Libra-v1.0-7b | 51.3| 24.5 | 48.9 | 36.7 | 61.5 | 37.6 |
+| Libra-v1.0-3b | 50.5 | 23.3 | 48.5 | 35.2 | 61.1 | 37.5 |
+
+</details>
+
 ### Libra-v0.5
 
 | Version | Size | Projector | Base LLM | Vision Encoder| Checkpoint |

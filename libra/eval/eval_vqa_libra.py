@@ -206,7 +206,7 @@ def eval_model(args):
                     stopping_criteria=[stopping_criteria],
                     use_cache=True,
                     length_penalty=args.length_penalty, 
-                    output_scores=True,  
+                    # output_scores=True,  
                     num_return_sequences = args.num_return_sequences,
                     attention_mask=attention_mask, 
                     pad_token_id=pad_token_id)
@@ -222,7 +222,7 @@ def eval_model(args):
                     stopping_criteria=[stopping_criteria],
                     use_cache=True,
                     length_penalty=args.length_penalty,
-                    output_scores=True, 
+                    # output_scores=True, 
                     num_return_sequences = args.num_return_sequences,
                     attention_mask=attention_mask, 
                     pad_token_id=pad_token_id)

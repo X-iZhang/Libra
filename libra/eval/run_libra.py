@@ -199,7 +199,7 @@ def libra_eval(
                 stopping_criteria=[stopping_criteria],
                 use_cache=True,
                 length_penalty=length_penalty, 
-                output_scores=True,  
+                # output_scores=True,  
                 attention_mask=attention_mask, 
                 pad_token_id=pad_token_id,
                 num_return_sequences = num_return_sequences)
