@@ -2,6 +2,7 @@
     Libra: Leveraging Temporal Images for Biomedical Radiology Analysis
 </h1>
 
+[![ReXrank](https://img.shields.io/badge/🏆_Libra-Top_Model_on_ReXrank-firebrick)](https://rexrank.ai/)
 [![Demo](https://img.shields.io/badge/⚡-Online%20Demo-yellow.svg)](https://huggingface.co/spaces/X-iZhang/Libra)
 [![hf_space](https://img.shields.io/badge/%F0%9F%A4%97%20-Hugging%20Face-blue)](https://huggingface.co/collections/X-iZhang/libra-6772bfccc6079298a0fa5f8d)
 [![Project Page](https://img.shields.io/badge/Project-Page-Green?logo=webauthn)](https://x-izhang.github.io/Libra_v1.0/)
