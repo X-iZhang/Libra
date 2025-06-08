@@ -1,5 +1,5 @@
 <h1 align="center">
-  <img src="assets/Libra_logo_c.png" alt="Libra Logo" width="30" style="vertical-align: middle;"/>
+  <img src="assets/Libra_logo_c.png" alt="Libra Logo" width="27" style="position: relative; top: -2px;"/>
   <strong>Libra: Leveraging Temporal Images for Biomedical Radiology Analysis</strong>
 </h1>
 
