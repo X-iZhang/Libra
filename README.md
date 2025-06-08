@@ -1,15 +1,20 @@
 <h1 align="center">
-    Libra: Leveraging Temporal Images for Biomedical Radiology Analysis
+  <img src="assets/Libra_logo_c.png" alt="Libra Logo" width="30" style="position: relative; top: 4px;"/>
+  <strong>Libra: Leveraging Temporal Images for Biomedical Radiology Analysis</strong>
 </h1>
 
+<div align="center">
+
 [![ReXrank](https://img.shields.io/badge/🏆_Libra-Top_Model_on_ReXrank-firebrick)](https://rexrank.ai/)
+[![Project Page](https://img.shields.io/badge/Project-Page-Green?logo=webauthn)](https://x-izhang.github.io/Libra_v1.0/)
+[![Docs](https://img.shields.io/badge/-deepwiki-0A66C2?logo=readthedocs&logoColor=white&color=7289DA&labelColor=grey)](https://deepwiki.com/X-iZhang/Libra)
 [![Demo](https://img.shields.io/badge/⚡-Online%20Demo-yellow.svg)](https://huggingface.co/spaces/X-iZhang/Libra)
 [![hf_space](https://img.shields.io/badge/%F0%9F%A4%97%20-Hugging%20Face-blue)](https://huggingface.co/collections/X-iZhang/libra-6772bfccc6079298a0fa5f8d)
-[![Project Page](https://img.shields.io/badge/Project-Page-Green?logo=webauthn)](https://x-izhang.github.io/Libra_v1.0/)
 [![arXiv](https://img.shields.io/badge/Arxiv-2411.19378-b31b1b.svg?logo=arXiv)](https://arxiv.org/abs/2411.19378) 
+[![GitHub star chart](https://img.shields.io/github/stars/X-iZhang/Libra?style=social)](https://star-history.com/#X-iZhang/Libra)
 [![License](https://img.shields.io/badge/License-Apache%202.0-yellow.svg?)](https://github.com/X-iZhang/Libra/blob/main/LICENSE)
-<!-- [![Visitors](https://api.visitorbadge.io/api/combined?path=https%3A%2F%2Fgithub.com%2FX-iZhang%2FLibra&label=Views&countColor=%23f36f43&style=flat)](https://visitorbadge.io/status?path=https%3A%2F%2Fgithub.com%2FX-iZhang%2FLibra) -->
-<!--[![Views](https://hits.seeyoufarm.com/api/count/incr/badge.svg?url=https%3A%2F%2Fgithub.com%2FX-iZhang%2FLibra&count_bg=%2300C0FF&title_bg=%23004080&icon=&icon_color=%23FFFFFF&title=Views)](https://hits.seeyoufarm.com)--> 
+[![Visitors](https://api.visitorbadge.io/api/combined?path=https%3A%2F%2Fgithub.com%2FX-iZhang%2FLibra&label=Views&countColor=%23f36f43&style=flat)](https://visitorbadge.io/status?path=https%3A%2F%2Fgithub.com%2FX-iZhang%2FLibra)
+</div>
 
 *This repository hosts **Libra**, a tool designed to generate radiology reports by leveraging temporal information from chest X-rays taken at different time points.*
 
