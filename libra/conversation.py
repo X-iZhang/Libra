@@ -462,7 +462,7 @@ conv_libra_v1_5_phi4_pretrain = Conversation(
     messages=(),
     offset=0,
     sep_style=SeparatorStyle.PHI3,
-    sep="<|end|>",
+    sep="<|endoftext|>",
 )
 
 conv_libra_v1_5_finetune = Conversation(
@@ -489,7 +489,7 @@ conv_libra_v1_5_phi4_finetune = Conversation(
     messages=(),
     offset=0,
     sep_style=SeparatorStyle.PHI3,
-    sep="<|end|>",
+    sep="<|endoftext|>",
 )
 
 conv_libra_v1_mmtag = Conversation(
