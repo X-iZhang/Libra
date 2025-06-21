@@ -311,6 +311,9 @@ Please download the following datasets from the official website: `mimic-cxr-rep
 
 For free-text radiology report, we extract the `Findings`, `Impression`, `Indication`, `History`, `Comparison`, and `Technique` sections using the official [mimic-cxr](https://github.com/MIT-LCP/mimic-cxr/tree/master/txt) repository.
 
+*💡Note: To enable more structured and accurate extraction of the `Indication`, `History`, `Comparison`, and `Technique` sections—beyond what the original scripts provide—we replace the official `create_section_files.py` and `section_parser.py` with our customised versions located in [`Libra/scripts/mimic-cxr/`](./scripts/mimic-cxr/).*
+
+
 - Visual Question Answering for Chest X-ray
 
 In [Medical-Diff-VQA](https://physionet.org/content/medical-diff-vqa/1.0.0/), the main image is used as the current image, and the reference image is used as the prior image. In [MIMIC-Ext-MIMIC-CXR-VQA](https://physionet.org/content/mimic-ext-mimic-cxr-vqa/1.0.0/), all cases use a dummy prior image.
