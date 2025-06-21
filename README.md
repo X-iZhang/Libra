@@ -311,7 +311,7 @@ Please download the following datasets from the official website: `mimic-cxr-rep
 
 For free-text radiology report, we extract the `Findings`, `Impression`, `Indication`, `History`, `Comparison`, and `Technique` sections using the official [mimic-cxr](https://github.com/MIT-LCP/mimic-cxr/tree/master/txt) repository.
 
-*💡Note: To enable more structured and accurate extraction of the `Indication`, `History`, `Comparison`, and `Technique` sections—beyond what the original scripts provide—we replace the official `create_section_files.py` and `section_parser.py` with our customised versions located in [`Libra/scripts/mimic-cxr/`](./scripts/mimic-cxr/).*
+*💡Note: To enable more structured and accurate extraction of the `Indication`, `History`, `Comparison`, and `Technique` sections—beyond what the original scripts provide—we replace the official ` .py` with our customised versions located in [`Libra/scripts/mimic-cxr/`](./scripts/mimic-cxr/).*
 
 
 - Visual Question Answering for Chest X-ray
