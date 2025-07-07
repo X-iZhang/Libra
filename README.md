@@ -305,6 +305,50 @@ All annotations used for **Libra** come from the [MIMIC-CXR](https://physionet.o
 
 Please download the following datasets from the official website: `mimic-cxr-reports.zip` from [MIMIC-CXR](https://physionet.org/content/mimic-cxr/2.0.0/), [MIMIC-Diff-VQA](https://physionet.org/content/medical-diff-vqa/1.0.0/), and [MIMIC-Ext-*MIMIC-CXR-VQA*](https://physionet.org/content/mimic-ext-mimic-cxr-vqa/1.0.0/).
 
+- Prior Image Retrieve
+
+*💡Note: You can obtain metadata labels from [`mimic-cxr-2.0.0-metadata.csv.gz`](https://physionet.org/content/mimic-cxr-jpg/2.0.0/)*
+
+<details>
+<summary> Here, the train_split is used as an example for demonstration. </summary>
+
+```python
+from tqdm import tqdm
+# Sort the test set by subject_id, StudyDate, and StudyTime to ensure chronological order
+train_df_pair = train_df_pair.sort_values(by=['subject_id', 'StudyDate', 'StudyTime'])
+train_df_pair = train_df_pair.reset_index(drop=True)
+
+# Initialize a new column to store the prior image ID for each record
+train_df_pair['prior_image'] = None
+
+# Get the list of unique subject IDs (i.e., different patients)
+unique_subject_ids = train_df_pair['subject_id'].unique()
+
+# Use tqdm to create a progress bar while processing subjects
+for subject_id in tqdm(unique_subject_ids, desc='Processing subjects'):
+    # Extract all records for the current subject
+    group = train_df_pair[train_df_pair['subject_id'] == subject_id]
+    prior_image = None  # Initialize the prior image as None
+    last_date = None    # Keep track of the previous study date
+
+    # Iterate through each image for the current subject
+    for idx, row in group.iterrows():
+        # If the current study date is later than the last recorded date, update the prior image
+        if last_date is None or row['StudyDate'] > last_date:
+            train_df_pair.at[idx, 'prior_image'] = prior_image
+            last_date = row['StudyDate']
+        else:  # Records from the same study date
+            # Find the first record on the same date for this subject
+            # All records from the same day share the same prior image
+            same_day_first = group[(group['StudyDate'] == row['StudyDate'])].index[0]
+            train_df_pair.at[idx, 'prior_image'] = train_df_pair.at[same_day_first, 'prior_image']
+
+        # Update the prior_image to be the current image for the next iteration
+        prior_image = row['image']
+```
+
+</details>
+
 ### Preprocess Data
 
 - Radiology Report Sections
