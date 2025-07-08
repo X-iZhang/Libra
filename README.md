@@ -6,10 +6,11 @@
 <div align="center">
 
 [![ReXrank](https://img.shields.io/badge/🏆_Libra-Top_Model_on_ReXrank-firebrick)](https://rexrank.ai/)
-[![Project Page](https://img.shields.io/badge/Project-Page-Green?logo=webauthn)](https://x-izhang.github.io/Libra_v1.0/)
+[![Project Page](https://img.shields.io/badge/Project-Page-Green?logo=stylelint)](https://x-izhang.github.io/Libra_v1.0/)
 [![Docs](https://img.shields.io/badge/-deepwiki-0A66C2?logo=readthedocs&logoColor=white&color=7289DA&labelColor=grey)](https://deepwiki.com/X-iZhang/Libra)
 [![Demo](https://img.shields.io/badge/⚡-Online%20Demo-yellow.svg)](https://huggingface.co/spaces/X-iZhang/Libra)
 [![hf_space](https://img.shields.io/badge/%F0%9F%A4%97%20-Hugging%20Face-blue)](https://huggingface.co/collections/X-iZhang/libra-6772bfccc6079298a0fa5f8d)
+[![Evaluation Split](https://img.shields.io/badge/-Test_Dataset-AECBFA?logo=googlecloudstorage&labelColor=grey)](https://huggingface.co/datasets/X-iZhang/MIMIC-CXR-RRG)
 [![arXiv](https://img.shields.io/badge/Arxiv-2411.19378-b31b1b.svg?logo=arXiv)](https://arxiv.org/abs/2411.19378) 
 [![GitHub star chart](https://img.shields.io/github/stars/X-iZhang/Libra?style=social)](https://star-history.com/#X-iZhang/Libra)
 [![License](https://img.shields.io/badge/License-Apache%202.0-yellow.svg?)](https://github.com/X-iZhang/Libra/blob/main/LICENSE)
@@ -29,6 +30,7 @@
 </p></details>
 
 ## 🔥 News
+- **[9 Jul 2025]** 💻 Data preparation code for [Prior Image Retrieve](https://github.com/X-iZhang/Libra?tab=readme-ov-file#prepare-data) is now available. Test dataset is also available on Hugging Face — see [`MIMIC-CXR-RRG`](https://huggingface.co/datasets/X-iZhang/MIMIC-CXR-RRG). For evaluation, we recommend using 👉 [**RadEval**](https://github.com/jbdel/RadEval).
 - **[18 Jun 2025]** 🎤 Invited talk at [**HealTAC 2025**](https://healtac2025.github.io/programme/) — topic: [*Towards Temporal-Aware Multimodal Large Language Models for Improved Radiology Report Generation*](https://x-izhang.github.io/post/healtac2025/)
 - **[16 May 2025]** 📝 A short blog: some musings on [***"What Does ‘Temporal’ Really Mean?”***](https://x-izhang.github.io/blog/libra-blog1/) — thoughts behind Libra and temporal reasoning in radiology.
 - **[15 May 2025]** 🥳 [***The paper***](https://arxiv.org/pdf/2411.19378v2) has been accepted to [**ACL 2025**](https://2025.aclweb.org/)!
