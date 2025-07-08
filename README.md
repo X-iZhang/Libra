@@ -542,6 +542,8 @@ tem_f1_score
 
 Some specific metrics may require configurations that could conflict with Libra. It is recommended to follow the official guidelines and use separate environments for evaluation: [`RG_ER`](https://pypi.org/project/radgraph/0.1.13/), [`CheXpert-F1`](https://pypi.org/project/f1chexbert/), [`RadGraph-F1, RadCliQ, CheXbert vector`](https://github.com/rajpurkarlab/CXR-Report-Metric).
 
+*💡Note: For evaluation, we recommend using [**RadEval**](https://github.com/jbdel/RadEval) — a unified framework for radiology text evaluation that integrates **all the above metrics**.*
+
 <!-- ![architecture](./assets/libra_architecture.png) -->
 
 ## Acknowledgements 🙏
