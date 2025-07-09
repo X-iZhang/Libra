@@ -149,7 +149,8 @@ pip install -e .
 | Libra-0.5 | 7B | MLP-2x | Vicuna-7B | CLIP-L-336px | [Med-CXRGen-I](https://huggingface.co/X-iZhang/Med-CXRGen-I) |
 | Llava-med | 7B | MLP-2x | Mistral-7B-Instruct-v0.2 | CLIP-L-336px (adapted) | [Llava-Med-v1.5](https://huggingface.co/X-iZhang/libra-llava-med-v1.5-mistral-7b) |
 
-*💡Note: These two models are fine-tuned for `Findings` and `Impression` section generation. For more information on training strategies and dataset collection, please refer to [Med-CXRGen (Gla-AI4BioMed at RRG24)](https://github.com/X-iZhang/RRG-BioNLP-ACL2024)*
+> [!NOTE]
+> *These two models are fine-tuned for `Findings` and `Impression` section generation. For more information on training strategies and dataset collection, please refer to [Med-CXRGen (Gla-AI4BioMed at RRG24)](https://github.com/X-iZhang/RRG-BioNLP-ACL2024)*
 
 ### Projector weights
 
@@ -309,8 +310,8 @@ All annotations used for **Libra** come from the [MIMIC-CXR](https://physionet.o
 Please download the following datasets from the official website: `mimic-cxr-reports.zip` from [MIMIC-CXR](https://physionet.org/content/mimic-cxr/2.0.0/), [MIMIC-Diff-VQA](https://physionet.org/content/medical-diff-vqa/1.0.0/), and [MIMIC-Ext-*MIMIC-CXR-VQA*](https://physionet.org/content/mimic-ext-mimic-cxr-vqa/1.0.0/).
 
 - Prior Image Retrieve
-
-*💡Note: You can obtain metadata labels from [`mimic-cxr-2.0.0-metadata.csv.gz`](https://physionet.org/content/mimic-cxr-jpg/2.0.0/)*
+> [!NOTE]
+> *You can obtain metadata labels from [`mimic-cxr-2.0.0-metadata.csv.gz`](https://physionet.org/content/mimic-cxr-jpg/2.0.0/)*
 
 <details>
 <summary> Here, the train_split is used as an example for demonstration. </summary>
@@ -358,7 +359,8 @@ for subject_id in tqdm(unique_subject_ids, desc='Processing subjects'):
 
 For free-text radiology report, we extract the `Findings`, `Impression`, `Indication`, `History`, `Comparison`, and `Technique` sections using the official [mimic-cxr](https://github.com/MIT-LCP/mimic-cxr/tree/master/txt) repository.
 
-*💡Note: To enable more structured and accurate extraction of the `Indication`, `History`, `Comparison`, and `Technique` sections—beyond what the original scripts provide—we replace the official ` .py` with our customised versions located in [`Libra/scripts/mimic-cxr/`](./scripts/mimic-cxr/).*
+> [!NOTE]
+> *To enable more structured and accurate extraction of the `Indication`, `History`, `Comparison`, and `Technique` sections—beyond what the original scripts provide—we replace the official ` .py` with our customised versions located in [`Libra/scripts/mimic-cxr/`](./scripts/mimic-cxr/).*
 
 
 - Visual Question Answering for Chest X-ray
@@ -542,7 +544,8 @@ tem_f1_score
 
 Some specific metrics may require configurations that could conflict with Libra. It is recommended to follow the official guidelines and use separate environments for evaluation: [`RG_ER`](https://pypi.org/project/radgraph/0.1.13/), [`CheXpert-F1`](https://pypi.org/project/f1chexbert/), [`RadGraph-F1, RadCliQ, CheXbert vector`](https://github.com/rajpurkarlab/CXR-Report-Metric).
 
-*💡Note: For evaluation, we recommend using [**RadEval**](https://github.com/jbdel/RadEval) — a unified framework for radiology text evaluation that integrates **all the above metrics**.*
+> [!NOTE]
+> *For evaluation, we recommend using [**RadEval**](https://github.com/jbdel/RadEval) — a unified framework for radiology text evaluation that integrates **all the above metrics**.*
 
 <!-- ![architecture](./assets/libra_architecture.png) -->
 
