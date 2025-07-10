@@ -78,7 +78,7 @@ Radiology report generation requires integrating temporal medical images and cre
     - [Hyperparameters](#hyperparameters)
     - [Stage 1: visual feature alignment](#stage-1-visual-feature-alignment)
     - [Stage 2: RRG downstream task fine-tuning](#stage-2-rrg-downstream-task-fine-tuning)
-    - [✨New Options to Note](#new-options-to-note)
+    - [✨New Options to Note](#-new-options-to-note)
 - [Evaluation](#evaluation)
     - [Generate model responses](#1-generate-libra-responses)
     - [Evaluate the generated report](#2-evaluate-the-generated-report)
@@ -449,13 +449,13 @@ If you have enough GPU memory: Use [`finetune.sh`](https://github.com/X-iZhang/L
 
 If you are interested in continue finetuning Libra model to your own task/data, please check out [`Custom_Data.md`](https://github.com/X-iZhang/Libra/blob/main/CUSTOM_DATA.md).
 
-### New Options to Note
-
-- `--mm_projector_type TAC`: Specifies the Temporal Alignment Connector for Libra.
-- `--vision_tower microsoft/rad-dino`: Uses RAD-DINO as the chest X-rays encoder.
-- `--mm_vision_select_layer all`: Selects specific vision layers (e.g., -1, -2) or "all" for all layers.
-- `--validation_data_path ./path/`: Path to the validation data.
-- `--compute_metrics True`: Optionally computes metrics during validation. Note that this can consume significant memory. If GPU memory is insufficient, it is recommended to either disable this option or use a smaller validation dataset.
+### ✨ New Options to Note
+> [!NOTE]
+> - `--mm_projector_type TAC`: Specifies the Temporal Alignment Connector for Libra.
+> - `--vision_tower microsoft/rad-dino`: Uses RAD-DINO as the chest X-rays encoder.
+> - `--mm_vision_select_layer all`: Selects specific vision layers (e.g., -1, -2) or "all" for all layers.
+> - `--validation_data_path ./path/`: Path to the validation data.
+> - `--compute_metrics True`: Optionally computes metrics during validation. Note that this can consume significant memory. If GPU memory is insufficient, it is recommended to either disable this option or use a smaller validation dataset.
 
 
 ## Evaluation
