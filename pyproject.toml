@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "libra"
-version = "1.0.0"
+version = "1.0.2"
 description = "Libra: Leveraging Temporal Images for Biomedical Radiology Analysis"
 readme = "README.md"
 requires-python = ">=3.9"
