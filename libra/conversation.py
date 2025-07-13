@@ -102,7 +102,7 @@ class Conversation:
             wrap_sys = lambda msg: f"<|start_header_id|>system<|end_header_id|>\n\n{msg}{self.sep2}" if len(msg) > 0 else ""
             wrap_role = lambda role, msg: f"<|start_header_id|>{role}<|end_header_id|>\n\n{msg}{self.sep2}\n"
 
-            ret = "" # "<|begin_of_text|>" 
+            ret = "<|begin_of_text|>" # "<|begin_of_text|>" 
 
             for i, (role, message) in enumerate(messages):
                 if i == 0:
@@ -386,7 +386,7 @@ conv_libra_llama_3 = Conversation(
     messages=(),
     offset=0,
     sep_style=SeparatorStyle.LLAMA_3,
-    sep=" ",
+    sep="<|begin_of_text|>",
     sep2="<|eot_id|>",
 )
 
