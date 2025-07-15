@@ -30,7 +30,9 @@
 </p></details>
 
 ## 🔥 News
-- **[9 Jul 2025]** 💻 Data preparation code for [Prior Image Retrieve](https://github.com/X-iZhang/Libra?tab=readme-ov-file#prepare-data) is now available. Test dataset is also available on Hugging Face — see [`MIMIC-CXR-RRG`](https://huggingface.co/datasets/X-iZhang/MIMIC-CXR-RRG). For evaluation, we recommend using 👉 [**RadEval**](https://github.com/jbdel/RadEval).
+- **[14 Jue 2025]** 🩺 For evaluating AI-generated radiology text, we recommend using 👉 [**RadEval**](https://pypi.org/project/RadEval/).
+- **[9 Jul 2025]** 🚚 he test set is now available on Hugging Face — check out [**X-iZhang/MIMIC-CXR-RRG**](https://huggingface.co/datasets/X-iZhang/MIMIC-CXR-RRG). It includes findings, impression, indication, comparison, technique, history, and examination sections, processed according to the official MIMIC-CXR guidelines.
+- **[8 Jul 2025]** 💻 Released data preparation scripts for [**Prior Image Retrieve**](https://github.com/X-iZhang/Libra?tab=readme-ov-file#prepare-data).
 - **[18 Jun 2025]** 🎤 Invited talk at [**HealTAC 2025**](https://healtac2025.github.io/programme/) — topic: [*Towards Temporal-Aware Multimodal Large Language Models for Improved Radiology Report Generation*](https://x-izhang.github.io/post/healtac2025/)
 - **[16 May 2025]** 📝 A short blog: some musings on [***"What Does ‘Temporal’ Really Mean?”***](https://x-izhang.github.io/blog/libra-blog1/) — thoughts behind Libra and temporal reasoning in radiology.
 - **[15 May 2025]** 🥳 [***The paper***](https://arxiv.org/pdf/2411.19378v2) has been accepted to [**ACL 2025**](https://2025.aclweb.org/)!
