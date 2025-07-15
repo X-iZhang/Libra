@@ -31,7 +31,7 @@
 
 ## 🔥 News
 - **[14 Jul 2025]** 🩺 For evaluating AI-generated radiology text, we recommend using 👉 [**RadEval**](https://pypi.org/project/RadEval/).
-- **[9 Jul 2025]** 🚚 he test set is now available on Hugging Face — check out [**./MIMIC-CXR-RRG**](https://huggingface.co/datasets/X-iZhang/MIMIC-CXR-RRG). It includes `findings, impression, indication, comparison, technique, history, and examination` sections, processed according to the official MIMIC-CXR guidelines.
+- **[9 Jul 2025]** 🚚 The test dataset is now available on Hugging Face — check out [**./MIMIC-CXR-RRG**](https://huggingface.co/datasets/X-iZhang/MIMIC-CXR-RRG). It includes `findings, impression, indication, comparison, technique, history, and examination` sections, processed according to the official MIMIC-CXR guidelines.
 - **[8 Jul 2025]** 💻 Released data preparation scripts for [**Prior Image Retrieve**](https://github.com/X-iZhang/Libra?tab=readme-ov-file#prepare-data).
 - **[18 Jun 2025]** 🎤 Invited talk at [**HealTAC 2025**](https://healtac2025.github.io/programme/) — topic: [*Towards Temporal-Aware Multimodal Large Language Models for Improved Radiology Report Generation*](https://x-izhang.github.io/post/healtac2025/)
 - **[16 May 2025]** 📝 A short blog: some musings on [***"What Does ‘Temporal’ Really Mean?”***](https://x-izhang.github.io/blog/libra-blog1/) — thoughts behind Libra and temporal reasoning in radiology.
