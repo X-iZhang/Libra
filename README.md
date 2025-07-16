@@ -30,7 +30,7 @@
 </p></details>
 
 ## 🔥 News
-- **[15 Jul 2025]** ✅ Support for [MAIRA-2](https://huggingface.co/microsoft/maira-2) is added. [Compatible weights](https://github.com/X-iZhang/Libra/tree/main?tab=readme-ov-file#compatible-weights) are provided for benchmarking, with 'use_maira_feature_norm: true' set to ensure compatibility with the default feature extraction strategy.
+- **[15 Jul 2025]** ✅ Support for [MAIRA-2](https://huggingface.co/microsoft/maira-2) is added. [**Compatible weights**](https://github.com/X-iZhang/Libra/tree/main?tab=readme-ov-file#compatible-weights) are provided for benchmarking, with 'use_maira_feature_norm: true' set to ensure compatibility with the default feature extraction strategy.
 - **[14 Jul 2025]** 🩺 For evaluating AI-generated radiology text, we recommend using 👉 [**RadEval**](https://pypi.org/project/RadEval/).
 - **[9 Jul 2025]** 🚚 The test dataset is now available on Hugging Face — check out [**./MIMIC-CXR-RRG**](https://huggingface.co/datasets/X-iZhang/MIMIC-CXR-RRG). It includes `findings, impression, indication, comparison, technique, history, and examination` sections, processed according to the official MIMIC-CXR guidelines.
 - **[8 Jul 2025]** 💻 Released data preparation scripts for [**Prior Image Retrieve**](https://github.com/X-iZhang/Libra?tab=readme-ov-file#prepare-data).
@@ -160,10 +160,10 @@ pip install -e .
 | Version | Size | Projector | Base LLM | Vision Encoder| Checkpoint |
 | ----------- | ----------- | ----------- | ----------- | ----------- | ----------- |
 | Llava-med | 7B | MLP-2x | Mistral-7B-Instruct-v0.2 | CLIP-L-336px (adapted) | [Llava-Med-v1.5](https://huggingface.co/X-iZhang/libra-llava-med-v1.5-mistral-7b) |
-| MAIRA | 7B | MLP-4x | Vicuna-7b-v1.5 | RAD-DINO (adapted) | [MAIRA-2](https://huggingface.co/X-iZhang/libra-maira-2) |
+| MAIRA | 7B | MLP-4x | Vicuna-7B | RAD-DINO (adapted) | [MAIRA-2](https://huggingface.co/X-iZhang/libra-maira-2) |
 
 > [!NOTE]
-> - *To use Llava-Med, set `conv_mode = llava_med_v1.5_mistral_7b`*
+> - *To use Llava-Med-v1.5, set `conv_mode = llava_med_v1.5_mistral_7b`*
 > - *To use MAIRA-2, set `conv_mode = maira_2`* 
 
 <details>
