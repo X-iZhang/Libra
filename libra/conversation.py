@@ -547,7 +547,7 @@ llava_med_conv_mistral_instruct_v1 = Conversation(
 )
 
 maira_2_defalut = Conversation(
-    system="You are an expert radiology assistant tasked with interpreting a chest X-ray study.",
+    system="You are an expert radiology assistant tasked with interpreting a chest X-ray study. Given the current frontal image only.",
     roles=("USER", "ASSISTANT"),
     version="v1",
     messages=(),

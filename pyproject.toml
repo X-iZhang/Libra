@@ -37,6 +37,7 @@ dependencies = [
     "timm==1.0.15",
     "pydicom",
     "tqdm",
+    "protobuf==3.20.*",
 ]
 
 [project.optional-dependencies]

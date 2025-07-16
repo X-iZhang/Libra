@@ -27,6 +27,9 @@ class DINOVisionTower(nn.Module):
         self.select_layer = args.mm_vision_select_layer 
         self.select_feature = getattr(args, 'mm_vision_select_feature', 'patch') 
 
+        # Flag for MAIRA-2 style feature normalization use the `feature_maps` from the Dinov2Backbone
+        self.use_maira_feature_norm = getattr(args, 'use_maira_feature_norm', False)  
+
         if not delay_load:
             self.load_model()
         elif getattr(args, 'unfreeze_mm_vision_tower', False):
@@ -48,7 +51,8 @@ class DINOVisionTower(nn.Module):
     def get_features(self, images):
         outputs = self.vision_tower(images, output_hidden_states=True)
         hidden_states = outputs.hidden_states
-        
+        last_hidden_state = outputs.last_hidden_state 
+
         if self.select_layer == "all":
             if self.select_feature == "patch":
                 all_layers_features = [hidden_state[:, 1:, :].contiguous() for hidden_state in hidden_states[1:]]
@@ -60,6 +64,16 @@ class DINOVisionTower(nn.Module):
             return torch.stack(all_layers_features)  
         else:
             selected_layer_features = hidden_states[int(self.select_layer)]
+
+            if self.use_maira_feature_norm:
+                """
+                Adopted from https://huggingface.co/microsoft/maira-2/blob/main/modeling_maira2.py.
+                This method extracts the image features from the vision backbone using the specified feature layer and
+                selection strategy. This is custom to MAIRA-2 model since we want to use the `feature_maps` from the Dinov2Backbone
+                class instead of the `hidden_states` which are used in the default implementation of `get_image_features` in LlavaForConditionalGeneration.
+                The feature_maps returned by Dinov2Backbone are the hideen_states with a layernorm applied to them.
+                """
+                selected_layer_features = last_hidden_state
 
             if self.select_feature == "patch":
                 selected_layer_features = selected_layer_features[:, 1:]

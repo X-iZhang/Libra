@@ -30,6 +30,7 @@
 </p></details>
 
 ## 🔥 News
+- **[15 Jul 2025]** ✅ Support for [MAIRA-2](https://huggingface.co/microsoft/maira-2) is added. [Compatible weights]() are provided for benchmarking, with 'use_maira_feature_norm: true' set to ensure compatibility with the default feature extraction strategy.
 - **[14 Jul 2025]** 🩺 For evaluating AI-generated radiology text, we recommend using 👉 [**RadEval**](https://pypi.org/project/RadEval/).
 - **[9 Jul 2025]** 🚚 The test dataset is now available on Hugging Face — check out [**./MIMIC-CXR-RRG**](https://huggingface.co/datasets/X-iZhang/MIMIC-CXR-RRG). It includes `findings, impression, indication, comparison, technique, history, and examination` sections, processed according to the official MIMIC-CXR guidelines.
 - **[8 Jul 2025]** 💻 Released data preparation scripts for [**Prior Image Retrieve**](https://github.com/X-iZhang/Libra?tab=readme-ov-file#prepare-data).
@@ -67,6 +68,7 @@ Radiology report generation requires integrating temporal medical images and cre
 - [Model Weights](#model-weights)
     - [Libra-v1.0](#libra-v10)
     - [Libra-v0.5](#libra-v05)
+    - [Compatible weights](#compatible-weights)
     - [Projector weights](#projector-weights)
 - [Quick Start](#quick-start)
     - [Gradio Web UI](#gradio-web-ui)
@@ -149,10 +151,33 @@ pip install -e .
 | ----------- | ----------- | ----------- | ----------- | ----------- | ----------- |
 | Libra-0.5 | 7B | MLP-2x | Vicuna-7B | CLIP-L-336px | [Med-CXRGen-F](https://huggingface.co/X-iZhang/Med-CXRGen-F) |
 | Libra-0.5 | 7B | MLP-2x | Vicuna-7B | CLIP-L-336px | [Med-CXRGen-I](https://huggingface.co/X-iZhang/Med-CXRGen-I) |
-| Llava-med | 7B | MLP-2x | Mistral-7B-Instruct-v0.2 | CLIP-L-336px (adapted) | [Llava-Med-v1.5](https://huggingface.co/X-iZhang/libra-llava-med-v1.5-mistral-7b) |
 
 > [!NOTE]
 > *These two models are fine-tuned for `Findings` and `Impression` section generation. For more information on training strategies and dataset collection, please refer to [Med-CXRGen (Gla-AI4BioMed at RRG24)](https://github.com/X-iZhang/RRG-BioNLP-ACL2024)*
+
+### Compatible weights
+
+| Version | Size | Projector | Base LLM | Vision Encoder| Checkpoint |
+| ----------- | ----------- | ----------- | ----------- | ----------- | ----------- |
+| Llava-med | 7B | MLP-2x | Mistral-7B-Instruct-v0.2 | CLIP-L-336px (adapted) | [Llava-Med-v1.5](https://huggingface.co/X-iZhang/libra-llava-med-v1.5-mistral-7b) |
+| MAIRA | 7B | MLP-4x | Vicuna-7b-v1.5 | RAD-DINO (adapted) | [MAIRA-2](https://huggingface.co/X-iZhang/libra-maira-2) |
+
+> [!NOTE]
+> - *To use Llava-Med, set `conv_mode = llava_med_v1.5_mistral_7b`*
+> - *To use MAIRA-2, set `conv_mode = maira_2`* 
+
+<details>
+<summary>❗️ MAIRA-2 requires a strict Chat Template and must be manually provided.</summary>
+
+```python
+# With clinical indication
+prompt = "Provide a description of the findings in the radiology study in comparison to the prior frontal image. INDICATION: Dyspnea. TECHNIQUE: PA and lateral views of the chest. COMPARISON: None."
+
+# Without clinical indication — placeholders must still be included
+prompt = "Provide a description of the findings in the radiology study in comparison to the prior frontal image. INDICATION: None. TECHNIQUE: None. COMPARISON: None."
+```
+
+</details>
 
 ### Projector weights
 
