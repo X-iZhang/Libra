@@ -546,6 +546,17 @@ llava_med_conv_mistral_instruct_v1 = Conversation(
     sep2="</s>",
 )
 
+maira_2_defalut = Conversation(
+    system="You are an expert radiology assistant tasked with interpreting a chest X-ray study.",
+    roles=("USER", "ASSISTANT"),
+    version="v1",
+    messages=(),
+    offset=0,
+    sep_style=SeparatorStyle.TWO,
+    sep=" ",
+    sep2="</s>",
+)
+
 default_conversation = conv_vicuna_v1
 conv_templates = {
     "default": conv_libra_v1,
@@ -584,6 +595,9 @@ conv_templates = {
     "llava_med_v1.5_mistral_7b": llava_med_conv_mistral_instruct,
     "llava_med_v1.5_mistral_7b_v0": llava_med_conv_mistral_instruct_v0,
     "llava_med_v1.5_mistral_7b_v1": llava_med_conv_mistral_instruct_v1,
+
+    # maira-2 conversation
+    "maira_2": maira_2_defalut,
     
 }
 

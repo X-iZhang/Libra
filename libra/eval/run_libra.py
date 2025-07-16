@@ -163,6 +163,8 @@ def libra_eval(
         mode_conv = "libra_v0"
     elif 'mistral' in model_name.lower():
         mode_conv = "mistral_instruct"
+    elif 'maira' in model_name.lower():
+        mode_conv = "maira_2"
     else:
         mode_conv = "libra_v1"
 

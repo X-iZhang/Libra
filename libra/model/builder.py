@@ -101,6 +101,11 @@ def load_pretrained_model(model_path, model_base, model_name, load_8bit=False, l
             elif 'gemma' in model_name.lower():
                 tokenizer = AutoTokenizer.from_pretrained(model_path)
                 model = LibraGemmaForCausalLM.from_pretrained(model_path, low_cpu_mem_usage=True, **kwargs)
+            elif 'maira' in model_name.lower():
+                print('Loading Maira-2 model...')
+                warnings.filterwarnings("ignore", category=UserWarning)
+                tokenizer = AutoTokenizer.from_pretrained(model_path, use_fast=False)
+                model = LibraLlamaForCausalLM.from_pretrained(model_path, low_cpu_mem_usage=True, **kwargs)
             else:
                 tokenizer = AutoTokenizer.from_pretrained(model_path, use_fast=False)
                 model = LibraLlamaForCausalLM.from_pretrained(model_path, low_cpu_mem_usage=True, **kwargs)
