@@ -43,7 +43,7 @@ class DINOVisionTower(nn.Module):
             return
         
         self.image_processor = AutoImageProcessor.from_pretrained(self.vision_tower_name)
-        self.vision_tower = AutoModel.from_pretrained(self.vision_tower_name,device_map=device_map)
+        self.vision_tower = AutoModel.from_pretrained(self.vision_tower_name, device_map=device_map, low_cpu_mem_usage=True)
         self.vision_tower.requires_grad_(False)
 
         self.is_loaded = True
