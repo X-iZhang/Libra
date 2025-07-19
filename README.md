@@ -167,14 +167,41 @@ pip install -e .
 > - *To use MAIRA-2, set `conv_mode = maira_2`* 
 
 <details>
-<summary>❗️ MAIRA-2 requires a strict Chat Template and must be manually provided.</summary>
+<summary>❗️MAIRA-2 requires a strict chat prompt format and must be manually constructed. <i>(Click to show example)</i></summary>
 
 ```python
-# With clinical indication
-prompt = "Provide a description of the findings in the radiology study in comparison to the prior frontal image. INDICATION: Dyspnea. TECHNIQUE: PA and lateral views of the chest. COMPARISON: None."
+# ✅ With clinical instruction
+prompt_with_clinical = (
+    "Provide a description of the findings in the radiology study in comparison to the prior frontal image. "
+    "INDICATION: Dyspnea. TECHNIQUE: PA and lateral views of the chest. COMPARISON: None."
+)
 
-# Without clinical indication — placeholders must still be included
-prompt = "Provide a description of the findings in the radiology study in comparison to the prior frontal image. INDICATION: None. TECHNIQUE: None. COMPARISON: None."
+# ✅ Without clinical instruction — all placeholders (INDICATION, TECHNIQUE, COMPARISON) and default prompt must still be present
+prompt_minimal = (
+    "Provide a description of the findings in the radiology study in comparison to the prior frontal image. "
+    "INDICATION: None. TECHNIQUE: None. COMPARISON: None."
+)
+
+# 🧪 Example usage (following official MAIRA-2 format)
+from libra.eval import libra_eval
+
+frontal_image_url = "https://openi.nlm.nih.gov/imgs/512/145/145/CXR145_IM-0290-1001.png"
+model_path = "X-iZhang/libra-maira-2"
+
+answer = libra_eval(
+    model_path=model_path,
+    image_file=[frontal_image_url],
+    query=prompt_with_clinical,
+    conv_mode="maira_2",
+    temperature=0.0,         # Use greedy decoding
+    max_new_tokens=300,
+)
+
+# ✅ Expected output
+print(answer)
+# > There is a large right pleural effusion. No pneumothorax is identified. 
+# > There is no left pleural effusion. There is no focal consolidation. 
+# > The cardiomediastinal silhouette is within normal limits.
 ```
 
 </details>

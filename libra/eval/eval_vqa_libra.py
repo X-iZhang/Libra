@@ -217,7 +217,7 @@ def eval_model(args):
                     do_sample=True if args.temperature > 0 else False,
                     temperature=args.temperature,
                     top_p=args.top_p,
-                    no_repeat_ngram_size=3,
+                    # no_repeat_ngram_size=3,
                     max_new_tokens=args.max_new_tokens,
                     stopping_criteria=[stopping_criteria],
                     use_cache=True,

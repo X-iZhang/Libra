@@ -213,7 +213,7 @@ def libra_eval(
                 temperature=temperature,
                 top_p=top_p,
                 num_beams=num_beams,
-                no_repeat_ngram_size=3,
+                # no_repeat_ngram_size=3,
                 max_new_tokens=max_new_tokens,
                 attention_mask=attention_mask, 
                 pad_token_id=pad_token_id,
