@@ -30,6 +30,7 @@
 </p></details>
 
 ## 🔥 News
+- **[20 Jul 2025]** ✅ Support for [LLaVA-Rad](https://huggingface.co/microsoft/llava-rad) is added. [**Compatible weights**](https://github.com/X-iZhang/Libra/tree/main?tab=readme-ov-file#compatible-weights) are provided for benchmarking.
 - **[15 Jul 2025]** ✅ Support for [MAIRA-2](https://huggingface.co/microsoft/maira-2) is added. [**Compatible weights**](https://github.com/X-iZhang/Libra/tree/main?tab=readme-ov-file#compatible-weights) are provided for benchmarking, with 'use_maira_feature_norm: true' set to ensure compatibility with the default feature extraction strategy.
 - **[14 Jul 2025]** 🩺 For evaluating AI-generated radiology text, we recommend using 👉 [**RadEval**](https://pypi.org/project/RadEval/).
 - **[9 Jul 2025]** 🚚 The test dataset is now available on Hugging Face — check out [**./MIMIC-CXR-RRG**](https://huggingface.co/datasets/X-iZhang/MIMIC-CXR-RRG). It includes `findings, impression, indication, comparison, technique, history, and examination` sections, processed according to the official MIMIC-CXR guidelines.
@@ -159,12 +160,14 @@ pip install -e .
 
 | Version | Size | Projector | Base LLM | Vision Encoder| Checkpoint |
 | ----------- | ----------- | ----------- | ----------- | ----------- | ----------- |
-| Llava-med | 7B | MLP-2x | Mistral-7B-Instruct-v0.2 | CLIP-L-336px (adapted) | [Llava-Med-v1.5](https://huggingface.co/X-iZhang/libra-llava-med-v1.5-mistral-7b) |
+| Llava-Med | 7B | MLP-2x | Mistral-7B-Instruct-v0.2 | CLIP-L-336px (adapted) | [Llava-Med-v1.5](https://huggingface.co/X-iZhang/libra-llava-med-v1.5-mistral-7b) |
+| Llava-Rad | 7B | MLP-2x | Vicuna-7B | BiomedCLIP (adapted) | [LLaVA-Rad](https://huggingface.co/X-iZhang/libra-llava-rad) |
 | MAIRA | 7B | MLP-4x | Vicuna-7B | RAD-DINO (adapted) | [MAIRA-2](https://huggingface.co/X-iZhang/libra-maira-2) |
 
 > [!NOTE]
 > - *To use Llava-Med-v1.5, set `conv_mode = llava_med_v1.5_mistral_7b`*
-> - *To use MAIRA-2, set `conv_mode = maira_2`* 
+> - *To use LLaVA-Rad, set `conv_mode = v1`* 
+> - *To use MAIRA-2, set `conv_mode = maira_2`*
 
 <details>
 <summary>❗️MAIRA-2 requires a strict chat prompt format and must be manually constructed. <i>(Click to show example)</i></summary>

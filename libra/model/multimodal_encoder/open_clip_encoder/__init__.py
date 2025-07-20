@@ -1,0 +1,1 @@
+from .open_clip_encoder import OpenCLIPVisionTower

@@ -70,7 +70,12 @@ class LibraMetaModel:
         mm_vision_select_feature = model_args.mm_vision_select_feature
         pretrain_mm_mlp_adapter = model_args.pretrain_mm_mlp_adapter 
 
-        self.config.mm_vision_tower = vision_tower
+        if vision_tower is not None:
+            self.config.mm_vision_tower = vision_tower
+        if model_args.vision_tower_config is not None:
+            self.config.mm_vision_tower_config = model_args.vision_tower_config
+        if model_args.vision_tower_checkpoint is not None:
+            self.config.mm_vision_tower_checkpoint = model_args.vision_tower_checkpoint
 
         if self.get_vision_tower() is None:
             vision_tower = build_vision_tower(model_args)

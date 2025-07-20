@@ -16,10 +16,14 @@ import os
 from .clip_encoder import CLIPVisionTower
 from .dino_encoder import DINOVisionTower
 from .siglip_encoder import SigLIPVisionTower
+from .open_clip_encoder import OpenCLIPVisionTower
 
 def build_vision_tower(vision_tower_cfg, **kwargs):
 
     vision_tower = getattr(vision_tower_cfg, 'mm_vision_tower', getattr(vision_tower_cfg, 'vision_tower', None))
+    
+    vision_tower_config = getattr(vision_tower_cfg, 'mm_vision_tower_config', getattr(vision_tower_cfg, 'vision_tower_config', None))
+    vision_tower_checkpoint = getattr(vision_tower_cfg, 'mm_vision_tower_checkpoint', getattr(vision_tower_cfg, 'vision_tower_checkpoint', None))
     
     if vision_tower is None:
         raise ValueError("No vision tower specified in configuration.")
@@ -37,5 +41,10 @@ def build_vision_tower(vision_tower_cfg, **kwargs):
             return SigLIPVisionTower(vision_tower, args=vision_tower_cfg, **kwargs)
         else:
             raise ValueError(f'Unknown vision model type in vision_tower: {vision_tower}')
-    
+
+    elif vision_tower.startswith("hf-hub:") or vision_tower_config and vision_tower_checkpoint:
+        return OpenCLIPVisionTower(
+            vision_tower, args=vision_tower_cfg, vision_tower_config=vision_tower_config, vision_tower_checkpoint=vision_tower_checkpoint, **kwargs
+        )
+        
     raise ValueError(f'Unknown vision tower: {vision_tower}')
