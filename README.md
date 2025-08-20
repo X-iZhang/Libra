@@ -21,7 +21,7 @@
 
 <details open><summary>📢 More Than Radiology: Codespace Features for MLLMs Workflow You’ll Love! 🎉 </summary><p>
 
->  * **Support for LLaVA-Type, LLaMA 3, Mistral, Phi-3/4 & Gemma**: Effortlessly run and fine-tune a variety of advanced open models.
+>  * **Support for LLaVA-Type, LLaMA 3, Mistral, Phi-3/4 & Gemma, as well as various visual encoders (DINO, CLIP, BiomedCLIP, SigLip):** Effortlessly run and fine-tune a variety of advanced open models.
 >  * **Resume Training**: Resume training from checkpoints at any stage, whether for pre-training or fine-tuning.  
 >  * **Validation Dataset**: Track model performance in real-time on `validation datasets` during training. 
 >  * **Custom Metrics**: Go beyond `eval_loss` with metrics like `BLEU`, `ROUGE-L`, `RadGraph-F1` or define your own criteria on valid dataset.   
@@ -57,7 +57,7 @@
 ## Overview
 Radiology report generation requires integrating temporal medical images and creating accurate reports. Traditional methods often overlook crucial temporal information. We introduce **Libra**, a temporal-aware MLLM for chest X-ray report generation. Libra combines a radiology-specific image encoder with a novel **`Temporal Alignment Connector (TAC)`**, designed to accurately capture and integrate temporal differences between paired current and prior images. Experiments show that Libra sets new performance benchmarks on the MIMIC-CXR dataset for the RRG task.
 
-<details>
+<details open>
 <summary>Libra’s Architecture</summary>
 
 ![architecture](./assets/libra_architecture.png)
