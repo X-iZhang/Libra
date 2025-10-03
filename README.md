@@ -30,6 +30,7 @@
 </p></details>
 
 ## 🔥 News
+- **[4 Oct 2025]** 🛠️ Updated the batch inference function `libra_eval_batch`— see [Batch Inference Guide](https://github.com/X-iZhang/Libra?tab=readme-ov-file#-batch-inference).
 - **[27 Sep 2025]** 📷 [**CCD: Clinical Contrastive Decoding**](https://x-izhang.github.io/CCD/) is out! A *plug-and-play, training-free* decoding framework to boost any SOTA radiology MLLM!
 - **[20 Jul 2025]** ✅ Support for [LLaVA-Rad](https://huggingface.co/microsoft/llava-rad) is added. [**Compatible weights**](https://github.com/X-iZhang/Libra/tree/main?tab=readme-ov-file#compatible-weights) are now available.
 - **[15 Jul 2025]** ✅ Support for [MAIRA-2](https://huggingface.co/microsoft/maira-2) is added. [**Compatible weights**](https://github.com/X-iZhang/Libra/tree/main?tab=readme-ov-file#compatible-weights) are provided for benchmarking, with 'use_maira_feature_norm: true' set to ensure compatibility with the default feature extraction strategy.
