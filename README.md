@@ -76,6 +76,7 @@ Radiology report generation requires integrating temporal medical images and cre
     - [Gradio Web UI](#gradio-web-ui)
     - [CLI Inference](#cli-inference)
     - [Script Inference](#script-inference)
+    - [✨Batch Inference](#-batch-inference)
 - [Dataset](#dataset)
     - [Prepare Data](#prepare-data)
     - [Preprocess Data](#preprocess-data)
@@ -331,6 +332,57 @@ libra_eval(
     conv_mode=conv_mode,
     max_new_tokens=512
 )
+```
+
+</details>
+
+### ✨ Batch Inference
+
+>[!IMPORTANT]
+>Now, we provide a simple batch inference function `libra_eval_batch` to facilitate the evaluation of multiple samples. This function is particularly useful for assessing model performance on datasets like MIMIC-CXR. Below is an example of how to use it:
+
+```Python
+# --- Import necessary libraries ---
+from libra.eval.run_libra import load_model
+from libra.eval import libra_eval_batch
+from datasets import load_dataset
+
+# --- Set up the model ---
+model_path = "X-iZhang/libra-v1.0-7b"
+# model_path = "X-iZhang/libra-v1.0-3b"
+# model_path = "X-iZhang/Med-CXRGen-F"
+# model_path = "X-iZhang/Med-CXRGen-I"
+# model_path = "X-iZhang/libra-llava-med-v1.5-mistral-7b"
+# model_path = "X-iZhang/libra-maira-2"
+# model_path = "X-iZhang/libra-llava-rad"
+reuse_model = load_model(model_path)
+print('Load model success')
+
+# --- load dataset and prepare images and queries ---
+# Load subset and take first 4 samples
+ds = load_dataset("X-iZhang/MIMIC-CXR-RRG", name="findings_section", split="test[:4]")
+# Extract images and queries
+images = [ex["main_image"].convert("RGB") for ex in ds]
+queries = [ex["default_prompt"] for ex in ds]
+
+# --- Set generation parameters ---
+libra_eval_batch(
+            libra_model=reuse_model,
+            images=images,         # Dummy previous image for libra models
+            queries=queries,
+            max_new_tokens=128,
+            num_beams=1
+        )
+```
+
+<details>
+<summary>✅ Expected output</summary>
+
+```Bash
+['The patient is status post right upper lobe resection. There is no evidence of pneumothorax. The heart size is normal. The aorta is tortuous. The pulmonary vascularity is normal. No acute skeletal findings.',
+ 'The patient is status post previous right upper lobe resection. The right hemidiaphragm is elevated and there is evidence of volume loss in the right hemithorax. There is no evidence of pneumothorax. The left lung is well expanded and clear. The heart is normal in size. Mediastinal structures are otherwise unremarkable. The bony thorax is grossly intact.',
+ 'The patient is status post right upper lobe resection. Post-operative changes are present in the right hemithorax, including volume loss and pleural thickening. The heart size is normal. The left lung is clear. There are no pleural effusions or acute skeletal findings.',
+ 'The patient is status post partial resection of the right lung with expected postoperative volume loss in the right hemithorax and rightward shift of mediastinal structures. There is also evidence of post-operative changes in the right apex with pleural thickening and scarring. The left lung is clear. The heart is normal in size. There are no pleural effusions or acute skeletal findings.']
 ```
 
 </details>

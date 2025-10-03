@@ -1,4 +1,4 @@
-#    Copyright 2024 Xi Zhang
+#    Copyright 2025 Xi Zhang
 #
 #    Licensed under the Apache License, Version 2.0 (the "License");
 #    you may not use this file except in compliance with the License.
@@ -154,18 +154,44 @@ class LibraMetaForCausalLM(ABC):
                     device=attention_mask.device
                 )
             return input_ids, attention_mask, past_key_values, None, labels
-        
-        if input_ids.size(0) != images.size(0) and input_ids.size(0) != images.size(1):
-            # print(
-            #     "Warning: Dimension mismatch detected. Adjust dimensions for beam-search.\n"
-            #     "Program continues..."
-            # )
-            num_groups = input_ids.size(0)
-            images_1 = images[:num_groups]
-            images_2 = images[num_groups:]
-            images = torch.cat((images_1, images_2), dim=1)
-            images = images.permute(1, 0, 2, 3, 4).contiguous()
-               
+                    
+        if images.size(1) == 1:
+            if input_ids.size(0) != images.size(0) and input_ids.size(0) != images.size(1):
+                # print(
+                #     "Warning: Dimension mismatch detected. Adjust dimensions for beam-search.\n"
+                #     "Program continues..."
+                # )
+                num_groups = input_ids.size(0)
+                images_1 = images[:num_groups]
+                images_2 = images[num_groups:]
+                images = torch.cat((images_1, images_2), dim=1)
+                images = images.permute(1, 0, 2, 3, 4).contiguous()
+        elif images.size(1) >= 2 and input_ids.size(0) >= 2:
+            if input_ids.size(0) == images.size(1) and images.size(0) == 2:
+                # print(
+                #     "Detect Greedy-Search with batch-size.\n"
+                #     "Program continues..."
+                # )
+                pass
+            else:
+                # print(
+                #     "Warning: Dimension mismatch detected. Adjust dimensions for beam-search with batch-size.\n"
+                #     "Program continues..."
+                # )
+                # Detect beam expansion
+                batch_size = images.size(1)
+                beam_size = input_ids.size(0) // batch_size
+                assert input_ids.size(0) == batch_size * beam_size, "input_ids shape mismatch with images"
+                
+                # Step 1: reshape to [2, beam, batch, C, H, W]
+                images = images.reshape(2, beam_size, *images.shape[1:])  # [2, beam, batch, C, H, W]
+                
+                # Step 2: permute to [2, batch, beam, C, H, W]
+                images = images.permute(0, 2, 1, 3, 4, 5).contiguous()     # [2, batch, beam, C, H, W]
+
+                # Step 3: contiguous and reshape to [2, batch*beam, C, H, W]
+                images = images.reshape(2, -1, *images.shape[3:])          # [2, batch*beam, C, H, W]
+                
         image_features = self.encode_images(images)  
         
         new_input_embeds = []

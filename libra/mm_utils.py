@@ -72,6 +72,37 @@ def tokenizer_image_token(prompt, tokenizer, image_token_index=IMAGE_TOKEN_INDEX
         raise ValueError(f'Unsupported tensor type: {return_tensors}')
     return input_ids
 
+def tokenizer_image_token_batch(prompts, tokenizer, image_token_index, return_tensors=None):
+    # Batch version of tokenizer_image_token
+    all_input_ids = []
+    for prompt in prompts:
+        prompt_chunks = [tokenizer(chunk).input_ids for chunk in prompt.split('<image>')]
+
+        def insert_separator(X, sep):
+            return [ele for sublist in zip(X, [sep]*len(X)) for ele in sublist][:-1]
+
+        input_ids = []
+        offset = 0
+        if (len(prompt_chunks) > 0 and len(prompt_chunks[0]) > 0 
+                and prompt_chunks[0][0] == tokenizer.bos_token_id):
+            offset = 1
+            input_ids.append(prompt_chunks[0][0])
+
+        for x in insert_separator(prompt_chunks, [image_token_index] * (offset + 1)):
+            input_ids.extend(x[offset:])
+
+        all_input_ids.append(torch.tensor(input_ids, dtype=torch.long))
+
+    if return_tensors == 'pt':
+        pad_id = tokenizer.pad_token_id
+        max_len = max(len(ids) for ids in all_input_ids)
+        padded = []
+        for ids in all_input_ids:
+            pad_len = max_len - len(ids)
+            padded.append(torch.cat([torch.full((pad_len,), pad_id, dtype=torch.long), ids]))
+        return torch.stack(padded, dim=0)
+
+    return all_input_ids
 
 def get_model_name_from_path(model_path):
     model_path = model_path.strip("/")
