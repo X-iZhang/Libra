@@ -39,6 +39,7 @@ dependencies = [
     "tqdm",
     "open-clip-torch==2.23.0",
     "protobuf==3.20.*",
+    "datasets",
 ]
 
 [project.optional-dependencies]

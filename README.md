@@ -93,7 +93,18 @@ Radiology report generation requires integrating temporal medical images and cre
     - [Metrics](#metrics)
 
 ## Install
-We strongly recommend that you create an environment from scratch as follows:
+> [!TIP]
+> We strongly recommend that you create an environment from scratch as follows:
+
+### Option 1:
+Install the most up-to-date version directly from GitHub for quick use:
+```bash
+pip install git+https://github.com/X-iZhang/Libra.git
+```
+
+### Option 2: 
+If you want to modify the code, you can clone the repository and install it in editable mode:
+
 1. Clone this repository and navigate to Libra folder
 ```bash
 git clone https://github.com/X-iZhang/Libra.git
