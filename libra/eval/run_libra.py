@@ -292,8 +292,6 @@ def libra_eval_batch(
     max_new_tokens=128,
     libra_model=None
 ):
-    import torch
-    from tqdm import tqdm
 
     assert isinstance(images, list) and isinstance(queries, list), "images and queries must be lists"
     assert len(images) == len(queries), "images and queries must be of the same length"
