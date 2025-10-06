@@ -28,7 +28,7 @@ dependencies = [
     "scikit-learn==1.2.2",
     "gradio",
     "requests",
-    "httpx==0.24.0",
+    "httpx==0.28.1",
     "uvicorn",
     "fastapi",
     "einops==0.6.1",
