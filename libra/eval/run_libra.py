@@ -192,6 +192,10 @@ def libra_eval(
         tokenizer, model, image_processor, context_len = load_model(model_path, model_base)
         model_name = get_model_name_from_path(model_path)
 
+    if tokenizer.pad_token_id is None:
+        tokenizer.pad_token_id = tokenizer.eos_token_id
+        print(f'[Warning] tokenizer.pad_token_id is None, set to eos_token_id {tokenizer.eos_token_id}')
+
     qs = query
     if model.config.mm_use_im_start_end:
         qs = DEFAULT_IM_START_TOKEN + DEFAULT_IMAGE_TOKEN + DEFAULT_IM_END_TOKEN + '\n' + qs
@@ -306,6 +310,9 @@ def libra_eval_batch(
     else:
         tokenizer, model, image_processor, context_len = load_model(model_path, model_base)
         model_name = get_model_name_from_path(model_path)
+
+    if tokenizer.pad_token_id is None:
+        tokenizer.pad_token_id = tokenizer.eos_token_id
 
     # Determine conv mode
     if 'libra-v1.0-3b' in model_name.lower():
