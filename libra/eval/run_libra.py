@@ -141,8 +141,12 @@ def get_image_tensors_batch(images, image_processor, model, device='cuda'):
         raise TypeError("images must be a string or a list/tuple of strings")
 
     for i in range(batch_size):
-        images_i = [images[i]]
-
+        # Handle the previoues images
+        if isinstance(images[i], (list, tuple)):
+            images_i = images[i]
+        else:
+            images_i = [images[i]]
+            
         # Ensure two images are present
         if len(images_i) != 2:
             images_i.append(images_i[0]) 
@@ -372,7 +376,7 @@ def libra_eval_batch(
                 output_scores=True,  
                 attention_mask=attention_mask, 
                 pad_token_id=tokenizer.pad_token_id,
-                num_return_sequences=num_beams,
+                num_return_sequences=num_return_sequences,
                 return_dict_in_generate=True)
         else:
             output = model.generate(
