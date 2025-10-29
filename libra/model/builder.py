@@ -101,6 +101,16 @@ def load_pretrained_model(model_path, model_base, model_name, load_8bit=False, l
             elif 'gemma' in model_name.lower():
                 tokenizer = AutoTokenizer.from_pretrained(model_path)
                 model = LibraGemmaForCausalLM.from_pretrained(model_path, low_cpu_mem_usage=True, **kwargs)
+            elif 'qwen' in model_name.lower():
+                print('Loading Qwen-3 model...')
+                if 'qwen3' in model_name.lower():
+                    tokenizer = AutoTokenizer.from_pretrained(model_path, use_fast=False)
+                    model = LibraQwen3ForCausalLM.from_pretrained(model_path, low_cpu_mem_usage=True, **kwargs)
+                elif 'qwen2' in model_name.lower():
+                    tokenizer = AutoTokenizer.from_pretrained(model_path, use_fast=False)
+                    model = LibraQwen2ForCausalLM.from_pretrained(model_path, low_cpu_mem_usage=True, **kwargs)
+                else:
+                    raise ValueError("Model name contains 'qwen' but neither 'qwen2' nor 'qwen3' is specified.")
             elif 'maira' in model_name.lower():
                 print('Loading Maira-2 model...')
                 tokenizer = AutoTokenizer.from_pretrained(model_path, use_fast=False)

@@ -14,6 +14,7 @@ class SeparatorStyle(Enum):
     MISTRAL = auto()
     GEMMA = auto()
     PHI3 = auto()
+    QWEN = auto()
 
 
 @dataclasses.dataclass
@@ -155,7 +156,20 @@ class Conversation:
                     ret += self.roles[i % 2] + message + self.sep
                 else:
                     ret += self.roles[i % 2]
+        
+        elif self.sep_style == SeparatorStyle.QWEN:
+            ret = "" if self.system == "" else self.system + self.sep + "\n"
+            
+            for role, message in messages:
+                if message:
+                    if type(message) is tuple:
+                        message, _, _ = message
+                    ret += role + "\n" + message + self.sep + "\n"
+                else:
+                    ret += role + "\n"
                     
+            return ret.strip()      
+        
         else:
             raise ValueError(f"Invalid style: {self.sep_style}")
 
@@ -390,6 +404,17 @@ conv_libra_llama_3 = Conversation(
     sep2="<|eot_id|>",
 )
 
+# Qwen conversation template
+conv_qwen = Conversation(
+    system="<|im_start|>system\nYou are a helpful AI assistant.",
+    roles=("<|im_start|>user", "<|im_start|>assistant"),
+    version="qwen",
+    messages=(),
+    offset=0,
+    sep_style=SeparatorStyle.QWEN,
+    sep="<|im_end|>",
+)
+
 conv_libra_plain = Conversation(
     system="",
     roles=("", ""),
@@ -583,6 +608,8 @@ conv_templates = {
     
     "llama_3": conv_llama_3,
     "libra_llama_3": conv_libra_llama_3,
+    
+    "qwen": conv_qwen,
     
     "mpt": conv_mpt,
     "conv_gemma": conv_gemma,

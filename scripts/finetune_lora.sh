@@ -39,6 +39,12 @@ PROMPT_VERSION="libra_v1"
 #PROMPT_VERSION="llama_3"
 #################### LLaMA-3.x ###################
 
+#################### Qwen2 & 3 ###################
+# MODEL_VERSION="Qwen/Qwen3-4B-Instruct-2507"
+# MODEL_VERSION="Qwen/Qwen2.5-3B-Instruct"
+# PROMPT_VERSION="qwen"
+#################### Qwen2 & 3 ###################
+
 ###############################################################################
 # Hyperparameters & Training Configurations
 # (Adjust as needed for your setup.)

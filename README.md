@@ -21,7 +21,7 @@
 
 <details open><summary>📢 More Than Radiology: Codespace Features for MLLMs Workflow You’ll Love! 🎉 </summary><p>
 
->  * **Support for LLaVA-Type, LLaMA 3, Mistral, Phi-3/4 & Gemma, as well as various visual encoders (DINO, CLIP, BiomedCLIP, SigLip):** Effortlessly run and fine-tune a variety of advanced open models.
+>  * **Support for LLaVA-Type, Qwen2/3, LLaMA 3, Mistral, Phi-3/4 & Gemma, as well as various visual encoders (DINO, CLIP, BiomedCLIP, SigLip):** Effortlessly run and fine-tune a variety of advanced open models.
 >  * **Resume Training**: Resume training from checkpoints at any stage, whether for pre-training or fine-tuning.  
 >  * **Validation Dataset**: Track model performance in real-time on `validation datasets` during training. 
 >  * **Custom Metrics**: Go beyond `eval_loss` with metrics like `BLEU`, `ROUGE-L`, `RadGraph-F1` or define your own criteria on valid dataset.   
