@@ -392,7 +392,7 @@ libra_eval_batch(
             images=images,         # Dummy previous image for libra models
             queries=queries,
             max_new_tokens=128,
-            num_beams=1
+            temperature=0.0        # Greedy decoding
         )
 ```
 
@@ -400,10 +400,10 @@ libra_eval_batch(
 <summary>✅ Expected output</summary>
 
 ```Bash
-['The patient is status post right upper lobe resection. The right hemidiaphragm is elevated and there is persistent volume loss in the right hemithorax. The lungs are clear. The heart is normal in size. Mediastinal structures are otherwise unremarkable. The bony thorax is grossly intact.',
- 'The patient is status post right upper lobe resection. Post-operative changes are present in the right hemithorax, including volume loss and pleural thickening. The right hemidiaphragm is elevated. The left lung is clear. The heart is normal in size. Mediastinal structures are otherwise unremarkable. There is no pleural effusion or acute skeletal finding.',
- 'The patient is status post previous right upper lobe resection. Post-operative changes are present in the right hemithorax, including volume loss and pleural thickening. The left lung is clear, and there are no pleural effusions or acute skeletal findings.',
- 'The patient is status post right upper lobe resection with expected postoperative volume loss in the right hemithorax and rightward shift of mediastinal structures. A large right juxtahilar mass is again demonstrated, with associated bronchial stent in place. There is no evidence of a pneumothorax. Left lung is grossly clear.']
+['The patient is status post right upper lobe resection. The right hemidiaphragm is elevated. The lungs are clear. The heart and mediastinal structures are unremarkable. The bony thorax is grossly intact.',
+ 'The patient is status post right upper lobe resection. The right hemidiaphragm is elevated and there is persistent volume loss in the right hemithorax. The left lung is clear. There is no evidence of pneumothorax or pleural effusion.',
+ 'The patient is status post right upper lobe resection. The right hemidiaphragm is elevated and there is persistent volume loss in the right hemithorax. The left lung is clear. The heart is normal in size. Mediastinal structures are otherwise unremarkable. The bony thorax is grossly intact.',
+ 'The patient is status post right upper lobe resection. There is persistent volume loss in the right hemithorax with rightward shift of mediastinal structures. The right upper hilar mass is again demonstrated as well as a right apical pleural cap. The left lung is clear. The heart is normal in size. There are no pleural effusions.']
 ```
 
 </details>

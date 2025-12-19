@@ -294,6 +294,7 @@ def libra_eval_batch(
     conv_mode=None,
     temperature=0.2,
     top_p=None,
+    top_k=None,
     num_beams=1,
     num_return_sequences=1,
     length_penalty=1.0,
@@ -385,19 +386,28 @@ def libra_eval_batch(
                 do_sample=True if temperature > 0 else False,
                 temperature=temperature,
                 top_p=top_p,
+                top_k=top_k,
                 num_beams=num_beams,
-                # no_repeat_ngram_size=3,
+                no_repeat_ngram_size=3,
                 max_new_tokens=max_new_tokens,
+                length_penalty=length_penalty,
+                output_scores=True,
                 attention_mask=attention_mask, 
                 pad_token_id=tokenizer.pad_token_id,
                 stopping_criteria=[stopping_criteria],
-                use_cache=True)
+                use_cache=True,
+                num_return_sequences=num_return_sequences,
+                return_dict_in_generate=True)
 
     # Reshape outputs
-    if num_beams >= 2:
+    if num_return_sequences is not None and num_return_sequences > 1:
         output_ids = output.sequences  
-        scores = output.sequences_scores  
-
+        
+        if hasattr(output, "sequences_scores") and output.sequences_scores is not None:
+            scores = output.sequences_scores  # beam search scores
+        else:
+            scores = None  # sampling/greedy scores not available
+            
         input_token_len = input_ids.shape[1]
         decoded_outputs = tokenizer.batch_decode(output_ids[:, input_token_len:], skip_special_tokens=True)
         decoded_outputs = [out.strip() for out in decoded_outputs]
@@ -408,12 +418,32 @@ def libra_eval_batch(
                 out = out[:-len(stop_str)]
             final_outputs.append(out.strip())
 
-        output_with_scores = list(zip(final_outputs, scores.tolist()))
-
+        r = num_return_sequences
+        
+        assert len(final_outputs) % r == 0, (
+            f"Invalid output grouping: len(final_outputs)={len(final_outputs)} "
+            f"is not divisible by num_return_sequences={r}"
+        )
+        
+        if scores is None:
+            # List[str] -> List[List[str]]
+            output_with_scores = [
+                final_outputs[i:i + r]
+                for i in range(0, len(final_outputs), r)
+            ]
+        else:
+            score_list = scores.detach().cpu().tolist()
+            # List[(str, score)] -> List[List[(str, score)]]
+            output_with_scores = [
+                list(zip(final_outputs[i:i + r], score_list[i:i + r]))
+                for i in range(0, len(final_outputs), r)
+            ]
+    
         return output_with_scores
     
     else:
-        output_ids = output 
+        output_ids = output.sequences
+
         input_token_len = input_ids.shape[1]
         n_diff_input_output = (input_ids != output_ids[:, :input_token_len]).sum().item()
         if n_diff_input_output > 0:
@@ -439,6 +469,7 @@ if __name__ == "__main__":
     parser.add_argument("--conv-mode", type=str, default="libra_v1")
     parser.add_argument("--temperature", type=float, default=0.2)
     parser.add_argument("--top_p", type=float, default=None)
+    parser.add_argument("--top_k", type=int, default=None)
     parser.add_argument("--num_beams", type=int, default=1)
     parser.add_argument("--num_return_sequences", type=int, default=None)
     parser.add_argument("--length_penalty", type=float, default=1.0)
