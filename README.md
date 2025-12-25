@@ -694,14 +694,12 @@ We sincerely thank the following projects for their contributions to **Libra**:
 
 If you find our paper and code useful in your research and applications, please cite using this BibTeX:
 ```BibTeX
-@misc{zhang2025libraleveragingtemporalimages,
-      title={Libra: Leveraging Temporal Images for Biomedical Radiology Analysis}, 
-      author={Xi Zhang and Zaiqiao Meng and Jake Lever and Edmond S. L. Ho},
-      year={2025},
-      eprint={2411.19378},
-      archivePrefix={arXiv},
-      primaryClass={cs.CV},
-      url={https://arxiv.org/abs/2411.19378}, 
+@inproceedings{zhang2025libra,
+  title={Libra: Leveraging temporal images for biomedical radiology analysis},
+  author={Zhang, Xi and Meng, Zaiqiao and Lever, Jake and Ho, Edmond SL},
+  booktitle={Findings of the Association for Computational Linguistics: ACL 2025},
+  pages={17275--17303},
+  year={2025}
 }
 ```
 or
