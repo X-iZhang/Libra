@@ -38,7 +38,7 @@ class TAC(nn.Module):
             nn.Conv2d(self.layers_number // 4,1,kernel_size=1,bias=False)
         )
   
-        self.LFE_prior_bias = nn.Parameter(torch.tensor(0.0, device=torch.device("cuda" if torch.cuda.is_available() else "cpu")))
+        self.LFE_prior_bias = nn.Parameter(torch.tensor(0.0))
         self.LFE_cos = nn.CosineSimilarity(dim=-1, eps=1e-6)
         
         # self-attention

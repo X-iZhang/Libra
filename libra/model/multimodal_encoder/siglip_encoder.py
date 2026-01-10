@@ -72,18 +72,18 @@ class SigLIPVisionTower(nn.Module):
     
     @torch.no_grad()
     def forward(self, images):
-        
+
         if images.shape[0] != 2:
             raise ValueError(
                 f"Expected images.shape[0] == 2, but got {images.shape[0]}. "
                 "Ensure the input includes both current and previous images."
             )
 
-        cur_images = images[0]  
-        prev_images = images[1]  
+        cur_images = images[0]
+        prev_images = images[1]
 
-        cur_features = self.get_features(cur_images)  
-        prev_features = self.get_features(prev_images)  
+        cur_features = self.get_features(cur_images.to(device=self.device, dtype=self.dtype))
+        prev_features = self.get_features(prev_images.to(device=self.device, dtype=self.dtype))  
         
         cur_features = cur_features.permute(1, 0, 2, 3) 
         prev_features = prev_features.permute(1, 0, 2, 3) 
