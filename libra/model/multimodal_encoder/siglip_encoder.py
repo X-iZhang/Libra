@@ -82,14 +82,23 @@ class SigLIPVisionTower(nn.Module):
         cur_images = images[0]
         prev_images = images[1]
 
-        # Safe device conversion: only convert if not already on the correct device
-        target_device = self.device
-        target_dtype = self.dtype
+        # In accelerate multi-GPU environment, skip manual device conversion
+        # accelerate handles device placement automatically
+        try:
+            from accelerate import __version__ as accelerate_version
+            is_accelerate = True
+        except ImportError:
+            is_accelerate = False
 
-        if cur_images.device != target_device or cur_images.dtype != target_dtype:
-            cur_images = cur_images.to(device=target_device, dtype=target_dtype)
-        if prev_images.device != target_device or prev_images.dtype != target_dtype:
-            prev_images = prev_images.to(device=target_device, dtype=target_dtype)
+        if not is_accelerate:
+            # Only do manual device conversion if not using accelerate
+            target_device = self.device
+            target_dtype = self.dtype
+
+            if cur_images.device != target_device or cur_images.dtype != target_dtype:
+                cur_images = cur_images.to(device=target_device, dtype=target_dtype)
+            if prev_images.device != target_device or prev_images.dtype != target_dtype:
+                prev_images = prev_images.to(device=target_device, dtype=target_dtype)
 
         cur_features = self.get_features(cur_images)
         prev_features = self.get_features(prev_images)  
