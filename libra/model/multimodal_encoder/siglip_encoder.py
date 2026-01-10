@@ -82,8 +82,17 @@ class SigLIPVisionTower(nn.Module):
         cur_images = images[0]
         prev_images = images[1]
 
-        cur_features = self.get_features(cur_images.to(device=self.device, dtype=self.dtype))
-        prev_features = self.get_features(prev_images.to(device=self.device, dtype=self.dtype))  
+        # Safe device conversion: only convert if not already on the correct device
+        target_device = self.device
+        target_dtype = self.dtype
+
+        if cur_images.device != target_device or cur_images.dtype != target_dtype:
+            cur_images = cur_images.to(device=target_device, dtype=target_dtype)
+        if prev_images.device != target_device or prev_images.dtype != target_dtype:
+            prev_images = prev_images.to(device=target_device, dtype=target_dtype)
+
+        cur_features = self.get_features(cur_images)
+        prev_features = self.get_features(prev_images)  
         
         cur_features = cur_features.permute(1, 0, 2, 3) 
         prev_features = prev_features.permute(1, 0, 2, 3) 
@@ -99,11 +108,11 @@ class SigLIPVisionTower(nn.Module):
 
     @property
     def dtype(self):
-        return self.vision_tower.dtype 
+        return next(self.vision_tower.parameters()).dtype
 
     @property
     def device(self):
-        return self.vision_tower.device 
+        return next(self.vision_tower.parameters()).device 
 
     @property
     def config(self):
