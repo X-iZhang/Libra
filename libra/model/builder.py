@@ -21,8 +21,9 @@ import torch
 from libra.model import *
 from libra.constants import DEFAULT_IMAGE_PATCH_TOKEN, DEFAULT_IM_START_TOKEN, DEFAULT_IM_END_TOKEN
 
-def load_pretrained_model(model_path, model_base, model_name, load_8bit=False, load_4bit=False, 
-                         device_map="auto", device="cuda", use_flash_attn=False, **kwargs):
+def load_pretrained_model(model_path, model_base, model_name, load_8bit=False, load_4bit=False,
+                         device_map="auto", device="cuda", use_flash_attn=False,
+                         vision_tower_device=None, **kwargs):
     kwargs = {"device_map": device_map, **kwargs}                     
 
     if not device.startswith("cuda"):
@@ -149,13 +150,26 @@ def load_pretrained_model(model_path, model_base, model_name, load_8bit=False, l
 
         vision_tower = model.get_vision_tower()
         if not vision_tower.is_loaded:
+            # Always load vision tower on a single GPU (default: cuda:0)
+            # Only the LLM should be split across multiple GPUs
+            # This avoids expensive cross-GPU communication for vision encoding
+            if vision_tower_device is None:
+                vision_tower_device = 'cuda:0' if device.startswith('cuda') else device
+            elif not vision_tower_device.startswith('cuda') and device.startswith('cuda'):
+                vision_tower_device = 'cuda:0'
+
             if 'llava-rad' in model_name.lower():
                 vision_tower.load_model()
             else:
-                vision_tower.load_model(device_map=device_map)
+                # Don't use device_map for vision tower - keep it on one GPU
+                vision_tower.load_model(device_map=None)
 
-        if device != 'auto':
-            vision_tower.to(device=device, dtype=torch.float16)
+            # Move entire vision tower to cuda:0
+            if device.startswith('cuda'):
+                vision_tower.to(device=vision_tower_device, dtype=torch.float16)
+            elif device != 'auto':
+                vision_tower.to(device=device, dtype=torch.float16)
+
         image_processor = vision_tower.image_processor
 
     if hasattr(model.config, "max_sequence_length"):
